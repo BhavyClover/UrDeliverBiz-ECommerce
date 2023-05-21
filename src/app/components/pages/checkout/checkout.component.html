@@ -1,0 +1,497 @@
+<div class="bodyCheck">
+  <div id="checkOut">
+    <div fxLayout="column" fxFlex="100" class="m-t-30">
+      <div fxLayout="row" fxFlex class="main">
+        <div fxFlex.gt-xs="10"></div>
+        <div fxFlex.xs="100" fxFlex.gt-xs="80">
+          <mat-card>
+            <mat-card-content>
+              <div fxLayout="column" fxLayoutAlign="space-between none">
+                <div fxFlex="100" fxLayoutAlign="center center">
+                  <span class="header" translate="review_"></span>
+                </div>
+                <div fxFlex="100" fxLayout="row" fxLayout.lt-md="column" class="m-t-15">
+                  <div fxFlex="30" fxLayout="column" class="p-l-r-15 m-t-10">
+                    <h5 class="f-bold" translate="shipping_address_lower"></h5>
+                    <div>
+                      <span [textContent]="userService.shippingAddress.FullName"></span><br>
+                      <address class="color-f-s-14 m-b-0 viewAddress"
+                        *ngIf="!isStateRestrict && !utilityService.isEmptyObject(userService.shippingAddress)">
+                        <span [textContent]="userService.shippingAddress.Street1"></span>&nbsp;
+                        <span [textContent]="userService.shippingAddress.Street1"></span>&nbsp;
+                        <span [textContent]="userService.shippingAddress.City"></span>&nbsp;
+                        <br>
+                        <span [textContent]="userService.shippingAddress.Region"></span>&nbsp;
+                        <span [textContent]="userService.shippingAddress.CountryCode"></span>&nbsp;
+                        <span [textContent]="userService.shippingAddress.PostalCode"></span>
+                      </address>
+                    </div>
+                    <div class="edit_ship_address">
+                      <button mat-raised-button color="primary"
+                        *ngIf="utilityService.isEmptyObject(userService.shippingAddress)" class="m-l-0"
+                        routerLink="/shipping" translate="add_address" aria-label="AddAddress">{{'add_address' |
+                        translate}}</button>
+                      <a class="itemName" href="" *ngIf="!utilityService.isEmptyObject(userService.shippingAddress)"
+                        routerLink="/shipping" translate="edit_"></a><br>
+                    </div>
+                    <div class="m-t-25">
+                      <mat-icon class="p-r-10 color-icon disp" [textContent]="'mail'"
+                        *ngIf="userService.customerData.EmailAddress">mail</mat-icon>
+                      <span class="mail_position1" [textContent]="userService.customerData.EmailAddress"></span>
+                    </div>
+                  </div>
+                  <div fxFlex="40" fxLayout="column" class="p-l-r-15 m-t-10">
+                    <p class="f-bold" translate="shop_payment_new"></p>
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                      <p class="p-r-5" translate="accepted_cards"></p>
+                      <div>
+                        <img src="assets/images/visa1.png" alt="VisaCard">
+                        <img src="assets/images/mastercard.png" alt="VisaCard">
+                      </div>
+                    </div>
+                    <div *ngIf="userService.paymentMethods.length >0">
+                      <span [textContent]="userService.paymentMethods[0].CardType"></span>&nbsp;
+                      <span *ngIf="userService.paymentMethods[0].Last4"><span translate="card_ending_in"></span></span>
+                      <span [textContent]="userService.paymentMethods[0].Last4"></span>
+                      <br>
+                      <span
+                        *ngIf="userService.paymentMethods[0].ExpireMonth!==0 && userService.paymentMethods[0].ExpireYear!==0">
+                        <span>{{'expires'|translate}}</span>&nbsp;
+                        <span [textContent]="userService.paymentMethods[0].ExpireMonth"></span> /
+                        <span [textContent]="userService.paymentMethods[0].ExpireYear"></span>
+                      </span>
+                    </div>
+                    <div *ngIf="userService.paymentMethods.length == 0">
+                      <span translate="no_payment"></span>
+                    </div>
+                    <div>
+                      <mat-form-field fxFlex appearance="outline">
+                        <mat-label *ngIf="userService.paymentMethods.length > 0 && !userService.isPaymentChanged"
+                          [textContent]="userService.paymentMethods[0].CardType + ' ' + userService.paymentMethods[0].Last4">
+                        </mat-label>
+                        <mat-label *ngIf="userService.paymentMethods.length == 0"
+                          translate="unified_add_payment_method"></mat-label>
+                        <mat-select>
+                          <mat-select-trigger>
+                            <span *ngIf="userService.paymentMethods.length > 0">
+                              {{userService.paymentMethods[0].CardType}} {{ ' ' }}
+                              {{userService.paymentMethods[0].Last4}}
+                            </span>
+                          </mat-select-trigger>
+                          <ng-container *ngIf="paymentService.PaymentTypeResponse['SaveMethods']">
+                            <mat-option *ngFor="let paymentMethod of paymentService.PaymentTypeResponse['SaveMethods']"
+                              value="Credit Card" (click)="addSavePayment(paymentMethod);" class="c-color1"
+                              [attr.merchant_id]="paymentMethod.MerchantId" translate>
+                              <mat-icon class="p-r-10">credit_card</mat-icon>
+                              <span style="cursor: pointer">
+                                <span [textContent]="getPaymentDescription(paymentMethod)"></span>
+                                <span>
+                                  {{'_exp'|translate}}&nbsp;&nbsp;
+                                  <span [textContent]="paymentMethod.Expires | date:'MM/yyyy'"></span>
+                                </span>
+                              </span>
+                              <span class="multipay__dropdown-list__filler"></span>
+                              <button mat-icon-button class="btn-icon btn-icon--small btn-link"
+                                (click)="removeCardDetail(paymentMethod);">
+                                <mat-icon class="p-r-10">delete</mat-icon>
+                              </button>
+                            </mat-option>
+                          </ng-container>
+                          <ng-container *ngIf="paymentService.PaymentTypeResponse['AllowedMethods']">
+                            <mat-option *ngFor="let addpayments of paymentService.PaymentTypeResponse['AllowedMethods']"
+                              value="Credit Card" (click)="addSavePayment(addpayments);" class="c-color1"
+                              [attr.merchant_id]="addpayments.MerchantId"
+                              [innerHTML]="addpayments.DisplayName | paymentTranslate:addpayments.DisplayName"
+                              translate></mat-option>
+                          </ng-container>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="ds-row__item clearfix m-l-0"
+                      *ngIf="(paymentService.SelectedPaymentTypes.CanSavePayments == false || paymentService.SelectedPaymentTypes.CanSavePayments == 'false')">
+                      <span class="ds-row__item clearfix" *ngIf="!userService.paymentMethods[0].Redirect"
+                        [innerHTML]="('order_pending') | translate" translate></span>
+                      <span class="ds-row__item clearfix" *ngIf="userService.paymentMethods[0].Redirect"
+                        [innerHTML]="('order_needs_redirect') | translate" translate></span>
+                      <span [innerHTML]="('click_here_payment_inst') | translate">
+                      </span>
+                    </div>
+                    <div [innerHTML]="('card_type_logos') | translate"></div>
+                  </div>
+                  <div fxFlex="30" fxLayout="column" class="p-l-r-15 m-t-10">
+                    <p class="f-bold" translate="choosing_a_shipping"></p>
+                    <div class="m-t-10">
+                      <mat-radio-group aria-label="Select an option" fxLayout="column"
+                        [(ngModel)]="userService.selectedShippingMethod" *ngIf="itemsService.selectedOrderItems.length">
+                        <mat-radio-button class="m-b-10 font-IBM" [value]="shipmethod.ShipMethodId"
+                          *ngFor="let shipmethod of orderService.calculateOrderResponse.ShippingMethods"
+                          (click)="updateShipmethod(shipmethod.ShipMethodId)">
+                          <div fxLayout="column">
+                            <div>
+                              <span [textContent]="shipmethod.Description"></span>
+                            </div>
+                            <div>
+                              <small class="text-muted"
+                                [textContent]="shipmethod.ShippingAmount | currency: companyService.selectedCurrency.CurrencyCode"></small>
+                            </div>
+                          </div>
+                        </mat-radio-button>
+                      </mat-radio-group>
+                      <mat-radio-group aria-label="Select an option" fxLayout="column"
+                        [(ngModel)]="userService.selectedShippingMethod"
+                        *ngIf="itemsService.selectedAutoOrderItems.length && !itemsService.selectedOrderItems.length">
+                        <mat-radio-button class="m-b-10 font-IBM" [value]="shipmethod.ShipMethodId"
+                          *ngFor="let shipmethod of orderService.calculateAutoOrderResponse.ShippingMethods"
+                          (click)="updateShipmethod(shipmethod.ShipMethodId)">
+                          <div fxLayout="column">
+                            <div>
+                              <span [textContent]="shipmethod.Description"></span> <span
+                                [textContent]="shipmethod.ShippingAmount"></span>
+                            </div>
+                          </div>
+                        </mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          <br>
+          <mat-card *ngIf="configService.localSettings.Global.OrderAllowCoupons && itemsService.selectedOrderItems.length > 0">
+            <mat-card-header>
+              <mat-card-title class="header">
+                <mat-icon class="p-r-10">card_giftcard</mat-icon> <span class="header font-IBM"
+                  translate="promo_coupon_code"></span>
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content fxLayout="column" >
+              <div fxLayout="row" fxFlex="100" fxLayoutAlign="start" class="p-l-10"
+                *ngIf="promoShowHide()">
+                <div fxFlex="25" fxFlex.xs="70" class="p-l-r-15 m-t-10">
+                  <mat-form-field class="" fxFlex appearance="outline">
+                    <mat-label class="font-IBM" translate="Enter_promo_code"></mat-label>
+                    <small class="c-red coupon_error font-IBM"
+                      [textContent]="userService.couponInfo.promoCodeValid === false ? ('Invalid_promo_code' | translate) : ''"></small>
+                    <input class="font-IBM" name="promoCode" matInput [(ngModel)]="userService.couponInfo.promoCode"
+                    (keypress)="userService.couponInfo.promoCodeValid =''">
+                  </mat-form-field>
+                </div>
+                <div class="m-t-10 applyButton" fxFlex="20" fxFlex.xs="15">
+                  <button mat-raised-button color="primary" [disabled]="!userService.couponInfo.promoCode"
+                    (click)="validatePromoCode();" class="font-IBM m-t-10" translate="">{{'apply_code' | translate}}</button>
+                </div>
+              </div>
+              <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between none" class="p-l-10 m-l-10">
+                <div *ngFor="let Coupon of orderService.calculateOrderResponse.CouponResults">
+                  <ng-container *ngIf="Coupon.IsValid && userService.couponInfo.OrderAllowCoupons">
+                    <mat-chip-list aria-label="CouponCode" *ngIf="isCouponCode(Coupon)">
+                      <mat-chip  [removable]="removable"
+                      (removed)="removePromo(Coupon.Code);"> 
+                      <span [textContent]="Coupon.Code"></span> &nbsp;&nbsp;
+                      <span>-</span>
+                      <span
+                        [textContent]="Coupon.Discount | currency:(orderService.calculateOrderResponse.CurrencySymbol || this.companyService.selectedCurrency.CurrencyCode)"></span>
+                      <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip>
+                    </mat-chip-list>
+                  </ng-container>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          <br>
+          <mat-card *ngIf="itemsService.selectedOrderItems.length > 0">
+            <mat-card-header>
+              <mat-card-title class="header" translate="order_summary"></mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div fxLayout="column" fxFlex="100" class="p-l-r-15 m-t-10">
+                <div fxLayout="row" fxFlex="100" class="borderBottom cart-items__header">
+                  <div fxFlex="50">
+                    <span class="color2-f-s-14" translate="items_"></span>
+                  </div>
+                  <div fxFlex="30">
+                    <span class="color2-f-s-14" translate="price"></span>
+                  </div>
+                  <div fxFlex="20">
+                    <span class="color2-f-s-14" translate="global_quantity"></span>
+                  </div>
+                </div>
+                <div fxLayout="row" fxFlex="100" class="items" *ngFor="let item of itemsService.selectedOrderItems">
+                  <div fxFlex="50">
+                    <div class="cart-items__images" fxFlex="15">
+                      <img [src]="configService.localSettings.Disco.DiscoUrl+'/CMS/images/inventory'+item.ImageUrl"
+                        [default]="'assets/images/noimage.png'" onerror="this.src='assets/images/noimage.png'">
+                    </div>
+                    <div class="m-t-30" fxLayout="column" fxFlex="85">
+                      <div>
+                        <a class="product_detail_text itemName" [textContent]="item.ProductName"
+                          (click)="cart1Service.showProductDetail(item, false, item.HasOptions, false);"></a>
+                        <!-- Warnings -->
+                        <sup class="c-color1" *ngIf="showBirthWarnings()" translate="prop_65">
+                        </sup>
+                        <sup class="c-color1" *ngIf="showCancerWarnings()"
+                          [innerHTML]="(showCancerWarnings() ? 'prop_65_es' : 'prop_65') | translate"></sup>
+                      </div>
+                      <div>
+                        <span class="f-s-12" *ngIf="item.selectedOptions" [textContent]="item.selectedOptions"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div fxFlex="30" fxFlex.xs="22" fxLayoutAlign="start center">
+                    <span [textContent]="item.Price | currency: companyService.selectedCurrency.CurrencyCode"></span>
+                  </div>
+                  <div fxFlex="20" fxLayoutAlign="start center">
+                    <div fxLayout="row" class="">
+                      <div class="input-group" fxLayoutAlign="center center">
+                        <span class="input-group-btn">
+                          <button mat-button-icon class="" type="button"
+                            (click)="cart1Service.decreaseQuantiy(item,false,false)">
+                            <mat-icon class="c-gray">remove</mat-icon>
+                          </button>
+                        </span>
+
+                        <input type="text" class="input-control" maxlength="2"
+                          [(ngModel)]="getQuantityModel('order',item)[item.ItemID]" validate inputonlynumber="true"
+                          (change)="checkQuantity('order', item)"
+                          (keyup)="($event.which === 38) ? cart1Service.increaseQuantiy(item, false, false) : 0"
+                          (keydown)="($event.which === 40) ? cart1Service.decreaseQuantiy(item, false, false) : 0">
+                        <span class="input-group-btn">
+                          <button mat-button-icon class="" type="button"
+                            (click)="cart1Service.increaseQuantiy(item,false,false)">
+                            <mat-icon class="c-gray">add</mat-icon>
+                          </button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex="100" class="m-t-10 order-total-summary" fxLayout="column">
+                  <div fxLayoutAlign="end none">
+                    <label translate="sub_total"></label><strong class="m-l-10"
+                      [textContent]="(orderService.calculateOrderResponse.SubTotal | currency: companyService.selectedCurrency.CurrencyCode)"></strong>
+                  </div>
+                  <div fxLayoutAlign="end none">
+                    <label translate="discounttotal"></label><strong class="m-l-10"
+                      [textContent]="(orderService.calculateOrderResponse.DiscountTotal | currency: companyService.selectedCurrency.CurrencyCode)"></strong>
+                  </div>
+                  <div fxLayoutAlign="end none">
+                    <label translate="shippingtotal"></label><strong class="m-l-10"
+                      [textContent]="(orderService.calculateOrderResponse.ShippingTotal | currency: companyService.selectedCurrency.CurrencyCode)"></strong>
+                  </div>
+                  <div fxLayoutAlign="end none">
+                    <label translate="taxtotal"></label><strong class="m-l-10"
+                      [textContent]="(orderService.calculateOrderResponse.TaxTotal | currency: companyService.selectedCurrency.CurrencyCode)"></strong>
+                  </div>
+                </div>
+                <div fxFlex="100" class="m-t-10 order-items-total">
+                  <div fxLayoutAlign="end none">
+                    {{'global_total'|translate}} ( <span data-text="quantity"
+                      [textContent]="itemsService.selectedOrderItems.length"></span> {{'item_'|translate}} ):
+                    <strong class="m-l-10">
+                      <span [textContent]="(orderService.calculateOrderResponse.Total | currency: companyService.selectedCurrency.CurrencyCode)"></span>
+                    </strong>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          <br>
+          <mat-card *ngIf="itemsService.selectedAutoOrderItems.length > 0">
+            <div fxLayout="column" fxFlex="100">
+              <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between none">
+                <div fxFlex="49">
+                  <mat-card-header>
+                    <mat-card-title class="header">{{'autoship_order'|translate}}</mat-card-title>
+                  </mat-card-header>
+                </div>
+                <div class="p-l-r-15" fxFlex="49" fxLayoutAlign="end none">
+                  <span translate>
+                    {{'your_autoship_will_process_frequency' | translate: getfrequencyName()}}
+                  </span> &nbsp;
+                  <span [textContent]="autoshipConfigurationService.autoshipDate | changedateformat"></span>
+                </div>
+              </div>
+              <div>
+                <mat-card-content>
+                  <div fxLayout="column" fxFlex="100" class="p-l-r-15 m-t-10">
+                    <div fxLayout="column" class="m-b-15"
+                      *ngIf="userService.customerData && (AutoOrdersData && AutoOrdersData.length > 0) && itemsService.selectedAutoOrderItems.length > 0">
+                      <div fxLayout="row" fxLayout.xs="column" fxFlex="100">
+                        <div fxFlex="80" fxFlex.xs="100" fxLayoutAlign="start center">
+                          <div fxLayout="column" fxLayout.xs="column" fxFlex="100">
+                            <div class="m-b-10">
+                              <mat-radio-group name="opList" fxLayout="column"
+                                [(ngModel)]="persistentService.retailData.isNewAutoship">
+                                <mat-radio-button [value]="false" [checked]="false"> {{'choose_exit_autoship'|
+                                  translate}} </mat-radio-button>
+                              </mat-radio-group>
+                            </div>
+                            <div class="m-b-10">
+                              <mat-radio-group name="opList" fxLayout="column"
+                                [(ngModel)]="persistentService.retailData.isNewAutoship">
+                                <mat-radio-button [value]="true" [checked]="true"> {{'choose_new_autoship'| translate}}
+                                </mat-radio-button>
+                              </mat-radio-group>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div *ngIf="!persistentService.retailData.isNewAutoship" fxFlex="20" fxFlex.xs="100"
+                          fxLayoutAlign.gt-xs="end start" fxLayoutAlign.xs="center center"
+                          class="autoShipSelect m-t--15">
+                          <mat-form-field class="autoship_drp" fxFlex="100" appearance="outline">
+                            <mat-select [(ngModel)]="selectedAutoship"
+                              (selectionChange)="changeSelectedAutosipId(selectedAutoship)">
+                              <mat-option *ngFor="let autoship of AutoOrdersData" [value]="autoship.AutoShipID">
+                                {{ "#Autoship - "+ autoship.AutoShipID + ' ('+ (autoship.SubTotal |
+                                currency:(autoship.CurrencySymbol || this.companyService.selectedCurrency.CurrencyCode):autoship.DecimalPoint)+' )'}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxLayout="row" fxFlex="100" class="borderBottom cart-items__header p-t-16">
+                      <div fxFlex="50">
+                        <span class="color2-f-s-14" translate="items_"></span>
+                      </div>
+                      <div fxFlex="30">
+                        <span class="color2-f-s-14" translate="price"></span>
+                      </div>
+                      <div fxFlex="20">
+                        <span class="color2-f-s-14" translate="global_quantity"></span>
+                      </div>
+                    </div>
+                    <div fxLayout="row" fxFlex="100" class="items"
+                      *ngFor="let autoorderitem of itemsService.selectedAutoOrderItems">
+                      <div fxFlex="50">
+                        <div class="cart-items__images" fxFlex="15">
+                          <img
+                            [src]="configService.localSettings.Disco.DiscoUrl+'/CMS/images/inventory'+autoorderitem.ImageUrl"
+                            [default]="'assets/images/noimage.png'" onerror="this.src='assets/images/noimage.png'">
+                        </div>
+                        <div class="m-t-30" fxLayout="column" fxFlex="85">
+                          <a class="product_detail_text itemName" [textContent]="autoorderitem.ProductName"
+                            (click)="cart1Service.showProductDetail(autoorderitem, true, autoorderitem.HasOptions, false);"></a>
+                          <!-- Warnings -->
+                          <sup class="c-color1" *ngIf="showBirthWarnings() || showCancerWarnings()" translate="prop_65">
+                          </sup>
+                          <sup class="c-color1" *ngIf="showCancerWarnings() || showBirthWarnings()"
+                            [innerHTML]="(showBirthWarnings() ? 'prop_65_es' : 'prop_65') | translate"></sup>
+                        </div>
+                      </div>
+                      <div fxFlex="30" fxFlex.xs="22" fxLayoutAlign="start center">
+                        <span [textContent]="autoorderitem.Price | currency: companyService.selectedCurrency.CurrencyCode"></span>
+                      </div>
+                      <div fxFlex="20" fxLayoutAlign="start center">
+                        <div fxLayout="row" class="">
+                          <div class="input-group" fxLayoutAlign="center center">
+                            <span class="input-group-btn">
+                              <button mat-button-icon class="" type="button"
+                                (click)="cart1Service.decreaseQuantiy(autoorderitem, true, false)">
+                                <mat-icon class="c-gray">remove</mat-icon>
+                              </button>
+                            </span>
+                            <input type="text" class="input-control" maxlength="2"
+                              [(ngModel)]="getQuantityModel('autoship',autoorderitem)[autoorderitem.ItemID]" validate
+                              inputonlynumber="true" (change)="checkQuantity('autoship',autoorderitem)"
+                              (keyup)="($event.which === 38) ? cart1Service.increaseQuantiy(autoorderitem, true, false) : 0"
+                              (keydown)="($event.which === 40) ? cart1Service.decreaseQuantiy(autoorderitem, true, false) : 0">
+                            <span class="input-group-btn">
+                              <button mat-button-icon class="" type="button"
+                                (click)="cart1Service.increaseQuantiy(autoorderitem, true, false)">
+                                <mat-icon class="c-gray">add</mat-icon>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxFlex="100" class="m-t-10 order-total-summary" fxLayout="column">
+                      <div fxLayoutAlign="end none">
+                        <label translate="sub_total"></label><strong
+                          [textContent]="(orderService.calculateAutoOrderResponse.SubTotal | currency: companyService.selectedCurrency.CurrencyCode)"></strong>
+                      </div>
+                      <div fxLayoutAlign="end none">
+                        <label translate="discounttotal"></label><strong
+                          [textContent]="(orderService.calculateAutoOrderResponse.DiscountTotal | currency: companyService.selectedCurrency.CurrencyCode)"></strong>
+                      </div>
+                      <div fxLayoutAlign="end none">
+                        <label translate="shippingtotal"></label><strong
+                          [textContent]="(orderService.calculateAutoOrderResponse.ShippingTotal | currency: companyService.selectedCurrency.CurrencyCode)"></strong>
+                      </div>
+                      <div fxLayoutAlign="end none">
+                        <label translate="taxtotal"></label><strong
+                          [textContent]="(orderService.calculateAutoOrderResponse.TaxTotal | currency: companyService.selectedCurrency.CurrencyCode)"></strong>
+                      </div>
+                    </div>
+                    <div fxFlex="100" class="m-t-10 order-items-total p-t-0">
+                      <div fxLayoutAlign="end center">
+                        {{'global_total'|translate}} ( <span data-text="quantity"
+                          [textContent]="itemsService.selectedAutoOrderItems.length"></span> {{'item_'|translate}} ):
+                        <strong
+                          [textContent]="(orderService.calculateAutoOrderResponse.Total | currency: companyService.selectedCurrency.CurrencyCode)"></strong>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </div>
+            </div>
+          </mat-card>
+          <mat-card>
+            <mat-card-content>
+              <div class="">
+                <div fxFlex="100" class="m-t-10 m-b-10 m-r-15 text-right"
+                  *ngIf="configService.localSettings.Global.showRequiredTermsCheckbox">
+                  <div fxLayoutAlign="end none">
+                    <div class="mat-form-field ds-validate checkbox">
+                      <mat-checkbox class="ds-checkbox" color="primary" checkbox-validate="true" validate> <span
+                          [innerHTML]="('i_have_read_understand_and_agree' | translate)"></span></mat-checkbox>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          <br>
+        </div>
+        <div fxFlex.gt-xs="10"></div>
+      </div>
+      <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center">
+        <!-- Prop 65 warnings -->
+        <div class="checkout__warnings" *ngIf="showBirthWarnings() || showCancerWarnings()">
+          <div class="m-l-20"><span [innerHTML]="('whats_this_' | translate)"></span></div>
+          <ol class="p-l-20">
+            <li *ngIf="showBirthWarnings()">
+              <div translate="prop_65"></div>
+              <div translate="warning_cause_birth"></div>
+            </li>
+            <li *ngIf="showCancerWarnings()">
+              <div translate="prop_65"></div>
+              <div translate="warning_cause_cancer"></div>
+            </li>
+          </ol>
+        </div>
+      </div>
+      <div fxLayout="row" fxFlex="100">
+        <div fxFlex.gt-xs="10"></div>
+        <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100" fxFlex.gt-xs="80" fxLayoutAlign.gt-xs="end none"
+          fxLayoutAlign.xs="center center">
+          <div class="backButtom" fxFlex.xs="100">
+            <button mat-button (click)="backStep();" class="b-r-23" mat-raised-button color="basic">{{'back' | translate}}</button>
+          </div>
+          <div class="placeOrderButtom pl-15" fxFlex.xs="100">
+            <button id="place-order-btn" mat-raised-button color="primary" validate trigger-check="true"
+              (success)="checkPlaceOrder()" *ngIf="isAutoshipChanged()">{{'place_order_' | translate}}</button>
+          </div>
+        </div>
+        <div fxFlex.gt-xs="10"></div>
+
+      </div>
+    </div>
+  </div>
+</div>

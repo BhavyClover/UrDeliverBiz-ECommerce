@@ -1,0 +1,143 @@
+
+<div id="mainContent">
+  <mat-card>
+    <mat-card-content>
+       <div class="main" fxLayout="row" fxLayout.lt-sm="column" >
+          <div fxFlex="49" fxLayout="column" class="p-r-15">
+            <div class="borderBottom p-b-10">
+              <span class="color-f-s-23" translate="select_a_shipping"></span>
+            </div>
+            <form *ngIf="!isStateRestrict && !utilityService.isEmptyObject(userService.shippingAddress);">
+              <div class="p-8" flex fxLayout="row">
+                <address class="color-f-s-14 m-b-0 viewAddress">
+                  <span [textContent]="userService.shippingAddress.FirstName + ' '+ userService.shippingAddress.LastName"></span>
+                  <br>
+                  <span [textContent]="userService.shippingAddress.Street1"></span>, <span
+                    [textContent]="userService.shippingAddress.Street2"></span>
+                  <br>
+                  <span [textContent]="userService.shippingAddress.City"></span>, <span
+                    [textContent]="userService.shippingAddress.Region"></span>
+                  <span [textContent]="userService.shippingAddress.PostalCode"></span>, <span
+                    [textContent]="userService.shippingAddress.CountryCode "></span>
+                </address>
+                <br>
+              </div>
+              <div class="p-l-5">
+                <mat-icon class="p-r-10">mail</mat-icon><span class="mail_position"
+                  [textContent]="userService.customerData.EmailAddress"></span>
+              </div>
+              <div class="footerBottom">
+                <button mat-button (click)="nextStep();">{{'ship_to_default' | translate}}</button>
+              </div>
+            </form>
+            <span class="no_shipping_address p-t-10"
+              *ngIf="utilityService.isEmptyObject(userService.shippingAddress);">{{'add_shipping_address' | translate}}</span>
+          </div>           
+           <div fxFlex="1" class="borderLeft">
+             
+           </div>
+           <div fxFlex="49" fxLayout="column" class="m-top-50">
+              <div class="borderBottom">
+                <span class="color-f-s-23" translate="add_new_address" (click)="nextStep();" translate="add_new_address"></span>
+              </div>
+              <div class="p-8" fxFlex="100">
+                <form>
+                    <div fxLayout="column" fxFlex="100">
+                        <div fxLayout="row" fxFlex="100" fxLayout.lt-md="column" fxLayoutAlign="space-between none">
+                            <div fxFlex="49" fxFlex.lt-md="100">
+                              <mat-form-field class="ds-validate font-IBM" appearance="outline" fxFlex>
+                                <mat-label translate="first_name"></mat-label>
+                                <input name="firstName" [(ngModel)]="userService.newshippingAddress.FirstName"
+                                [ngModelOptions]="{standalone: true}"  validate noempty="true" matInput validate noempty="true">
+                                
+                              </mat-form-field>
+                            </div>
+                            <div fxFlex="49" fxFlex.lt-md="100">
+                              <mat-form-field class="ds-validate font-IBM" appearance="outline" fxFlex>
+                                <mat-label translate="last_name"></mat-label>
+                                <input name="lastName" [(ngModel)]="userService.newshippingAddress.LastName"
+                                [ngModelOptions]="{standalone: true}"  matInput validate noempty="true">
+                                
+                            </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxFlex="100">
+                          <mat-form-field class="ds-validate font-IBM" appearance="outline" fxFlex>
+                            <mat-label translate="Country">Country</mat-label>
+                            <mat-select  [ngModelOptions]="{standalone: true}" [(ngModel)]="userService.newshippingAddress.Country" 
+                            (selectionChange)="cart1Service.updateCountry({CountryCode: userService.newshippingAddress.Country}, '', false, true); getCountryState(userService.newshippingAddress.Country)" validate noempty="true">
+                              <mat-option  
+                              *ngFor="let country of allowedCountries" [value]="country.CountryCode.toUpperCase()">
+                              <img [src]="'https://directscalestring.directscale.com/flags/4x3/'+country.CountryCode+'.svg'"
+                                width="18"> {{country.CountryName}}
+                            </mat-option>
+                            </mat-select>
+                            
+                          </mat-form-field>
+                        </div>
+                        <div fxFlex="100">
+                          <mat-form-field class="ds-validate font-IBM" appearance="outline" fxFlex>
+                            <mat-label translate="street_address" ></mat-label>
+                            <input name="streetAddress" [(ngModel)]="userService.newshippingAddress.Street1"
+                            [ngModelOptions]="{standalone: true}"  matInput validate noempty="true">
+                            
+                        </mat-form-field>
+                        </div>
+                        <div fxFlex="100">
+                          <mat-form-field class="ds-validate font-IBM" appearance="outline" fxFlex>
+                            <mat-label translate="street_address2"></mat-label>
+                            <input name="streetAddress2" [(ngModel)]="userService.newshippingAddress.Street2"
+                            [ngModelOptions]="{standalone: true}"  matInput validate noempty="true">
+                            
+                        </mat-form-field>
+                        </div>
+                        <div fxFlex="100" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between none" class="cityStateBox">
+                          <div fxFlex="30" fxFlex.lt-md="100">
+                            <mat-form-field class="ds-validate font-IBM" appearance="outline" fxFlex fxFlex.md="100">
+                              <mat-label translate="city"></mat-label>
+                              <input name="city" [(ngModel)]="userService.newshippingAddress.City"
+                              [ngModelOptions]="{standalone: true}" matInput validate noempty="true">
+                              
+                          </mat-form-field>
+                          </div>
+                          <div fxFlex="30" fxFlex.lt-md="100">
+                            <mat-form-field class="ds-validate font-IBM" appearance="outline"  fxFlex fxFlex.md="100">
+                              <mat-label translate="state"></mat-label>
+                              <mat-select [(ngModel)]="userService.newshippingAddress.Region"
+                              [ngModelOptions]="{standalone: true}" validate noempty="true">
+                                <mat-option *ngFor="let state of states" [value]="state.StateCode">
+                                  {{state.StateName}}
+                                </mat-option>
+                              </mat-select>
+                              
+                            </mat-form-field>
+                          </div>
+                          <div fxFlex="33" fxFlex.lt-md="100">
+                            <mat-form-field class="ds-validate font-IBM" appearance="outline" fxFlex fxFlex.md="100">
+                              <mat-label translate="zip"></mat-label>
+                              <input name="zip" [(ngModel)]="userService.newshippingAddress.PostalCode"
+                              [ngModelOptions]="{standalone: true}" regxvalidzip="true" 
+                              [attr.regexcountry]="userService.newshippingAddress.Country" matInput validate noempty="true">
+                              
+                          </mat-form-field>
+                          </div>
+                        </div>
+                        <div fxFlex="100">
+                          <mat-form-field class="ds-validate font-IBM" appearance="outline" fxFlex>
+                            <mat-label translate="phone_number_"></mat-label>
+                            <input name="phoneNumber" [(ngModel)]="userService.newshippingAddress.Phone"
+                            [ngModelOptions]="{standalone: true}"  matInput validate noempty="true">
+                            
+                          </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+              </div>
+              <div class="footerBottom">
+                <button validate trigger-check="true" (success)="nextStep(true);" mat-button>{{'ship_to_this' | translate}}</button>
+              </div>
+           </div>
+       </div>
+    </mat-card-content>
+ </mat-card>
+</div>

@@ -1,0 +1,143 @@
+#autoshipEditor {
+    .main {
+        .borderBottom {
+            border-bottom: 2px solid var(--theme-deafult-grey);
+        }
+        .borderBottom1 {
+            border-bottom: 1px solid var(--theme-deafult-grey);
+        }
+        .borderLeft {
+            border-left: 2px solid var(--theme-deafult-grey);
+            height: auto;
+        }
+        @media only screen and (max-width: 768px) {
+            .padding-t-20 {
+                padding-top: 20px;
+            }
+        }
+        .mx-height-30 {
+            max-height: 30%;
+        }
+        .mx-height-10 {
+            max-height: 10%;
+        }
+        .items {
+            padding-bottom: 15px;
+            margin-top: 15px !important;
+      
+            .cart-items__images {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 90px;
+              height: 90px;
+              overflow: hidden;
+              flex: 0 0 90px;
+      
+              img {
+                border-radius: 0;
+                width: 100%;
+                height: auto;
+                margin: 0;
+                flex-shrink: 0;
+                max-width: 70px;
+                max-height: 70px;
+              }
+            }
+      
+            .md-avatar:first-child,
+            .-inner > .md-avatar:first-child {
+              border-radius: 0;
+              width: 90px;
+              height: 90px;
+            }
+      
+            .md-secondary-container {
+              top: 87%;
+              font-size: 14px;
+              font-weight: 500;
+              color: var(--theme-deafult-dark);
+              margin-bottom: 10px;
+            }
+      
+            .input-group {
+              width: 88px;
+              line-height: 0;
+              margin-top: 10px;
+              .input-group-btn {
+                button {
+                  background: var(--theme-deafult);
+                  border: 1px solid var(--theme-deafult-grey);
+                  width: 30px;
+                  height: 30px;
+                  box-shadow: none;
+                  cursor: pointer;
+                }
+              }
+              .input-control {
+                background: var(--theme-deafult);
+                border: 1px solid var(--theme-deafult-grey);
+                width: 30px;
+                height: 28px;
+                text-align: center;
+                color: var(--theme-main-blue);
+              }
+            }
+      
+            .md-button.remove-items {
+              position: absolute;
+              top: -10px;
+              right: 0;
+            }
+      
+            mat-divider {
+              left: 50px;
+              width: calc('100% - 50px'); 
+              bottom: -1px;
+            }
+          }
+        .actionButton .mat-button {
+            min-width: 30px;
+            padding: 0px;
+        }
+        .editButton {
+            color: var(--theme-deafult-secondary);
+            font-size: 14px;
+        }
+        .itemName {
+            color: var(--theme-deafult-secondary);
+            font-size: 15px;
+            cursor: pointer;
+        } 
+    }
+    .footerBottom {
+        .mat-raised-button {
+            background-color:var(--theme-deafult-secondary);
+            padding: 0px 6px;
+            margin: 6px 0px;
+            color: var(--theme-deafult);
+        }
+        .mat-button {
+            color:var(--theme-deafult-secondary);
+            font-size: 14px;
+        }
+    }
+    .color-f-s-14 {
+        color: var(--theme-deafult-medium-grey);
+        font-size: 14px;
+    }
+    .color-f-s-17 {
+        color: var(--theme-deafult-medium-grey);
+        font-size: 17px;
+    }
+    .color-f-s-12 {
+        color: var(--theme-deafult-secondary);
+        font-size: 17px;
+    }
+    .cursor-pointer {
+      cursor: pointer;
+    }
+    .m-t-12 {
+      margin-top: 12px;
+    }
+}

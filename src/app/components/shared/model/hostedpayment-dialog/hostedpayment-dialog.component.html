@@ -1,0 +1,24 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="false">
+    <mat-icon class="close-icon">close</mat-icon>
+</button>
+<div class="dialog-content-wrapper hosted_payment-Dialog" id="hosted_payment-Dialog-wrapper">
+    <mat-toolbar class="header m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title" fxFlex translate="shop_add_payment"></span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content id="hosted_payment-Dialog-content" fxLayout="column">
+        <div class="m-b-0" *ngIf="getIframeUrl() || paymentData.Script">
+            <div class="card-body p-b-5 flex-middle">
+                <iframe id="iframDSPayment" [src]="iFrameUrl" width="{{getIframeWidth()}}"
+                    height="{{getIframeHeight()}}" scrolling="yes" style="border:none;"></iframe>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<script>
+    function OnIFrameSave(e) {
+
+    }
+</script>

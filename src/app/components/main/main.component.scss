@@ -1,0 +1,77 @@
+.enroll_img {
+    float: left;
+}
+.enroll_img a img {
+    width: 32px;
+    height: 32px;
+}
+.flag-icon img {
+    width: 20px;
+    height: 15px;
+    margin-right: 5px;
+}
+.shop_heading {
+    font-size: 10px;
+    line-height: 2px;
+}
+
+.text-nonecase {
+    text-transform: none !important;
+}
+.f-500 {
+    font-weight: 500 !important;
+}
+.text-uppercase {
+    text-transform: uppercase;
+}
+.mat-button {
+    text-align: left;
+}
+.m-t-10 {
+    margin-top: 10px;
+}
+.p-5 {
+    padding: 5px;
+}
+.p-16 {
+    padding: 10px 16px !important;
+}
+.ds_userName h2 {
+    margin: 0;
+    font-size: 14px !important;
+    line-height: 45px;
+    padding-left: 15px;
+    max-width: 170px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.sidenav .header {
+    background-color: var(--theme-deafult);
+    color: var(--theme-deafult);
+}
+.sidenav .header h2,
+.sidenav .header mat-icon {
+    color: var(--theme-deafult-secondary) !important;
+}
+.sidenav {
+    max-width: 400px;
+    min-width: 65%;
+    flex-direction: column;
+    transition: all 0.5s ease
+}
+@media only screen and (max-width: 600px) {
+    .sidenav {
+        width: calc(100% - 50px) !important;
+        max-width: 310px !important;
+    }
+}
+@media only screen and (max-width: 419px) {
+    .customer_type {
+        max-width: 100px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+    }
+}

@@ -1,0 +1,39 @@
+<div class="customer-item-1 swiper-container" [swiper]="config">
+  <div class="swiper-wrapper">
+    <div *ngFor="let usertype of let usertype of customerTypes; let i = index; let first = first ;let last = last;" class="swiper-slide" [ngClass]="{'borderBox': typeSelected === usertype.ID}">
+      <mat-card fxLayout="column" class="user-type" *ngIf="isFirst">
+              <div class="user-type" id="status-user-type-0" [className]="typeSelected == 0?'selected':''"
+                (click)="selectType(0)">
+                <div class="user-type-heading">{{'unifiedapplication_guest_customer' | translate}}</div>
+                <span class="user-type-detail">{{'unifiedapplication_guest_description' | translate}}</span>
+                <button class="user-type-select-btn" mat-raised-button color="primary" (click)="collapseSection(0)">
+                  <mat-icon *ngIf="typeSelected == 0">check</mat-icon>
+                  <span>{{(typeSelected == 0 ? "unifiedapplication_selected_btn" : "unifiedapplication_select_btn") |
+                    translate}}</span>
+                </button>
+              </div>
+      </mat-card>
+      <mat-card fxLayout="column" class="user-type">
+        <div id="status-user-type-{{usertype.ID}}"
+          [className]="typeSelected == usertype.ID?'selected':''" (ngInit)="setScrollPosition()"
+          (click)="selectType(usertype.ID)">
+          <div class="user-type-heading" [translate]="'unifiedapplication_user_type_'+usertype.ID"> </div>
+          <span class="user-type-detail" [translate]="'unifiedapplication_user_description_'+usertype.ID"> </span>
+          <button mat-raised-button  color="primary" class="user-type-select-btn" (click)="collapseSection(usertype.ID)">
+            <mat-icon *ngIf="typeSelected == usertype.ID">check</mat-icon>
+            <span>{{(typeSelected == usertype.ID ? "unifiedapplication_selected_btn" :
+              "unifiedapplication_select_btn") | translate}}</span>
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <div class="footerButton">
+    <button mat-button class="swiper-button-prev swipe-arrow">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <button mat-button class="swiper-button-next swipe-arrow">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </div>
+</div>

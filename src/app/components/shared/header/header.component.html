@@ -1,0 +1,931 @@
+<div
+  class="home-header"
+  [ngClass]="{
+    midHeader: isTop && currentRouterPath == '/home',
+    midHeader1: !isTop
+  }"
+>
+  <ng-container *ngIf="currentRouterPath == '/home'">
+    <mat-toolbar
+      fxShow
+      fxHide.lt-md
+      color="primary"
+      [ngClass]="{ 'noColor header p-0-10': isTop, 'kuro header': !isTop }"
+      fxFlex="100"
+    >
+      <mat-toolbar-row class="container p-0 h-90">
+        <div class="mt p-l-20 p-r-20" fxLayout="row">
+          <div>
+            <p>
+              <a
+                class="c-white logo"
+                [ngClass]="{ 'c-white': isTop, 'c-black': !isTop }"
+                routerLink="/home"
+              >
+                <img
+                  style="width: 150px !important; object-fit: contain"
+                  src="../../../../assets/images/img/logo_new.png"
+                />
+              </a>
+            </p>
+          </div>
+          <div fxLayout="row" class="m-l-30" fxLayoutAlign="center center">
+            <p class="heading">
+              <span
+                class="m-l-10 f-w-100"
+                [ngClass]="{
+                  'text-gray': '/home' ? router.isActive('/home', true) : false
+                }"
+                routerLink="/home"
+                style="font-size: 18px;"
+                >Home</span
+              ><span class="m-l-15">|</span>
+              <span
+                class="m-l-15 f-w-100"
+                [ngClass]="{
+                  'text-gray': '/about'
+                    ? router.isActive('/about', true)
+                    : false
+                }"
+                routerLink="/about"
+                style="font-size: 18px;"
+                >About</span
+              >
+              <span class="m-l-15">|</span>
+              <span
+                *ngIf="!isLoggedIn()"
+                class="m-l-15 f-w-100"
+                [ngClass]="{
+                  'text-gray': '/join'
+                    ? router.isActive('/join', true)
+                    : false
+                }"
+                routerLink="/join"
+                style="font-size: 18px;"
+                >Join Us/ Customer Store</span
+              >
+              <span class="m-l-15" *ngIf="!isLoggedIn()">|</span>
+              <span
+              class="m-l-15 f-w-100"
+              [ngClass]="{
+                'text-gray': '/contact'
+                  ? router.isActive('/contact', true)
+                  : false
+              }"
+              routerLink="/contact"
+              style="font-size: 18px;"
+              >Contact Us</span
+            >
+              <!-- <span class="m-l-15">|</span>
+              <span
+                class="m-l-15 f-w-100"
+                [ngClass]="{
+                  'text-gray': '/products/all'
+                    ? router.isActive('/products/all', true)
+                    : false
+                }"
+                routerLink="/products/all"
+                style="font-size: 18px;"
+                >Shop</span
+              > -->
+
+              <!-- <span
+                class="m-l-15 f-w-100"
+                [ngClass]="{
+                  'text-gray': '/faq' ? router.isActive('/faq', true) : false
+                }"
+                routerLink="/faq"
+                >FAQ</span
+              > -->
+              <!-- <span
+                *ngIf="!isLoggedIn()"
+                class="m-l-15 f-w-100"
+                [ngClass]="{
+                  'text-gray': '/join' ? router.isActive('/join', true) : false
+                }"
+                routerLink="/join"
+                >Join</span
+              > -->
+              <!-- <span
+                class="m-l-15 f-w-100"
+                [ngClass]="{
+                  'text-gray': '/contact'
+                    ? router.isActive('/contact', true)
+                    : false
+                }"
+                routerLink="/contact"
+                >Contact</span
+              > -->
+            </p>
+          </div>
+          <mat-menu #menu="matMenu">
+            <div
+              id="header-menu"
+              fxLayout="row"
+              fxFlex="100"
+              fxLayoutGap="20px"
+              class="p-20 line_space"
+            >
+              <div fxLayout="row" fxFlex="100">
+                <div
+                  fxLayout="row wrap"
+                  fxFlex="100"
+                  fxLayoutAlign="flex-start space-evenly"
+                >
+                  <div
+                    *ngFor="let category of allItems; let i = index"
+                    fxLayout="column"
+                    fxFlex="25"
+                    fxFlex.lt-md="48"
+                    fxLayoutAlign="flex-start flex-start"
+                    fxFill
+                  >
+                    <div
+                      fxFlex="24"
+                      fxFlex.lt-md="100"
+                      fxLayoutAlign="flex-start flex-start"
+                      fxLayout="column"
+                      fxFill
+                      class="p-relative"
+                    >
+                      <b
+                        ><span
+                          [routerLink]="['/products', category.CategoryId]"
+                          >{{ category.Category }}</span
+                        ></b
+                      >
+                      <span [routerLink]="['/products', category.CategoryId]"
+                        >All</span
+                      >
+                      <div *ngFor="let item of HomeProductlist">
+                        <span
+                          *ngIf="item.CategoryId == category.CategoryId"
+                          [routerLink]="['/product', item.ItemID]"
+                          >{{ item.ProductName }}</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-menu>
+        </div>
+        <div
+          class="mt p-l-20 p-r-20"
+          fxLayout="row"
+          fxFlex="100"
+          fxLayoutAlign="end end"
+        >
+          <div>
+            <app-shopping-widgets
+              [shoppingCartItems]="shoppingCartItems"
+              [isWhite]="true"
+            ></app-shopping-widgets>
+          </div>
+
+          <div
+            class="enroll_img"
+            *ngIf="!isLoggedIn()"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+          >
+            <div>
+              <a
+                class="avtar"
+                mat-button
+                [matMenuTriggerFor]="langMenu"
+                #langMenuTrigger="matMenuTrigger"
+              >
+                <img width="18" [default]="'assets/images/user.png'" onerror="this.src='assets/images/noimage.png'"/>
+                &nbsp;<span
+                  [ngStyle.lt-sm]="{ 'font-size.px': 15 }"
+                  class="text-uppercase f-500 heading m-l-12 f-w-100 c-white"
+                  mat-button
+                  data-bind="label"
+                  >SIGN IN
+                  <mat-icon class="display-inline-relative"
+                    >arrow_drop_down</mat-icon
+                  >
+                </span>
+              </a>
+            </div>
+            <mat-menu
+              #langMenu="matMenu"
+              [overlapTrigger]="false"
+              xPosition="before"
+              class="app-dropdown swal"
+            >
+              <div class="logout-menu">
+                <!-- Name -->
+                <div
+                  class="enroll_img"
+                  fxLayout="row"
+                  fxLayoutAlign="space-around center"
+                >
+                  <div>
+                    <span
+                      [ngStyle.lt-sm]="{ 'font-size.px': 12 }"
+                      class="text-uppercase f-500"
+                      data-bind="label"
+                      >Guest</span
+                    >
+                  </div>
+                  <div class="avtar nocursor">
+                    <mat-icon>perm_identity</mat-icon>
+                  </div>
+                </div>
+                <!-- Sign Out -->
+                <div
+                  fxLayoutAlign="space-around center"
+                  class=""
+                  *ngIf="isLoggedIn()"
+                >
+                  <button
+                    class="shop-btn product-button w-60"
+                    mat-raised-button
+                    color="black"
+                    (click)="logout()"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+                <!-- Sign In -->
+                <div
+                  fxLayoutAlign="space-around center"
+                  class=""
+                  *ngIf="!isLoggedIn()"
+                >
+                  <button
+                    class="shop-btn product-button w-60"
+                    mat-raised-button
+                    color="black"
+                    (click)="login()"
+                  >
+                    Sign In
+                  </button>
+                </div>
+
+                <!-- Orders -->
+              </div>
+            </mat-menu>
+          </div>
+          <div
+            class="enroll_img"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+            *ngIf="isLoggedIn()"
+          >
+            <div>
+              <a
+                class="avtar"
+                mat-button
+                [matMenuTriggerFor]="langMenu"
+                #langMenuTrigger="matMenuTrigger"
+              >
+                <img
+                  [src]="userServiceModal?.enrollerInfo?.ImageUrl"
+                  width="18"
+                  [default]="'assets/images/user.png'"
+                  onerror="this.src='assets/images/noimage.png'"
+                />
+                &nbsp;<span
+                  [ngStyle.lt-sm]="{ 'font-size.px': 15 }"
+                  class="text-uppercase f-500 heading m-l-12 f-w-100 c-white"
+                  mat-button
+                  data-bind="label"
+                  >{{ userServiceModal?.enrollerInfo?.FirstName }} &nbsp;{{
+                    userServiceModal?.enrollerInfo?.LastName
+                  }}
+                  <mat-icon class="display-inline-relative"
+                    >arrow_drop_down</mat-icon
+                  >
+                </span>
+              </a>
+            </div>
+            <mat-menu
+              #langMenu="matMenu"
+              [overlapTrigger]="false"
+              xPosition="before"
+              class="app-dropdown swal"
+            >
+              <div class="logout-menu">
+                <!-- Name -->
+                <div
+                  class="enroll_img"
+                  fxLayout="row"
+                  fxLayoutAlign="space-around center"
+                >
+                  <div>
+                    <span
+                      [ngStyle.lt-sm]="{ 'font-size.px': 12 }"
+                      class="text-uppercase f-500"
+                      data-bind="label"
+                      [textContent]="
+                        (userServiceModal?.customerData?.FirstName ||
+                          userServiceModal?.enrollerInfo?.FirstName) +
+                        ' ' +
+                        (userServiceModal?.customerData?.LastName ||
+                          userServiceModal?.enrollerInfo?.LastName)
+                      "
+                    ></span>
+                  </div>
+                  <div class="avtar nocursor">
+                    <img
+                      style="height: 45px; width: 45px"
+                      [src]="
+                        userServiceModal?.customerData?.ImageUrl ||
+                        userServiceModal?.enrollerInfo?.ImageUrl
+                      "
+                      alt="companylogo"
+                      [default]="'assets/images/user.png'"
+                      onerror="this.src='assets/images/noimage.png'"
+                    />
+                  </div>
+                </div>
+                <!-- Sign Out -->
+                <div
+                  fxLayoutAlign="space-around center"
+                  class=""
+                  *ngIf="isLoggedIn()"
+                >
+                  <button
+                    class="shop-btn product-button w-60"
+                    mat-raised-button
+                    color="black"
+                    (click)="logout()"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+                <!-- Sign In -->
+                <div
+                  fxLayoutAlign="space-around center"
+                  class=""
+                  *ngIf="!isLoggedIn()"
+                >
+                  <button
+                    class="shop-btn product-button w-60"
+                    (click)="login()"
+                    mat-raised-button
+                    color="black"
+                  >
+                    Sign In
+                  </button>
+                </div>
+                <!-- Orders -->
+                <a>
+                  <div
+                    fxLayoutAlign=" stretch"
+                    class="receiptOrder"
+                    fxLayout="row"
+                    routerLink="/orderhistory"
+                  >
+                    <mat-icon class="receipt">receipt</mat-icon>
+                    <span
+                      *ngIf="isLoggedIn()"
+                      class="m-l-7 f-w-100"
+                      [ngClass]="{
+                        'text-gray': '/orderhistory'
+                          ? router.isActive('/orderhistory', true)
+                          : false
+                      }"
+                      >Order History</span
+                    >
+                  </div>
+                </a>
+
+                <!--MAnage Autoship-->
+                <a>
+                  <div
+                    fxLayoutAlign=" stretch"
+                    class=" "
+                    fxLayout="row"
+                    (click)="office()"
+                  >
+                    <mat-icon class="receipt">assessment</mat-icon>
+                    <span
+                      *ngIf="isLoggedIn()"
+                      class="m-l-17 f-w-100"
+                      [ngClass]="{
+                        'text-gray': '/   manageautoship'
+                          ? router.isActive('/manageautoship', true)
+                          : false
+                      }"
+                      >Virtual Office</span
+                    >
+                  </div>
+                </a>
+              </div>
+            </mat-menu>
+          </div>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-toolbar
+      fxHide
+      fxShow.lt-md
+      color="primary"
+      [ngClass]="{ 'noColor header p-0-10': isTop, 'kuro header': !isTop }"
+      fxFlex="100"
+    >
+      <mat-toolbar-row class="container p-0 h-90">
+        <div fxLayout="row" fxFlex="100">
+          <div
+            class="mt"
+            fxLayout="row"
+            fxFlex="33"
+            fxLayoutAlign="flex-start flex-start"
+          >
+            <div class="logo1">
+              <span fxHide="false" fxHide.gt-sm>
+                <button
+                  mat-icon-button
+                  class="mat"
+                  (click)="toggleMobileMenu($event)"
+                >
+                  <mat-icon>menu</mat-icon>
+                </button>
+              </span>
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxFlex="33"
+            class="m-t-0"
+            fxLayoutAlign="center center"
+          >
+            <p [ngClass]="{ 'p-width': isTop, 'p-width2': !isTop }">
+              <a
+                class="c-white logo"
+                routerLink="/home"
+              >
+                <img
+                  style="width: 150px !important; object-fit: contain"
+                  src="../../../../assets/images/img/logo_new.png"
+                />
+              </a>
+            </p>
+          </div>
+          <div
+            class="mt p-l-20 p-r-20"
+            fxLayout="row"
+            fxFlex="33"
+            fxLayoutAlign="end end"
+          >
+            <div>
+              <app-shopping-widgets
+                [shoppingCartItems]="shoppingCartItems"
+                [isWhite]="isTop"
+              ></app-shopping-widgets>
+            </div>
+          </div>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </ng-container>
+  <ng-container *ngIf="currentRouterPath != '/home'">
+    <mat-toolbar
+      fxShow
+      fxHide.lt-md
+      color="primary"
+      class="kuro header"
+      fxFlex="100"
+      fxLayoutAlign="center center"
+    >
+      <mat-toolbar-row class="container p-0 h-90 p-r-10">
+        <div class="mt p-l-20 p-r-20" fxLayout="row">
+          <div>
+            <p>
+              <a class="c-black logo" routerLink="/home">
+                <img
+                  style="width: 150px !important; object-fit: contain"
+                  src="../../../../assets/images/img/logo_new.png"
+                />
+              </a>
+            </p>
+          </div>
+          <div fxLayout="row" class="m-l-30" fxLayoutAlign="center center">
+            <p class="heading">
+              <span
+                class="m-l-10 f-w-100"
+                [ngClass]="{
+                  'text-gray': '/home' ? router.isActive('/home', true) : false
+                }"
+                routerLink="/home"
+                style="font-size: 18px;"
+                >Home</span
+              ><span class="m-l-15">|</span>
+              <span
+                class="m-l-15 f-w-100"
+                [ngClass]="{
+                  'text-gray': '/about'
+                    ? router.isActive('/about', true)
+                    : false
+                }"
+                routerLink="/about"
+                style="font-size: 18px;"
+                >About</span
+              >
+              <span class="m-l-15">|</span>
+              <span
+                *ngIf="!isLoggedIn()"
+                class="m-l-15 f-w-100"
+                [ngClass]="{
+                  'text-gray': '/join'
+                    ? router.isActive('/join', true)
+                    : false
+                }"
+                routerLink="/join"
+                style="font-size: 18px;"
+                >Join Us/ Customer Store</span
+              >
+              <span class="m-l-15" *ngIf="!isLoggedIn()">|</span>
+              <span
+              class="m-l-15 f-w-100"
+              [ngClass]="{
+                'text-gray': '/contact'
+                  ? router.isActive('/contact', true)
+                  : false
+              }"
+              routerLink="/contact"
+              style="font-size: 18px;"
+              >Contact Us</span
+            >
+              <!-- <span class="m-l-15">|</span>
+              <span
+                class="m-l-15 f-w-100"
+                [ngClass]="{
+                  'text-gray': '/products/all'
+                    ? router.isActive('/products/all', true)
+                    : false
+                }"
+                routerLink="/products/all"
+                style="font-size: 18px;"
+                >Shop
+              </span> -->
+            </p>
+          </div>
+        </div>
+        <mat-menu #menu="matMenu">
+          <div
+            id="header-menu"
+            fxLayout="row"
+            fxFlex="100"
+            fxLayoutGap="20px"
+            class="p-20 line_space"
+          >
+            <div fxLayout="row" fxFlex="100">
+              <div
+                fxLayout="row wrap"
+                fxFlex="100"
+                fxLayoutAlign="flex-start space-evenly"
+              >
+                <div
+                  *ngFor="let category of allItems; let i = index"
+                  fxLayout="column"
+                  fxFlex="25"
+                  fxFlex.lt-md="48"
+                  fxLayoutAlign="flex-start flex-start"
+                  fxFill
+                >
+                  <div
+                    fxFlex="24"
+                    fxFlex.lt-md="100"
+                    fxLayoutAlign="flex-start flex-start"
+                    fxLayout="column"
+                    fxFill
+                    class="p-relative"
+                  >
+                    <b
+                      ><span
+                        [routerLink]="['/products', category.CategoryId]"
+                        >{{ category.Category }}</span
+                      ></b
+                    >
+                    <span [routerLink]="['/products', category.CategoryId]"
+                      >All</span
+                    >
+                    <div *ngFor="let item of HomeProductlist">
+                      <span
+                        *ngIf="item.CategoryId == category.CategoryId"
+                        [routerLink]="['/product', item.ItemID]"
+                        >{{ item.ProductName }}</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-menu>
+        <div
+          class="mt p-l-20 p-r-20"
+          fxLayout="row"
+          fxFlex="100"
+          fxLayoutAlign="end end"
+        >
+          <div>
+            <app-shopping-widgets
+              [shoppingCartItems]="shoppingCartItems"
+              [isWhite]="true"
+            ></app-shopping-widgets>
+          </div>
+          <div>
+            <!-- <span  class="m-l-15 f-w-100"> -->
+            <div
+              class="enroll_img"
+              *ngIf="!isLoggedIn()"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+            >
+              <div>
+                <a
+                  class="avtar"
+                  mat-button
+                  [matMenuTriggerFor]="langMenu"
+                  #langMenuTrigger="matMenuTrigger"
+                >
+                  <img width="18" [default]="'assets/images/user.png'" onerror="this.src='assets/images/noimage.png'"/>
+                  &nbsp;<span
+                    [ngStyle.lt-sm]="{ 'font-size.px': 15 }"
+                    class="text-uppercase f-500 heading m-l-12 f-w-100 c-white"
+                    mat-button
+                    data-bind="label"
+                    >SIGN IN
+                    <mat-icon class="display-inline-relative"
+                      >arrow_drop_down</mat-icon
+                    >
+                  </span>
+                </a>
+              </div>
+              <mat-menu
+                #langMenu="matMenu"
+                [overlapTrigger]="false"
+                xPosition="before"
+                class="app-dropdown swal"
+              >
+                <div class="logout-menu">
+                  <!-- Name -->
+                  <div
+                    class="enroll_img"
+                    fxLayout="row"
+                    fxLayoutAlign="space-around center"
+                  >
+                    <div>
+                      <span
+                        [ngStyle.lt-sm]="{ 'font-size.px': 12 }"
+                        class="text-uppercase f-500"
+                        data-bind="label"
+                        >Guest</span
+                      >
+                    </div>
+                    <div class="avtar nocursor">
+                      <mat-icon>perm_identity</mat-icon>
+                    </div>
+                  </div>
+                  <!-- Sign Out -->
+                  <div
+                    fxLayoutAlign="space-around center"
+                    class=""
+                    *ngIf="isLoggedIn()"
+                  >
+                    <button
+                      class="shop-btn product-button w-60"
+                      mat-raised-button
+                      color="black"
+                      (click)="logout()"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                  <!-- Sign In -->
+                  <div
+                    fxLayoutAlign="space-around center"
+                    class=""
+                    *ngIf="!isLoggedIn()"
+                  >
+                    <button
+                      class="shop-btn product-button w-60"
+                      mat-raised-button
+                      color="black"
+                      (click)="login()"
+                    >
+                      Sign In
+                    </button>
+                  </div>
+                  <!-- Orders -->
+                </div>
+              </mat-menu>
+            </div>
+            <!-- </span> -->
+          </div>
+
+          <div class="enroll_img" fxLayout="row" fxLayoutAlign="center center">
+            <div *ngIf="isLoggedIn()">
+              <a
+                class="avtar"
+                mat-button
+                [matMenuTriggerFor]="langMenu"
+                #langMenuTrigger="matMenuTrigger"
+              >
+                <img
+                  [src]="userServiceModal?.enrollerInfo?.ImageUrl"
+                  width="18"
+                  [default]="'assets/images/user.png'"
+                  onerror="this.src='assets/images/noimage.png'"
+                />
+                &nbsp;<span
+                  [ngStyle.lt-sm]="{ 'font-size.px': 15 }"
+                  class="text-uppercase f-500 heading m-l-12 f-w-100"
+                  mat-button
+                  data-bind="label"
+                  >{{ userServiceModal?.enrollerInfo?.FirstName }} &nbsp;{{
+                    userServiceModal?.enrollerInfo?.LastName
+                  }}
+                  <mat-icon class="display-inline-relative"
+                    >arrow_drop_down</mat-icon
+                  >
+                </span>
+              </a>
+            </div>
+            <mat-menu
+              #langMenu="matMenu"
+              [overlapTrigger]="false"
+              xPosition="before"
+              class="app-dropdown swal"
+            >
+              <div class="logout-menu">
+                <!-- Name -->
+                <div
+                  class="enroll_img"
+                  fxLayout="row"
+                  fxLayoutAlign="space-around center"
+                >
+                  <div>
+                    <span
+                      [ngStyle.lt-sm]="{ 'font-size.px': 12 }"
+                      class="text-uppercase f-500"
+                      data-bind="label"
+                      [textContent]="
+                        (userServiceModal?.customerData?.FirstName ||
+                          userServiceModal?.enrollerInfo?.FirstName) +
+                        ' ' +
+                        (userServiceModal?.customerData?.LastName ||
+                          userServiceModal?.enrollerInfo?.LastName)
+                      "
+                    ></span>
+                  </div>
+                  <div class="avtar nocursor">
+                    <img
+                      style="height: 45px; width: 45px"
+                      [src]="
+                        userServiceModal?.customerData?.ImageUrl ||
+                        userServiceModal?.enrollerInfo?.ImageUrl
+                      "
+                      alt="companylogo"
+                      [default]="'assets/images/user.png'"
+                      onerror="this.src='assets/images/noimage.png'"
+                    />
+                  </div>
+                </div>
+                <!-- Sign Out -->
+                <div
+                  fxLayoutAlign="space-around center"
+                  class=""
+                  *ngIf="isLoggedIn()"
+                >
+                  <button
+                    class="shop-btn product-button w-60"
+                    mat-raised-button
+                    color="black"
+                    (click)="logout()"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+                <!-- Sign In -->
+                <div
+                  fxLayoutAlign="space-around center"
+                  class=""
+                  *ngIf="!isLoggedIn()"
+                >
+                  <button
+                    class="shop-btn product-button w-60"
+                    mat-raised-button
+                    color="black"
+                    (click)="login()"
+                  >
+                    Sign In
+                  </button>
+                </div>
+                <!-- Orders -->
+                <a>
+                  <div
+                    fxLayoutAlign=" stretch"
+                    class="avtar receiptOrder"
+                    fxLayout="row"
+                    routerLink="/orderhistory"
+                  >
+                    <mat-icon class="receipt">receipt</mat-icon>
+                    <span
+                      *ngIf="isLoggedIn()"
+                      class="m-l-7 f-w-100"
+                      [ngClass]="{
+                        'text-gray': '/orderhistory'
+                          ? router.isActive('/orderhistory', true)
+                          : false
+                      }"
+                      >Order History</span
+                    >
+                  </div>
+                </a>
+                <!--Manage Autoship-->
+                <a>
+                  <div
+                    fxLayoutAlign=" stretch"
+                    class="avtar"
+                    fxLayout="row"
+                    routerLink="/manageautoship"
+                  >
+                    <mat-icon class="receipt">assessment</mat-icon>
+                    <span
+                      *ngIf="isLoggedIn()"
+                      class="m-l-7 f-w-100"
+                      (click)="office()"
+                      [ngClass]="{
+                        'text-gray': '/   manageautoship'
+                          ? router.isActive('/manageautoship', true)
+                          : false
+                      }"
+                      >Virtual Office</span
+                    >
+                  </div>
+                </a>
+              </div>
+            </mat-menu>
+          </div>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-toolbar
+      fxHide
+      fxShow.lt-md
+      color="primary"
+      class="kuro header"
+      fxFlex="100"
+    >
+      <mat-toolbar-row class="container p-0 h-90">
+        <div fxLayout="row" fxFlex="100">
+          <div
+            class="mt"
+            fxLayout="row"
+            fxFlex="33"
+            fxLayoutAlign="flex-start flex-start"
+          >
+            <div class="logo1">
+              <span fxHide="false" fxHide.gt-sm>
+                <button
+                  mat-icon-button
+                  class="mat"
+                  (click)="toggleMobileMenu($event)"
+                >
+                  <mat-icon>menu</mat-icon>
+                </button>
+              </span>
+            </div>
+          </div>
+          <div
+            fxLayout="row"
+            fxFlex="33"
+            class="m-t-0"
+            fxLayoutAlign="center center"
+          >
+            <p [ngClass]="{ 'p-width': isTop, 'p-width2': !isTop }">
+              <a class="c-black logo" routerLink="/home">
+                <img
+                  style="width: 150px !important; object-fit: contain"
+                  src="../../../../assets/images/img/logo_new.png"
+                />
+              </a>
+            </p>
+          </div>
+          <div
+            class="mt p-l-20 p-r-20"
+            fxLayout="row"
+            fxFlex="33"
+            fxLayoutAlign="end end"
+          >
+            <div>
+              <app-shopping-widgets
+                [shoppingCartItems]="shoppingCartItems"
+                [isWhite]="false"
+              ></app-shopping-widgets>
+            </div>
+          </div>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </ng-container>
+</div>

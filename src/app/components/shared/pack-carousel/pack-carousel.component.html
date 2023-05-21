@@ -1,0 +1,37 @@
+<div class="pack-item-1 swiper-container" [swiper]="config">
+  <div class="swiper-wrapper">
+    <div *ngFor="let product of products" class="swiper-slide">
+      <mat-card fxLayout="column">
+        <div class="product-img" >
+          <a class="product-link"
+            (click)="cart1Service.showProductDetail(product, type == 'autoship', product.HasOptions, type == 'pack', true);">
+            <img [src]="configService.localSettings.Disco.DiscoUrl+'/CMS/Images/Inventory/'+product?.ImageUrl"
+              [default]="'assets/images/product/no-img.png'" alt="" onerror="this.src='assets/images/noimage.png'">
+          </a>
+        </div>
+        <div class="product-info-wrapper" fxLayout="column">
+          <div class="title-wrap text-center card-height" fxLayoutAlign="center center"
+            (click)="cart1Service.showProductDetail(product, type == 'autoship', product.HasOptions, type == 'pack', true);">
+            <h4 [textContent]="(product?.ProductName | slice: 0:10) + (product?.ProductName.length > 10 ? '...':'')">
+            </h4>
+          </div>
+          <div class="price-wrap text-center" fxLayout="row" fxLayoutAlign="center center">
+            <p>${{product.Price | number : '1.2-2'}}</p>
+          </div>
+          <div class="btn-wrap  text-center" fxLayout="row" fxLayoutAlign="center center">
+            <a (click)="addToCart(product,type)" mat-raised-button color="primary">{{'unifiedapplication_add_to_cart' |
+              translate}}</a>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <div class="footerButton">
+    <button mat-button class="swiper-button-prev swipe-arrow">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <button mat-button class="swiper-button-next swipe-arrow">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </div>
+</div>

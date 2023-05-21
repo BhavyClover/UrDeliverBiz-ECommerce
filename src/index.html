@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <base href="/">
+  <title>Ziplingo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../src/assets/images/img/favicon.png">
+  <!--Google font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<style>
+  .loading-spinner img {
+    align-self: end;
+  }
+
+  .loading-message {
+    text-align: center;
+    align-self: start;
+  }
+
+  .loading-spinner {
+    position: fixed;
+    z-index: 1001;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Transparent Overlay */
+  .loading-spinner:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--theme-main-blue);
+    opacity: 0.2;
+    
+  }
+  .csw-loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid var(--theme-deafult);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  /* * {
+  font-family: 'poppins', sans-serif !important; 
+} */
+</style>
+
+<body style="font-family: 'poppins' !important;">
+  <app-root>
+    <ng-container *ngIf="!(appInit.donePromise | async)">
+      <div class="progress-loader">
+        <div class="loading-spinner">
+          <!-- <img src="assets/svg/index.svg"> -->
+          <span class="csw-loader"></span>
+        </div>
+      </div>
+    </ng-container>
+  </app-root>
+</body>
+
+</html>

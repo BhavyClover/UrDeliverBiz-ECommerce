@@ -1,0 +1,72 @@
+.shippingAddressDialog {
+
+    .dialog-title {
+        color: var(--theme-deafult);
+        font-size: 21px;
+    }
+    .header {
+        background-color: var(--theme-deafult-secondary);
+    }
+    .header-tab-action {
+        background: var(--theme-deafult-secondary) !important;
+        margin: 0px 5px;
+        border-radius: 10px;
+        color: var(--theme-deafult);
+    }
+    .mat-dialog-content { 
+        margin: 0px;
+        padding: 23px 25px;
+        .borderBox {
+            border: 1px solid var(--theme-deafult-grey);
+        }
+        .p-15 {
+            padding: 15px !important;
+        }
+    }  
+    .mat-dialog-actions {
+        margin: 0px;
+        padding: 23px 25px;
+        .updateButton {
+            background-color: var(--theme-deafult);
+            color: var(--theme-deafult);
+        }
+    }
+    
+    ::ng-deep .mat-radio-label-content {
+        white-space: normal !important;
+        color: var(--theme-deafult-secondary);
+        font-size: 14px;
+      }
+}  
+.c-1 {
+    color: var(--theme-deafult);
+}
+
+::ng-deep .shippingAddressDialog .mat-dialog-container {
+    // overflow-x: hidden;
+    margin: 0px;
+    padding: 0px !important;
+}
+.material-icons.color_white {color: var(--theme-deafult);}
+.close-button{
+  float: right;
+  top:-24px;
+  right:-24px;
+}
+.close-icon {
+  transition: 1s ease-in-out;
+}
+
+.close-icon:hover {
+  transform: rotate(180deg);
+}
+
+::ng-deep .shippingAddressDialog .close-button{
+  float: right;
+  top:-52px;
+  right:-52px;
+}
+
+::ng-deep .shippingAddressDialog .mat-dialog-container {
+ overflow: unset
+}

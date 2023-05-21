@@ -1,0 +1,392 @@
+<div class="sidenavbar md-sidenav-right md-whiteframe-z2 summary_cart cart-no-overflow ng-isolate-scope _md"
+  [ngClass]="{'show ds-summary-cart': sideNavBarService.showsideBarSummary}">
+  <div mat-component-id="summaryCart" open="isSidenavOpen" tabindex="-1" fxLayout="column">
+    <div class="md-menu-toolbar _md _md-toolbar-transitions orderSummary" fxFlex="100">
+      <div fxLayout="column" fxLayoutAlign="none" class="layout-align-start-stretch layout-column">
+        <div fxLayout="row" class="layout-row" style="padding-bottom: 10px;">
+          <span fxFlex="" class="flex"></span>
+          <button mat-icon-button (click)="sideNavBarService.triggerOpen()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+        <div fxLayout="row" class="ordersumary_heading">
+          <div fxLayoutAlign="start" fxFlex="50" fxLayout="column">
+            <p *ngIf="!utilityService.getAutoshipEditFlag()" class="line_height_1 f-s-18" translate="order_summary"></p>
+            <span *ngIf="utilityService.getAutoshipEditFlag()" ng-bind="getAutoshipNumber()"></span>
+            <p *ngIf="itemsService.selectedOrderItems.length>0" class="pV"><span translate="global_total"></span>
+              <span *ngIf="itemsService.selectedOrderItems.length>0"
+                [textContent]="': (' + getOrderQuanity()+ ' items)'"></span>
+              <span *ngIf="utilityService.getAutoshipEditFlag() && itemsService.selectedOrderItems.length == 0"
+                [textContent]="': (' + getAutoOrderQuanity()+ ' items)'"></span>
+            </p>
+            <p *ngIf="!(itemsService.selectedOrderItems.length>0 || this.itemsService.selectedAutoOrderItems.length > 0)"
+              class="pV m-t-20" style="width: 309px !important;"><span>Your cart is currently empty. Keep
+                Shopping.</span>
+            </p>
+          </div>
+          <div fxLayoutAlign="end" fxFlex="50" class="md-secondary-container">
+            <div class="width-100 text-right">
+              <p class="main_price" *ngIf="itemsService.selectedOrderItems.length>0"
+                [textContent]="((orderService.calculateOrderResponse.Total) ? (orderService.calculateOrderResponse.Total) : 0) | currency:companyService.selectedCurrency.CurrencyCode">
+              </p>
+              <p class="main_price"
+                *ngIf="utilityService.getAutoshipEditFlag() && itemsService.selectedOrderItems.length == 0"
+                [textContent]="((orderService.calculateAutoOrderResponse.Total) ? (orderService.calculateAutoOrderResponse.Total) : 0) | currency:companyService.selectedCurrency.CurrencyCode">
+              </p>
+
+              <p *ngIf="itemsService.selectedOrderItems.length>0" class="f-right c-light main_qv">
+                {{'global_pv'|translate}}
+                <span *ngIf="itemsService.selectedOrderItems.length>0">:
+                  {{((orderService.orderBusinessVolume) || 0)}}</span>
+                <span *ngIf="utilityService.getAutoshipEditFlag() && itemsService.selectedOrderItems.length==0">:
+                  {{((orderService.orderBusinessVolume) || 0)}}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div mat-content class="mat-content md_cart _md" fxFlex="100">
+      <mat-list role="list" fxFlex="100">
+        <mat-accordion [togglePosition]="'before'" multi>
+          <mat-expansion-panel *ngIf="itemsService.selectedPacks.length > 0 && utilityService.isEnrollment()">
+            <mat-expansion-panel-header class="md-no-sticky list-item-head md-subheader _md p-t-10">
+              <div class="" role="heading" tabindex="0" aria-level="2" fxFlex="100">
+                <div class="md-subheader-inner">
+                  <div class="md-subheader-content" fxLayout="row" fxFlex="100">
+                    <div fxLayout="column" fxFlex="60" class="initOrder">
+                      <h3 translate="shop_kit_order"></h3>
+                      <p class="enroll_main_total pV">
+                        <span translate="sub_total" class="pV"></span><span
+                          [textContent]="': (' + getPacksQuanity()+ ' items)'"></span>
+                      </p>
+                    </div>
+                    <div fxLayout="column" fxFlex="40">
+                      <p class="price_each" fxLayoutAlign="end center"
+                        [textContent]="orderService.packTotal | currency: companyService.selectedCurrency.CurrencyCode">
+                      </p>
+                      <p class="pV " fxLayoutAlign="end center">{{'global_pv'|translate}} <span
+                          [textContent]="' : ' + (orderService.packBusinessVolume || 0)"></span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel-header>
+            <div class="in collapse" aria-expanded="true" aria-hidden="false" fxLayout="column">
+              <div fxLayout="row" *ngFor="let item of getItems('pack'), let i = index"
+                class="items m-t-5 md-no-proxy md-with-secondary _md" fxFlex="100">
+                <div class="cart-items__images" fxFlex="30">
+                  <img [src]="configService.localSettings.Disco.DiscoUrl+ '/CMS/images/inventory' + getImage(item)"
+                    [default]="'assets/images/noimage.png'" class="img-avatar" alt="product" onerror="this.src='assets/images/noimage.png'">
+                </div>
+                <div class="md-list-item-text layout-column p-t-8" fxLayout="column" fxFlex="53">
+                  <h3 class="product_detail_text" style="color: var(--theme-main-blue);" [textContent]="item.ProductName | slice:0:40">
+                  </h3>
+                  <span class="f-s-12" *ngIf="item.selectedOptions" [textContent]="item.selectedOptions"></span>
+                  <p class="product_detail_qv" [ngClass]="item.selectedOptions? 'm-b-0' : 'm-b-0'">
+                    {{'global_pv'|translate}}<span> : {{item.Quantity * (item.CV || item.QV || 0)}}</span></p>
+                  <div class="input-group" fxLayoutAlign="center center">
+                    <span class="input-group-btn">
+                      <button mat-button-icon class="" (click)="decreaseQuantiy('pack', item);closeCart();"
+                        type="button">
+                        <mat-icon class="">remove</mat-icon>
+                      </button>
+                    </span>
+                    <input type="text" [(ngModel)]="getQuantityModel('pack', item)[item.ItemID]"
+                      (change)="checkQuantity('pack', item); closeCart()"
+                      (keyup)="($event.which === 38) ? increaseQuantiy('pack', item) : 0"
+                      (keydown)="($event.which === 40) ? decreaseQuantiy('pack', item) : 0 ; closeCart()"
+                      (keypress)="getLastQuantity('pack', item)"
+                      (ngInit)="getQuantityModel('pack', item)[item.ItemID] ? getQuantityModel('pack', item)[item.ItemID] : getQuantityModel('pack', item)[item.ItemID] = 1"
+                      class="input-control" maxlength="2" validate="" inputonlynumber="true" aria-invalid="false">
+                    <span class="input-group-btn">
+                      <button mat-button-icon (click)="increaseQuantiy('pack', item)" type="button">
+                        <mat-icon>add</mat-icon>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+                <div fxFlex="17">
+                  <button mat-icon-button (click)="removeFromCart('pack', item);closeCart();">
+                    <mat-icon class="">close</mat-icon>
+                  </button>
+                  <div class="md-secondary-container">
+                    <div class="price_set">
+                      <p class=""
+                        [textContent]="(item.Quantity * item.Price) | currency: companyService.selectedCurrency.CurrencyCode">
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel *ngIf="itemsService.selectedOrderItems.length > 0">
+            <mat-expansion-panel-header class="md-no-sticky list-item-head md-subheader _md p-t-10 panel1">
+              <div class="" role="heading" tabindex="0" aria-level="2" fxFlex="100">
+                <div class="md-subheader-inner">
+                  <div class="md-subheader-content" fxLayout="row" fxFlex="100">
+                    <div fxLayout="column" fxFlex="60" class="initOrder">
+                      <h3 translate="initial_order"></h3>
+                      <p class="enroll_main_total pV">
+                        <span translate="sub_total"></span>
+                        <span [textContent]="': (' + getOrderQuanity()+ ' items)'"></span>
+                      </p>
+                    </div>
+                    <div fxLayout="column" fxFlex="40" class="pV">
+                      <p class="price_each" fxLayoutAlign="end center"
+                        [textContent]="(orderService.orderTotal ? orderService.orderTotal : 0) | currency: companyService.selectedCurrency.CurrencyCode">
+                      </p>
+                      <p class="pV " fxLayoutAlign="end center">{{'global_pv'|translate}}
+                        <span [textContent]="' : ' + (orderService.orderBusinessVolume || 0)"></span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel-header>
+            <div aria-expanded="true" aria-hidden="false" fxLayout="column">
+              <div fxLayout="row" *ngFor="let item of getItems('order')"
+                class="items m-t-5 md-no-proxy md-with-secondary _md" fxFlex="100">
+                <div class="cart-items__images" fxFlex="30">
+                  <img class="img-avatar"
+                    [src]="configService.localSettings.Disco.DiscoUrl+ '/CMS/images/inventory' + getImage(item)"
+                    [default]="'assets/images/noimage.png'" alt="img" onerror="this.src='assets/images/noimage.png'">
+                </div>
+                <div class="md-list-item-text layout-column p-t-8" fxLayout="column" fxFlex="53">
+                  <h3 class="product_detail_text" style="color: var(--theme-main-blue);" [textContent]="item.ProductName | slice:0:40"
+                    [matTooltip]="item.ProductName"></h3>
+                  <span class="f-s-12" *ngIf="item.selectedOptions" [textContent]="item.selectedOptions"></span>
+                  <p class="product_detail_qv  m-b-0">{{'global_pv'|translate}}<span> : {{item.Quantity * (item.CV ||
+                      item.QV || 0)}}</span></p>
+                  <div class="input-group" fxLayoutAlign="center center">
+                    <span class="input-group-btn">
+                      <button mat-button-icon class="" (click)="decreaseQuantiy('order', item);closeCart()"
+                        type="button">
+                        <mat-icon class="">remove</mat-icon>
+                      </button>
+                    </span>
+
+                    <input type="text" [(ngModel)]="getQuantityModel('order', item)[item.ItemID]"
+                      (change)="checkQuantity('order', item); closeCart()"
+                      (keyup)="($event.which === 38) ? increaseQuantiy('order', item) : 0"
+                      (keydown)="($event.which === 40) ? decreaseQuantiy('order', item) : 0 ; closeCart()"
+                      (keypress)="getLastQuantity('order', item)"
+                      (ngInit)="getQuantityModel('order', item)[item.ItemID] ? getQuantityModel('order', item)[item.ItemID] : getQuantityModel('order', item)[item.ItemID] = 1"
+                      class="input-control" validate inputonlynumber="true" maxlength="2" aria-invalid="false">
+                    <span class="input-group-btn">
+                      <button mat-button-icon (click)="increaseQuantiy('order', item)" type="button">
+                        <mat-icon>add</mat-icon>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+                <div fxFlex="17">
+                  <button mat-icon-button (click)="removeFromCart('order', item);closeCart();">
+                    <mat-icon class="">close</mat-icon>
+                  </button>
+                  <div class="md-secondary-container">
+                    <div class="price_set">
+                      <p class=""
+                        [textContent]="(item.Quantity * item.Price) | currency: companyService.selectedCurrency.CurrencyCode">
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <div class="items total md-no-proxy _md flex" flex="" role="listitem"
+            *ngIf="itemsService.selectedOrderItems.length > 0 || itemsService.selectedPacks.length > 0">
+            <div class="summary_total m-t-5" fxLayout="column" fxFlex>
+              <div fxLayout="row" fxFlex="100">
+                <div fxFlex="50" class="total_block f-s-16 c-1" translate="sub_total"></div>
+                <div fxFlex="50" class="total_block f-s-16 c-1" fxLayoutAlign="end center"
+                  [textContent]="((orderService.calculateOrderResponse.SubTotal) ? (orderService.calculateOrderResponse.SubTotal) : 0) | currency: companyService.selectedCurrency.CurrencyCode">
+                </div>
+              </div>
+              <div fxLayout="row" fxFlex="100">
+                <div fxFlex="50" class="total_block f-s-14 c-1" translate="discounttotal"></div>
+                <div fxFlex="50" class="total_block f-s-14 c-1" fxLayoutAlign="end center"
+                  [textContent]="((orderService.calculateOrderResponse.DiscountTotal) ? (orderService.calculateOrderResponse.DiscountTotal) : 0) |currency:companyService.selectedCurrency.CurrencyCode">
+                </div>
+              </div>
+              <div fxLayout="row" fxFlex="100">
+                <div fxFlex="50" class="total_block f-s-16 c-1" translate="shippingtotal"></div>
+                <div fxFlex="50" class="total_block f-s-16 c-1" fxLayoutAlign="end center"
+                  [textContent]="((orderService.calculateOrderResponse.ShippingTotal) ? (orderService.calculateOrderResponse.ShippingTotal) : 0) |currency:companyService.selectedCurrency.CurrencyCode">
+                </div>
+              </div>
+              <div fxLayout="row" fxFlex="100">
+                <div fxFlex="50" class="total_block f-s-16 c-1" translate="taxtotal"></div>
+                <div fxFlex="50" class="total_block f-s-16 c-1" fxLayoutAlign="end center"
+                  [textContent]="((orderService.calculateOrderResponse.TaxTotal) ? (orderService.calculateOrderResponse.TaxTotal) : 0) |currency:companyService.selectedCurrency.CurrencyCode">
+                </div>
+              </div>
+              <div fxLayout="row" fxFlex="100">
+                <div fxFlex="50" class="total_block f-s-16 c-1" translate="global_total"></div>
+                <div fxFlex="50" class="total_block f-s-16 c-1" fxLayoutAlign="end center"
+                  [textContent]="((orderService.calculateOrderResponse.Total) ? (orderService.calculateOrderResponse.Total) : 0) |currency:companyService.selectedCurrency.CurrencyCode">
+                </div>
+              </div>
+            </div>
+            <div class="md-secondary-container"></div>
+          </div>
+          <mat-expansion-panel *ngIf="itemsService.selectedAutoOrderItems.length > 0">
+            <mat-expansion-panel-header class="md-no-sticky list-item-head md-subheader _md p-t-10 panel2">
+              <mat-panel-description>
+                <div fxLayout="column" fxFlex="100" (click)="$event.stopPropagation();">
+                  <div class="" role="heading" tabindex="0" aria-level="2" fxFlex="100">
+                    <div class="md-subheader-inner">
+                      <div class="md-subheader-content p-r-0" fxFlex="100">
+                        <div role="button" tabindex="0" fxFlex="100" fxLayout="column">
+                          <div role="listitem" fxLayout="row" class="autoShipOrder" fxFlex="100">
+
+                            <div fxLayout="column" fxFlex="60" class="autoShipH3">
+                              <h3 translate="Autoship Order"></h3>
+                              <p class="subTotal">
+                                <span translate="sub_total"></span><span
+                                  [textContent]="': (' + getAutoOrderQuanity() + ' items)'"></span>
+                              </p>
+                            </div>
+                            <div class="total-coloumn" fxLayout="column" fxFlex="40">
+                              <h3 fxLayoutAlign="end center" class="line_height_1"
+                                [textContent]="(orderService.calculateAutoOrderResponse.SubTotal ? (orderService.calculateAutoOrderResponse.SubTotal - orderService.calculateAutoOrderResponse.DiscountTotal) : 0) | currency:companyService.selectedCurrency.CurrencyCode">
+                              </h3>
+                              <p fxLayoutAlign="end center" class="f-right ">{{'global_pv'|translate}}<span> :
+                                  {{(orderService.autoorderBusinessVolume || 0)}}</span></p>
+                            </div>
+                            <div class="md-secondary-container"></div>
+                          </div>
+                          <div fxFlex="100">
+                            <p class="subTotal">{{'unifiedapplication_autoship_order_note_freq' |
+                              translate:{frequency:frequencyDescription(persistentService.retailData.Autoship.FrequencyTypeID)}
+                              }}</p>
+                          </div>
+                          <div fxLayout="row" fxFlex="100">
+                            <div fxFlex="30" fxLayoutAlign="start center">
+                              <mat-icon style="margin-bottom: 18px; cursor: pointer;"
+                                (click)="dp3.open()">calendar_today</mat-icon>
+                            </div>
+                            <div fxFlex="60">
+                              <mat-form-field class="example-full-width">
+                                <input matInput [(ngModel)]="autoshipConfigurationService.autoshipDate"
+                                  [min]="AutoshipMinDate" [max]="AutoshipMaxDate" [matDatepicker]="dp3" disabled>
+                                <mat-datepicker-toggle matPrefix [for]="dp3">
+                                  <mat-icon class="c-gray" matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #dp3 disabled="false"
+                                  [startAt]="autoshipConfigurationService.autoshipDate"></mat-datepicker>
+                              </mat-form-field>
+                              <p class="autoShipFreq" style="line-height: 0; text-align: left; font-size: 11px;"
+                                translate="choose_frequency" for="freq_dd">Choose Autoship Frequency</p>
+                            </div>
+                            <div fxFlex="10">
+                            </div>
+                          </div>
+                          <div fxLayout="row" fxFlex="100">
+                            <div fxFlex="30" class="m-t-15 m-r-5">
+                              <span style="word-break: break-all;" translate="frequency"></span>
+                            </div>
+                            <div class="" fxFlex="70">
+                              <mat-form-field md-no-float=""
+                                class="md-block m-0 ds-validate control-group height-auto fieldBox__input-container md-input-has-value flex-gt-sm"
+                                flex-gt-sm="">
+                                <mat-select [(ngModel)]="persistentService.retailData.Autoship.FrequencyTypeID"
+                                  (selectionChange)="setFrequency();">
+                                  <mat-option *ngFor="let freq of commonData.FrequencyTypes" [value]="freq.ID">
+                                    {{freq.Description | translate}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-panel-description>
+
+            </mat-expansion-panel-header>
+            <div aria-expanded="true" aria-hidden="false" fxLayout="column">
+              <div fxLayout="row" *ngFor="let item of getItems('autoship')"
+                class="items m-t-5 md-no-proxy md-with-secondary _md" fxFlex="100">
+                <div class="cart-items__images" fxFlex="30">
+                  <img [src]="configService.localSettings.Disco.DiscoUrl+ '/CMS/images/inventory' + getImage(item)"
+                    [default]="'assets/images/noimage.png'" class="img-avatar" alt="product image" onerror="this.src='assets/images/noimage.png'">
+                </div>
+                <div class="md-list-item-text layout-column p-t-8" fxLayout="column" fxFlex="53">
+                  <h3 class="product_detail_text" style="color: var(--theme-main-blue);" [textContent]="item.ProductName | slice:0:40"
+                    [matTooltip]="item.ProductName"></h3>
+                  <span class="f-s-12" *ngIf="item.selectedOptions" [textContent]="item.selectedOptions"></span>
+                  <p class="product_detail_qv  m-b-0">{{'global_pv'|translate}}<span> :
+                      {{item.Quantity * (item.CV || item.QV || 0)}}</span></p>
+                  <div class="input-group" fxLayoutAlign="center center">
+                    <span class="input-group-btn">
+                      <button mat-button-icon class="" (click)="decreaseQuantiy('autoship', item);closeCart();"
+                        type="button">
+                        <mat-icon>remove</mat-icon>
+                      </button>
+                    </span>
+                    <input type="text" [(ngModel)]="getQuantityModel('autoship',item)[item.ItemID]"
+                      (change)="checkQuantity('autoship', item); closeCart()"
+                      (keyup)="($event.which === 38) ? increaseQuantiy('autoship', item) : 0"
+                      (keydown)="($event.which === 40) ? decreaseQuantiy('autoship', item) : 0 ; closeCart()"
+                      (keypress)="getLastQuantity('autoship', item)"
+                      (ngInit)="getQuantityModel('autoship', item)[item.ItemID] ? getQuantityModel('autoship', item)[item.ItemID] : getQuantityModel('autoship', item)[item.ItemID] = 1"
+                      class="input-control" maxlength="2" validate="" inputonlynumber="true" aria-invalid="false">
+                    <span class="input-group-btn">
+                      <button mat-button-icon class="" (click)="increaseQuantiy('autoship', item)" type="button">
+                        <mat-icon>add</mat-icon>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+                <div fxFlex="17">
+                  <button mat-icon-button (click)="removeFromCart('autoship', item);closeCart();">
+                    <mat-icon class="">close</mat-icon>
+                  </button>
+                  <div class="md-secondary-container">
+                    <div class="price_set">
+                      <p class=""
+                        [textContent]="(item.Quantity * item.Price) | currency: companyService.selectedCurrency.CurrencyCode">
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <!-- For Edit Autoship button -->
+        <div fxLayout="column" fxLayoutAlign="center center" class="p-t-10 p-b-10"
+          *ngIf="(utilityService.getAutoshipEditFlag() && itemsService.selectedAutoOrderItems.length > 0) && (itemsService.selectedOrderItems.length>0)">
+          <button mat-button class="logButton text-uppercase" fxLayoutAlign="center center"
+            *ngIf="!( location.path().toLowerCase() == '/manageautoship') || ( location.path().toLowerCase() == '/checkout') || ( location.path().toLowerCase() == '/application'|| location.path().toLowerCase() == '/login')"
+            (click)="saveEditAutoship()">{{'save_and_continue' | translate}}</button>
+          <button mat-button class="logButton text-uppercase m-t-10" fxLayoutAlign="center center"
+            *ngIf="!(location.path().toLowerCase() == '/manageautoship') || (location.path().toLowerCase() == '/checkout') || ( location.path().toLowerCase() == '/application'|| location.path().toLowerCase() == '/login')"
+            (click)="NavigateToAutoship()">{{'cancel' | translate}}</button>
+        </div>
+        <div fxLayout="column" amit fxLayoutAlign="center center" class="p-t-10 p-b-10"
+          *ngIf="(!utilityService.getAutoshipEditFlag() && !((location.path().toLowerCase() == '/checkout') && !userService.customerData.CustomerId )) && (itemsService.selectedOrderItems.length>0 || this.itemsService.selectedAutoOrderItems.length>0)">
+          <button mat-button class="logButton text-uppercase" fxLayoutAlign="center center"
+            *ngIf="showLogincheckoutBtn()" (click)="navigateToApplication();">{{(isLoggedIn() ? 'check_out' :
+            'login&checkout') | translate}}</button>
+          <p class="p-t-10 p-b-10" *ngIf="showNewCustomerBtn() && !(location.path().toLowerCase() == '/login')">Or</p>
+          <button mat-button class="checkOUTNewButton text-uppercase" fxLayoutAlign="center center"
+            *ngIf="showNewCustomerBtn()" validate trigger-checksection="true"
+            (click)="goToSignUp()">{{'create_new_customer_type' | translate: getCustomerTypeName()}}</button>
+          <button mat-button class="logButton text-uppercase" [ngClass]="{'disabled': !canCheckOut()}"
+            fxLayoutAlign="center center" *ngIf="location.path().toLowerCase() == '/checkout'"
+            (click)="navigateToNextStep()">{{'place_order_' | translate}}</button>
+        </div>
+      </mat-list>
+    </div>
+    <div style="height: 20px;" fxFelx="100">
+    </div>
+  </div>
+</div>

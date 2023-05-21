@@ -1,0 +1,84 @@
+{
+    "Company": {
+        "Name": "qaTest",
+        "Address": {
+            "Email": "customerservice@zendelivery.com",
+            "Street": "1510 N State St Suite 300",
+            "City": "Orem",
+            "State": "UT",
+            "Zip": "84057",
+            "Country": "United States",
+            "Phone": "(512) 271-6082",
+            "Domain": "https://directscale.com"
+        },
+        "SocialLinks": [
+            {
+                "link": "https://www.facebook.com/zendeliveryofficial",
+                "media": "facebook",
+                "icon": "fa fa-facebook"
+            },
+            {
+                "link": "https://www.linkedin.com/company/zendelivery-corporate/",
+                "media": "LinkedIn",
+                "icon": "fa fa-linkedin"
+            }
+        ],
+        "Images": {
+            "footerlogo": "https://www.directscale.com/wp-content/themes/directscale/img/logo.svg",
+            "logo": "https://www.directscale.com/wp-content/themes/directscale/img/logo.svg",
+            "faviconicon": "https://www.directscale.com/wp-content/uploads/2021/07/favicon-blue-orb-white-arrow-no-bg-75pxBorder-120x123.png"
+        }
+    },
+    "Disco":{
+        "DiscoUrl":"https://udb.corpadmin.directscalestage.com"
+    },
+    "Home":{
+        "PrimaryBanner": [
+            { "title": "Huge sale", "subtitle": "Up to 70%", "image":"assets/images/carousel/banner1.jpg" },
+            { "title": "Biggest discount", "subtitle": "Check the promotion", "image":"assets/images/carousel/banner2.jpg" },
+            { "title": "Biggest sale", "subtitle": "Dont miss it", "image":"assets/images/carousel/banner3.jpg" },
+            { "title": "Our best products", "subtitle": "Special selection", "image":"assets/images/carousel/banner4.jpg" },
+            { "title": "Massive sale", "subtitle": "Only for today", "image":"assets/images/carousel/banner5.jpg" },
+            { "title": "Massive sale", "subtitle": "Only for today", "image":"assets/images/carousel/banner6.jpg" }
+          ]
+    },
+    "Product":{
+        "PrimaryBanner": [
+            { "title": "Huge sale", "subtitle": "Up to 70%", "image":"assets/images/carousel/shimmers.png" },
+            { "title": "Biggest discount", "subtitle": "Check the promotion", "image":"assets/images/carousel/OpenDK.png" },
+            { "title": "Biggest sale", "subtitle": "Dont miss it", "image":"assets/images/carousel/lidDk.png" },
+            { "title": "Our best products", "subtitle": "Special selection", "image":"assets/images/carousel/velvet.png" },
+            { "title": "Massive sale", "subtitle": "Only for today", "image":"assets/images/carousel/bottleblack.png" }
+          ]
+    },
+    "Global":{
+        "blockword": [
+            "test",
+            "abuse"
+        ],
+        "ConfigurableCheckout": "true",
+        "ShowBirthWarning": true,
+        "ShowCancerWarning": true,
+        "AllowAutoship":true,
+        "showRequiredTermsCheckbox": true,
+        "OrderAllowCoupons": true,
+        "AllowCVVModel": true,
+        "OrderItemRequired" : {
+            "1" : true,
+            "2" : true,
+            "3" : true
+        },
+        "AutoshipItemRequired" : {
+            "1" : false,
+            "2" : true,
+            "3" : true
+        },
+        "CategoriesToFetch": ["Womens", "Mens", "Collections", "Limited Edition"]
+    },
+    "Autoship": {
+        "AllowMultipleAutoship": "true",
+        "AutoshipMinDate": "1",
+        "AutoshipMaxDate": "1000",
+        "DeleteAutoship": true
+    }
+}

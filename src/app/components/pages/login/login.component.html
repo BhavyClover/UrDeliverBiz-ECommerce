@@ -1,0 +1,32 @@
+<div class="font-IBM bgm-white">
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column" ng-cloak flex class="p-20 login text-center">
+    <div fxLayout-padding fxFlex="50" fxFlex-xs="100">
+        <div class="p-20">
+            <h3 class="text-center" translate="sign_to_ex_acc"></h3>
+            <form name="Login" id="login">
+                <div class="m-t-30">
+                  <mat-form-field class="w-70 ds-validate font-IBM" [ngStyle.lt-md]="{'width':100+'%'}" appearance="outline">
+                    <input  name="username" [(ngModel)]="userInfo.username"
+                    [ngModelOptions]="{standalone: true}"  matInput validate noempty="true" placeholder="USERNAME">
+                  </mat-form-field>
+                </div>
+                <div class="">
+                  <mat-form-field class="w-70 ds-validate font-IBM" appearance="outline" [ngStyle.lt-md]="{'width':100+'%'}" >
+                    <input type="password" [(ngModel)]="userInfo.password"
+                    [ngModelOptions]="{standalone: true}"  matInput validate noempty="true" placeholder="PASSWORD">
+                    </mat-form-field>
+                </div>
+                <a class="forgot-pass font-IBM" id="forgot-pass" (click)="redirectToForgotPassword()" translate="forgot_password"></a>
+                <div layout="row" layout-sm="column" class="m-t-20 login-bottom" layout-xs="column" layout-align="start center" layout-align-xs="center start" layout-align-sm="center start" layout-wrap>
+                  <button  validate trigger-check="true" type="submit" (success)="loginFunction()" [ngStyle.lt-md]="{'width':100+'%'}" class="w-70 b-r-23 btn-project upper-case bgm-black c-white" color="primary" mat-raised-button color="" type="submit">{{'sign_in' | translate}}</button>
+                </div>
+            </form>
+        </div>
+      </div>
+</div>
+</div>
+
+
+
+
+

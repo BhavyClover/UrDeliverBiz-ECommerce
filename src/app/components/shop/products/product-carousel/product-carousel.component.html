@@ -1,0 +1,46 @@
+<div class="product-item-1 swiper-container" [swiper]="config">
+  <div class="swiper-wrapper h-100">
+    <div *ngFor="let product of product" class="swiper-slide">
+      <mat-card fxLayout="column">
+        <div fxLayout="column">
+          <ngx-skeleton-loader loadingText="Ziplingo" *ngIf="!contentLoaded" count="1"
+            [theme]="{ width: '180px', 'border-radius': '0', height: '180px' }"></ngx-skeleton-loader>
+          <ngx-skeleton-loader loadingText="Ziplingo" *ngIf="!contentLoaded" count="2"
+            [theme]="{ 'border-radius': '0', height: '20px', width: '180px'  }"></ngx-skeleton-loader>
+        </div>
+        <div class="product-img" *ngIf="contentLoaded">
+          <a class="product-link" [routerLink]="['/product', product.ItemID]">
+            <img [default]="'assets/images/product/no-img.png'"
+              [src]="configService.localSettings.Disco.DiscoUrl+'/CMS/Images/Inventory/'+product.ImageUrl" alt="" onerror="this.src='assets/images/noimage.png'">
+          </a>
+        </div>
+        <div class="product-info-wrapper">
+          <span class="category" *ngIf="contentLoaded">{{product.Category.Name}}</span>
+          <div class="title-wrap" *ngIf="contentLoaded">
+            <h4>{{product?.ProductName}}</h4>
+          </div>
+          <div *ngIf="contentLoaded" class="price-wrap" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="stars">
+              <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+              <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+              <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+              <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+              <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+            </div>
+            <p>${{product.Discounts[0].Prices[0].Price | currency : companyService.selectedCurrency.CurrencyCode}}</p>
+          </div>
+          <div *ngIf="contentLoaded" class="btn-wrap" fxLayout="row" fxLayoutAlign="space-between center">
+            <a (click)="addToCart(product)" mat-raised-button color="primary">ADD TO CART <mat-icon
+                class="mat-icon-lg mat-icon material-icons">shopping_cart</mat-icon></a>
+          </div>
+          <div class="icons" fxLayout="column">
+            <a (click)="openProductDialog(product)"><mat-icon>remove_red_eye</mat-icon></a>
+            <a (click)="addToCompare(product)"><mat-icon>cached</mat-icon></a>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <button mat-mini-fab class="swiper-button-prev swipe-arrow"><mat-icon>keyboard_arrow_left</mat-icon></button>
+  <button mat-mini-fab class="swiper-button-next swipe-arrow"><mat-icon>keyboard_arrow_right</mat-icon></button>
+</div>

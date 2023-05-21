@@ -1,0 +1,89 @@
+.user-type-select-btn {
+    padding: 9px;
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0;
+    color: var(--theme-deafult);
+    opacity: .7;
+    border: none;
+    position: absolute;
+    width: calc(100% - 40px);
+    bottom: 17px;
+    line-height:15px;
+}
+.user-type-box .user-type-wrapper .user-types .user-type-detail {
+    font-family: 'poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: .07px;
+    color: var(--theme-deafult-medium-grey);
+}
+.user-type-heading {
+    font-family: 'poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -.4px;
+    color: var(--theme-deafult-medium-grey);
+}
+#status-user-type-1 {
+    -ms-flex-order: 1;
+    order: 1;
+}
+.user-type {
+    -ms-flex-order: 10;
+    order: 10;
+    height: auto;
+    min-height: 245px;
+    opacity: 1;
+    background: var(--theme-deafult) 0 0 no-repeat padding-box;
+    border: none!important;
+    padding: 17px !important;
+    position: relative;
+    margin-right: 10px!important;
+}
+.user-types {
+    -ms-flex-pack: flex-start;
+    justify-content: flex-start;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex: 1;
+    flex: 1;
+    display: -ms-flexbox;
+    display: flex;
+    overflow-x: auto;
+    overflow: hidden;
+    overflow-y: hidden;
+    position: relative;
+}
+.user-type-wrapper {
+    margin-top: 6px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: flex-start;
+    align-items: flex-start;
+    height: 221px;
+    overflow: hidden;
+}
+.user-type-box-heading {
+    font-weight: 400;
+    font-family: 'poppins', sans-serif;
+    font-size: 15px;
+    letter-spacing: -.38px;
+    color: var(--theme-deafult-medium-grey);
+    text-transform: uppercase;
+}
+.user-type-box {
+    padding: 10px;
+}
+.user-type-detail {
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: .07px;
+    color: var(--theme-deafult-medium-grey);
+}
+.borderBox mat-card {
+    border: 2px solid var(--theme-deafult) !important;
+    height: 270px;
+}

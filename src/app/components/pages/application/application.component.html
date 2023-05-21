@@ -1,0 +1,1122 @@
+<div class="d-flex" fxLayout="row" style="background-color:var(--theme-deafult-secondary);color:var(--theme-deafult);padding: 10px 20px;">
+    <div fxFlex="20" fxFlex.xs="15" fxLayoutAlign="start center">
+        <a>
+            <p><a class="c-white logo" routerLink="/home">
+                <img style="width: 80px !important;" src="../../../../assets/images/img/zenYGE-logo_white.png">
+            </a></p>
+        </a>
+    </div>
+    <div fxFlex="60" fxFlex.xs="80" fxFlex.sm="80" fxLayoutAlign="center center" fxLayoutAlign.xs="end center" fxLayoutAlign.sm="end center">
+        <div class="text-center color-text sim-m-t-10">
+            <span>{{'Checkout' | translate}}</span>
+            <span class="text-lowercase">{{'(' + getQuanity() + ' ' + 'items' + ')' }}</span>
+        </div>
+    </div>
+</div>
+<div id="application">
+    <div class="main" fxLayout="row" fxLayout.lt-lg="column" style="position: relative;">
+        <div class="firstContent" fxFlex="70" fxFlex.lt-lg="100" fxLayout="column">
+            <div fxLayout="column" fxLayoutAlign="start" class="m-b-30">
+                <div fxFlex="100">
+                    <span class="headingTitle-f-s-30" translate="unified_welcome_title"></span>
+                </div>
+                <div fxFlex="100">
+                    <span class="subTitle-f-s-16" translate="unifiedapplication_complete_the_fields_below"></span>
+                </div>
+            </div>
+            <div>
+                <mat-card *ngIf="!userService.sponsorSectionPanel" class="p-7 firstcard">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100">
+                        <div fxFlex="61" fxFlex.xs="100" fxLayout="row">
+                            <div class="headerLogo" *ngIf="userService.enrollerInfo?.ImageUrl">
+                                <a class="">
+                                    <img class="avtar" alt="companylogo" [src]="userService.enrollerInfo?.ImageUrl" onerror="this.src='../../../../assets/images/user.png'">
+                                </a>
+                            </div>
+                            <div class="enroll_info">
+                                <span class="companyLabel" translate="you_r_shop_with"></span><br>
+                                <span class="text-uppercase"
+                                    [textContent]="userService.enrollerInfo.FirstName + ' ' + userService.enrollerInfo.LastName"></span>
+                            </div>
+                        </div>
+                        <div fxFlex="39" fxFlex.xs="100" fxLayout="row" class="">
+                            <div class="p-b-10" fxFlex="51" fxLayoutAlign="end none" fxLayout="column">
+                                <div fxLayoutAlign="start none">
+                                    <span class="companyLabel" translate="you_r_shopping_as"></span>
+                                </div>
+                                <div *ngIf="!userService.customerTypeID" fxLayoutAlign="start none">
+                                    <span class="companyName" translate="shop_as"></span>
+                                </div>
+                                <div fxLayoutAlign="start none">
+                                    <span class="text-uppercase" [textContent]="customerTypeDescription()"></span>
+                                </div>
+                            </div>
+                            <div fxFlex="49" fxLayout="row" fxLayoutAlign="end center">
+                                <div class="borderLeft" fxFlex="5">
+
+                                </div>
+                                <div fxLayoutAlign="end center" fxFlex="60" fxFlex.xs="43">
+                                    <div fxLayoutAlign="start center"
+                                        [ngClass]="{'is-clicked' : true, 'mat-icon-collapsed' : true}">
+                                        <span *ngIf="selectedCountry" data-bind="label">
+                                            <img class="flag-icon"
+                                                [src]="'https://directscalestring.directscale.com/flags/4x3/' + country.CountryCode + '.svg'"
+                                                onerror="this.src='assets/images/noimage.png'">
+                                            <span class="text-nonecase"
+                                                data-bind="label">{{country.CountryCode.toUpperCase() + ' | ' +
+                                                selectedLanguageCode.toUpperCase()}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20">
+                                    <mat-icon class="c-gray" (click)="togglePanel()">keyboard_arrow_down</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+                <mat-expansion-panel [expanded]="userService.sponsorSectionPanel"
+                    (opened)="panelShippingAddress = true ;isPanelOpen= true"
+                    (closed)="panelShippingAddress = false ;isPanelOpen = false">
+                    <div fxLayout="column" fxFlex="100">
+                        <div fxLayout="column" fxFlex="100" class="m-b-10 p-t-20">
+                            <div fxLayout="row" fxFlex="100">
+                                <div fxFlex="95">
+                                    <span class="color-f-s-15 f-bold"
+                                        translate="unifiedapplication_verify_status"></span>
+                                </div>
+                                <div fxLayoutAlign="end none" fxFlex="5" class="editIcon">
+                                    <mat-icon class="c-gray" (click)="togglePanel()">keyboard_arrow_down
+                                    </mat-icon>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="color-f-s-12" translate="unifiedapplication_review_continue"></span>
+                            </div>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div fxLayout="row" fxLayout.xs="column" fxFlex="100" fxLayoutAlign="space-between none"
+                            class="p-t-b-7">
+                            <div fxLayout="row" fxFlex.xs="100" fxFlex="49" fxLayoutAlign="space-between center">
+                                <div fxFlex="42" fxFlex.md="30" fxLayoutAlign="start center">
+                                    <span class="color-f-s-11"
+                                        translate="unifiedapplication_you_purchasing_from"></span>
+                                </div>
+                                <div fxFlex="56" fxFlex.md="40" fxLayout="row" fxLayoutAlign="space-between center"
+                                    fxLayoutAlign.xs="end none">
+                                    <div fxLayoutAlign="start center" class="headerLogo" fxFlex="10" fxFlex.xs="20" *ngIf="userService.enrollerInfo?.ImageUrl">
+                                        <a class="">
+                                            <img class="avtar" alt="companylogo"
+                                                [src]="userService.enrollerInfo.ImageUrl" onerror="this.src='../../../../assets/images/user.png'">
+                                        </a>
+                                    </div>
+                                    <div fxFlex="80" fxFlex.xs="64">
+                                        <button mat-button (click)="changeAffiliate()"
+                                            [textContent]="userService.enrollerInfo.FirstName + ' ' + userService.enrollerInfo.LastName">
+                                            <mat-icon>
+                                                keyboard_arrow_down</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div fxFlex.md="27" fxFlex="0"></div>
+                            </div>
+                            <div fxLayout="row" fxFlex="49" fxFlex.xs="100" fxLayoutAlign="end">
+                                <div fxFlex.md="4" fxFlex="0"></div>
+                                <div fxFlex="55" fxFlex.xs="65" fxFlex.sm="50" fxFlex.md="60"
+                                    fxLayoutAlign="start center" fxLayoutAlign.md="end center">
+                                    <span translate="unifiedapplication_region_language"></span>
+                                </div>
+                                <div *ngIf="country" fxFlex="40" fxFlex.md="30" fxFlex.xs="39" fxFlex.sm="33"
+                                    fxLayoutAlign="end center" class="spaceButton">
+                                    <button mat-button [matMenuTriggerFor]="langMenu">
+                                        <img class="flag-icon"
+                                            [src]="'https://directscalestring.directscale.com/flags/4x3/'+ country.CountryCode +'.svg'"
+                                            onerror="this.src='assets/images/noimage.png'">
+                                        <span class="flag-menu-title">{{country.CountryCode.toUpperCase() + ' | ' +
+                                            selectedLanguageCode.toUpperCase()}}</span>
+                                        <mat-icon>keyboard_arrow_down</mat-icon>
+                                    </button>
+                                    <mat-menu #langMenu="matMenu" [overlapTrigger]="false" xPosition="before"
+                                        class="app-dropdown">
+                                        <span *ngFor="let country of allowedCountries">
+                                            <button mat-menu-item (click)="updatecountry(country, lng.LanguageCode)"
+                                                *ngFor="let lng of country.CountryLanguages">
+
+                                                <img [src]="'https://directscalestring.directscale.com/flags/4x3/'+country.CountryCode+'.svg'"
+                                                    width="18"> {{country.CountryName}} | {{lng.LanguageName}}
+                                            </button>
+                                        </span>
+                                    </mat-menu>
+                                </div>
+                            </div>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div fxLayout="column" fxFlex="100">
+                            <div fxFlex="100" class="p-t-b-7">
+                                <span class="color-f-s-15" translate="unifiedapplication_you_purchasing_as"></span>
+                            </div>
+                            <div fxFlex="100">
+                                <app-customer-type-carousel [customerTypes]="configService.commonSettings.CustomerTypes"
+                                    [typeSelected]="typeSelected">
+                                </app-customer-type-carousel>
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                <br>
+            </div>
+            <div *ngIf="(userService.customerTypeID ==1 ) && (productskitStore.length != 0)">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title class="color-f-s-15">Select An Enrollment Kit
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <app-pack-carousel [products]="productskitStore" type="pack"></app-pack-carousel>
+                    </mat-card-content>
+                </mat-card>
+                <br>
+            </div>
+            <div
+                *ngIf="(userService.customerTypeID == 2) && (productswholesaleStore.length != 0)">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title class="color-f-s-15">Select An Initial Kit
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <app-pack-carousel [products]="productswholesaleStore" type="order"></app-pack-carousel>
+                    </mat-card-content>
+                </mat-card>
+                <br>
+            </div>
+            <!-- <div
+                *ngIf="(userService.customerTypeID == 1 || userService.customerTypeID == 3) && (productsAutoshipStore.length != 0)">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title class="color-f-s-15">Select An Autoship Kit
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <app-pack-carousel [products]="productsAutoshipStore" type="autoship"></app-pack-carousel>
+                    </mat-card-content>
+                </mat-card>
+                <br>
+            </div> -->
+            <div>
+                <mat-accordion multi hideToggle>
+                    <mat-expansion-panel (opened)="panelShippingAddress = true ;isPanelOpen= true"
+                        (closed)="panelShippingAddress = false ;isPanelOpen = false">
+                        <mat-expansion-panel-header>
+                            <ng-container>
+                                <div fxLayout="row" fxFlex="99">
+                                    <mat-icon [ngClass]="{'is-clicked' : true, 'mat-icon-collapsed' : true}"
+                                        class="md-default-theme md-toggle-icon pull-left material-icons c-gray"
+                                        role="img">
+                                        location_on
+                                    </mat-icon>
+                                    <h4 class="color-f-s-15" translate="unifiedapplication_mailing_address"></h4>
+                                </div>
+                            </ng-container>
+                            <ng-container>
+                                <div fxLayout="row" fxFlex="1">
+                                    <div fxFlex="99" (click)="$event.stopPropagation();">
+                                    </div>
+                                    <div fxLayoutAlign="end none" fxFlex="1" class="editIcon">
+                                        <mat-icon class="c-gray">keyboard_arrow_down</mat-icon>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </mat-expansion-panel-header>
+                        <div fxLayout="column" fxFlex="100">
+                            <div fxLayout="row" fxFlex="100" fxLayout.lt-sm="column" fxLayoutAlign="space-between none">
+                                <div fxFlex="49" fxFlex.lt-sm="100">
+                                    <mat-form-field class="ds-validate" fxFlex appearance="outline">
+                                        <mat-label translate="unified_shipto_first_name"></mat-label>
+                                        <input name="firstName" matInput [(ngModel)]="enrollmentForm.FirstName"
+                                            inputmobilespacendash="true" noempty="true" validname="true"
+                                            checkOutSection="true" validate>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="49" fxFlex.lt-sm="100">
+                                    <mat-form-field class="ds-validate" fxFlex appearance="outline">
+                                        <mat-label translate="unified_shipto_last_name"></mat-label>
+                                        <input name="lastName" matInput [(ngModel)]="enrollmentForm.LastName"
+                                            inputmobilespacendash="true" noempty="true" validname="true"
+                                            checkOutSection="true" validate>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="100">
+                                <mat-form-field class="ds-validate" fxFlex appearance="outline">
+                                    <mat-label translate="unified_shipto_address"></mat-label>
+                                    <input name="streetAddress" matInput
+                                        [(ngModel)]="enrollmentForm.ApplicantAddress.Street1" checkOutSection="true"
+                                        validate noempty="true" validate-maxlength="25" maxlength="25">
+
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="100">
+                                <mat-form-field class="ds-validate" fxFlex appearance="outline">
+                                    <mat-label translate="unified_shipto_address2"></mat-label>
+                                    <input name="apartment" matInput
+                                        [(ngModel)]="enrollmentForm.ApplicantAddress.Street2">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="100">
+                                <mat-form-field class="ds-validate" fxFlex appearance="outline">
+                                    <mat-label translate="unified_shipto_city"></mat-label>
+                                    <input name="city" matInput [(ngModel)]="enrollmentForm.ApplicantAddress.City"
+                                        inputmobilespacendash="true" noempty="true" validname="true"
+                                        checkOutSection="true" validate>
+
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="row" fxFlex="100" fxLayout.lt-sm="column" fxLayoutAlign="space-between none">
+                                <div fxFlex="49" fxFlex.lt-sm="100">
+                                    <mat-form-field class="ds-validate" fxFlex appearance="outline">
+                                        <mat-label translate="unified_shipto_state"></mat-label>
+                                        <mat-select [(ngModel)]="enrollmentForm.ApplicantAddress.Region"
+                                            (selectionChange)="getStateName(true)" validate validate-select
+                                            checkOutSection="true">
+                                            <mat-option *ngFor="let state of states" [value]="state.StateCode">
+                                                {{state.StateName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="49" fxFlex.lt-sm="100">
+                                    <mat-form-field class="ds-validate" fxFlex appearance="outline">
+                                        <mat-label translate="unified_shipto_zipcode">Zip</mat-label>
+                                        <input name="zip" matInput
+                                            [(ngModel)]="enrollmentForm.ApplicantAddress.PostalCode"
+                                            [attr.regexcountry]="selectedCountry" regxvalidzip="true" noempty="true"
+                                            validate checkOutSection="true"
+                                            (focusout)="getShippingTypes(false, true, enrollmentForm.ApplicantAddress.PostalCode);">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="100">
+                                <mat-form-field class="ds-validate" fxFlex appearance="outline">
+                                    <mat-label translate="unifiedapplication_mobile_phone"></mat-label>
+                                    <input name="phoneNumber" type="number" maxlength="10" matInput [(ngModel)]="enrollmentForm.PrimaryPhone"
+                                        phoneno="true" inputspace="true" checkOutSection="true" noempty="true" validate
+                                        checkOutSection="true" minlength="10" inputonlynumber="true">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                    <br>
+                    <mat-expansion-panel (opened)="panelAccountInfo= true ;isPanelOpen= true"
+                        (closed)="panelAccountInfo = false ;isPanelOpen = false">
+                        <mat-expansion-panel-header>
+                            <ng-container>
+                                <div fxLayout="row" fxFlex="99">
+                                    <mat-icon [ngClass]="{'is-clicked' : true, 'mat-icon-collapsed' : true}"
+                                        class="md-default-theme md-toggle-icon pull-left material-icons c-gray"
+                                        role="img">
+                                        account_circle
+                                    </mat-icon>
+                                    <h4 class="color-f-s-15" translate="unifiedapplication_step_4_ account_info"></h4>
+                                </div>
+                            </ng-container>
+                            <ng-container>
+                                <div fxLayout="row" fxFlex="1">
+
+                                    <div fxLayout="row" fxFlex="100">
+                                        <div fxFlex="99">
+                                        </div>
+                                        <div fxLayoutAlign="end none" fxFlex="1" class="editIcon">
+                                            <mat-icon class="c-gray">keyboard_arrow_down</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </mat-expansion-panel-header>
+                        <div fxLayout="column" fxFlex="100" fxFlexLayoutGap.lt-md="30px">
+                            <div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxFlex="100" fxFlexLayoutGap="30px" >
+                                <div fxFlex="40" fxFlex.xs="60">
+                                    <mat-form-field class="ds-validate" fxFlex appearance="outline">
+                                        <mat-label translate="unifiedapplication_choose_username"></mat-label>
+                                        <input name="userName" matInput [(ngModel)]="enrollmentForm.Username"
+                                            inputspace="true" noempty="true" validname="true"
+                                            (focusout)="verifyUsername(enrollmentForm.Username);"
+                                            (copy)="$event.preventDefault()" (paste)="$event.preventDefault()">
+
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="40" fxFlex.xs="35" *ngIf="userService.customerTypeID===1" style="margin-left:20px !important;margin-top:20px !important">
+                                    <span class="color-f-s-12"
+                                        [textContent]="ReplicatedSiteUrl + '/'+ (enrollmentForm.Username ? enrollmentForm.Username: '{webalias}') + '/Home'"></span>
+                                </div>
+                            </div>
+                            <div fxFlex="100">
+                                <mat-form-field class="ds-validate" fxFlex appearance="outline">
+                                    <mat-label translate="unifiedapplication_choose_password"></mat-label>
+                                    <input name="password" type="password" matInput
+                                        [(ngModel)]="enrollmentForm.Password" checkOutSection="true" id="txtPassword"
+                                        nospaces="true" zxcvbn="" noempty="true" nospaceallow="true" regxvalid="true"
+                                        regxvalidValue="((?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,})" validate>
+
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="100">
+                                <mat-form-field class="ds-validate" fxFlex appearance="outline">
+                                    <mat-label translate="unifiedapplication_verify_password"></mat-label>
+                                    <input name="rePassword" type="password" matInput
+                                        [(ngModel)]="enrollmentForm.ConfirmPassword" name="weboffice_pswrd_verify"
+                                        nospaces="true" pw="#txtPassword" checkOutSection="true" password-match="true"
+                                        noempty="true" validate>
+
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxFlex="100" fxFlexLayoutGap.lt-md="50px" fxFlexLayoutGap.gt-sm="30px"
+                                *ngIf="!(userService.customerTypeID == 3 || userService.customerTypeID ==2)">
+                                <div fxFlex="40" fxFlex.xs="55">
+                                    <mat-form-field class="ds-validate" fxFlex appearance="outline">
+                                        <mat-label translate="unifiedapplication_ssn_taxid"></mat-label>
+                                        <input name="taxId" matInput [(ngModel)]="enrollmentForm.TaxID" noempty="true"
+                                            (keypress)="toggled=true" type="number" validate>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="40" fxFlex.xs="35" style="margin-left:20px !important;margin-top:20px !important">
+                                    <span
+                                        matTooltip="{{'unifiedapplication_in_order_paid_commissions_you_provide_ssn_taxid' | translate}}"
+                                        class="taxBox" translate="unifiedapplication_what_is_this"></span>
+                                </div>
+                            </div>
+                            <div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxFlex="100" fxLayoutAlign="space-between none" class="cityStateBox"
+                                *ngIf="userService.customerTypeID==1">
+                                <div fxFlex="30">
+                                    <mat-form-field class="ds-validate" fxFlex appearance="outline" fxFlex.xs="100">
+                                        <mat-label translate="unifiedapplication_birthdate"></mat-label>
+                                        <mat-select [(ngModel)]="enrollmentForm.BirthDay"
+                                            [(value)]="enrollmentForm.BirthDay" validate checkOutSection="true"
+                                            validate-select="true"
+                                            (selectionChange)="utilityService.birthDays(); doberror($event)"
+                                            [attr.agelimit]="enrollmentForm.BirthMonth +'/'+ enrollmentForm.BirthDay +'/'+ enrollmentForm.BirthYear">
+                                            <mat-option *ngFor="let day of days" [value]="day">
+                                                {{day}}
+                                            </mat-option>
+                                        </mat-select>
+
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="30">
+                                    <mat-form-field class="ds-validate" fxFlex appearance="outline" fxFlex.xs="100">
+                                        <mat-select [(ngModel)]="enrollmentForm.BirthMonth"
+                                            [(value)]="enrollmentForm.BirthMonth || months[0].value"
+                                            (selectionChange)="utilityService.birthDays(); doberror($event)" validate
+                                            checkOutSection="true" validate-select="true"
+                                            [attr.agelimit]="enrollmentForm.BirthMonth +'/'+ enrollmentForm.BirthDay +'/'+ enrollmentForm.BirthYear">
+                                            <mat-option *ngFor="let month of months" [value]="month.value">
+                                                {{month.text}}
+                                            </mat-option>
+                                        </mat-select>
+
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="33">
+                                    <mat-form-field class="ds-validate" fxFlex appearance="outline" fxFlex.xs="100">
+                                        <mat-select [(ngModel)]="enrollmentForm.BirthYear"
+                                            [(value)]="enrollmentForm.BirthYear  || years[0].value"
+                                            (selectionChange)="utilityService.birthDays(); doberror($event)" validate
+                                            checkOutSection="true" validate-select="true"
+                                            [attr.agelimit]="enrollmentForm.BirthMonth +'/'+ enrollmentForm.BirthDay +'/'+ enrollmentForm.BirthYear">
+                                            <mat-option *ngFor="let year of years" [value]="year.value">
+                                                {{year.text}}
+                                            </mat-option>
+                                        </mat-select>
+
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="100" *ngIf="false">
+                                <mat-form-field class="ds-validate" fxFlex appearance="outline">
+                                    <mat-label translate="unifiedapplication_domain_name"></mat-label>
+                                    <input name="email" matInput [(ngModel)]="enrollmentForm.WebPageURL"
+                                        inputspace="true" noempty="true" validname="true" validate>
+
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="100">
+                                <mat-form-field class="ds-validate" fxFlex appearance="outline">
+                                    <mat-label translate="unifiedapplication_email_Add"></mat-label>
+                                    <input name="email" matInput [(ngModel)]="enrollmentForm.Email" email="true"
+                                        noempty="true" (focusout)="verifyUserNameAndEmail(enrollmentForm.Email);"
+                                        validate nospaceallow="true" checkOutSection="true">
+
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="100" fxLayout="row">
+                                <div fxFlex="4" class="ds-validate" fxFlex.xs="8">
+                                    <mat-checkbox [(ngModel)]="enrollmentForm.SendEmails">
+                                    </mat-checkbox>
+                                </div>
+                                <div fxFlex="96" fxFlex.xs="92">
+                                    <p class="color2-f-s-12"
+                                        translate="unifiedapplication_yes_receive_emails_about_business">
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </mat-expansion-panel>
+                    <br>
+                    <mat-expansion-panel (opened)="panelPaymentMethod= true; isPanelOpen= true"
+                        (closed)="panelPaymentMethod = false ;isPanelOpen = false">
+                        <mat-expansion-panel-header>
+                            <ng-container>
+                                <div fxLayout="row" fxFlex="99">
+                                    <mat-icon [ngClass]="{'is-clicked' : true, 'mat-icon-collapsed' : true}"
+                                        class="md-default-theme md-toggle-icon pull-left material-icons c-gray"
+                                        role="img">
+                                        credit_card
+                                    </mat-icon>
+                                    <h4 class="color-f-s-15" translate="unifiedapplication_payment_method">Payment
+                                        Method
+                                    </h4>
+                                </div>
+                            </ng-container>
+                            <ng-container>
+                                <div fxLayout="row" fxFlex="100">
+                                    <div fxFlex="99">
+                                    </div>
+                                    <div fxLayoutAlign="end none" fxFlex="1" class="editIcon">
+                                        <mat-icon class="c-gray">keyboard_arrow_down</mat-icon>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </mat-expansion-panel-header>
+                        <div fxLayout="column" fxFlex="100">
+                            <div fxFlex="100">
+                                <mat-form-field fxFlex appearance="outline">
+                                    <mat-label
+                                        *ngIf="userService.paymentMethods.length > 0 && !userService.isPaymentChanged">
+                                        <span [textContent]="userService.paymentMethods[0].CardType"></span>
+                                        <span [textContent]="userService.paymentMethods[0].Last4"></span>
+                                    </mat-label>
+                                    <mat-label *ngIf="userService.paymentMethods.length == 0"
+                                        translate="unified_add_payment_method"></mat-label>
+                                    <mat-select>
+                                        <mat-select-trigger>
+                                            <span *ngIf="userService.paymentMethods.length > 0">
+                                                {{userService.paymentMethods[0].CardType}} {{ ' ' }}
+                                                {{userService.paymentMethods[0].Last4}} </span>
+                                            <span *ngIf="userService.paymentMethods.length == 0"
+                                                [textContent]="'unified_add_payment_method' | translate"></span>
+                                        </mat-select-trigger>
+                                        <mat-option [textContent]="'unified_add_payment_method' | translate">
+                                        </mat-option>
+                                        <ng-container *ngIf="paymentService.PaymentTypeResponse['AllowedMethods']">
+                                            <mat-option
+                                                *ngFor="let addpayments of paymentService.PaymentTypeResponse['AllowedMethods']"
+                                                value="Credit Card" (click)="addSavePayment(addpayments);"
+                                                class="c-color1" [attr.merchant_id]="addpayments.MerchantID"
+                                                [innerHTML]="addpayments.DisplayName | paymentTranslate:addpayments.DisplayName"
+                                                translate></mat-option>
+                                        </ng-container>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="ds-row__item clearfix m-l-0"
+                                *ngIf="userService.paymentMethods.length >0 && (paymentService.SelectedPaymentTypes.CanSavePayments == false || paymentService.SelectedPaymentTypes.CanSavePayments == 'false')">
+                                <span class="ds-row__item clearfix" *ngIf="!userService.paymentMethods[0]?.Redirect"
+                                    [innerHTML]="('order_pending') | translate" translate></span>
+                                <span class="ds-row__item clearfix" *ngIf="userService.paymentMethods[0]?.Redirect"
+                                    [innerHTML]="('order_needs_redirect') | translate" translate></span>
+                                <span [innerHTML]="('click_here_payment_inst') | translate">
+                                </span>
+                            </div>
+                            <div class="ds-row__item m-t-10" *ngIf="userService.paymentMethods.length >0">
+                                <div class="m-b-10">
+                                    <span class="f-s-12" [textContent]="userService.paymentMethods[0].CardType"></span>
+                                    <span class="f-s-12" *ngIf="userService.paymentMethods[0].Last4"
+                                        translate="unifiedapplication_card_ending_in"></span>
+                                    <span class="f-s-12" [textContent]="userService.paymentMethods[0].Last4"></span>
+                                    <br>
+                                    <span
+                                        *ngIf="userService.paymentMethods[0].ExpireMonth!==0 && userService.paymentMethods[0].ExpireYear!==0">
+                                        <span>{{'expires'|translate}}</span>&nbsp; <span
+                                            [textContent]="userService.paymentMethods[0].ExpireMonth"></span> /
+                                        <span [textContent]="userService.paymentMethods[0].ExpireYear"></span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div fxFlex="100" class="m-t-10" *ngIf="false">
+
+                                <mat-radio-group #radioGroup="matRadioGroup"
+                                    [(ngModel)]="enrollmentForm.billingAddressSame" aria-label="Select an option"
+                                    fxLayout="column">
+                                    <mat-label class="color-f-s-13"
+                                        translate="unifiedapplication_what_shipping_address">
+                                    </mat-label>
+                                    <mat-radio-button class="m-b-10 color2-f-s-12" [value]="true">
+                                        {{"unifiedapplication_use_same_address" | translate}}</mat-radio-button>
+                                    <mat-radio-button class="m-b-10 color2-f-s-12" [value]="false">
+                                        {{"unifiedapplication_different_shipping_adddress" | translate}}
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                            <div fxFlex="100">
+                                <ng-container *ngIf="enrollmentForm.billingAddressSame">
+                                    <form>
+
+                                    </form>
+                                </ng-container>
+                            </div>
+                            <div fxFlex="100" *ngIf="false">
+                                <mat-radio-group aria-label="Select an option" fxLayout="column"
+                                    [(ngModel)]="userService.selectedShippingMethod">
+                                    <mat-label class="color-f-s-13" translate="unifiedapplication_choosing_a_shipping">
+                                    </mat-label>
+                                    <mat-radio-button class="m-b-10 color2-f-s-12" [value]="shipmethod.ShipMethodId"
+                                        *ngFor="let shipmethod of userService.shippingMethods" (click)="getShipName()">
+                                        <div fxLayout="column">
+                                            <div>
+                                                <span [textContent]="shipmethod.Description"></span> &nbsp;&nbsp; <span
+                                                    [textContent]="shipmethod.ShippingAmount | currency:companyService.selectedCurrency.CurrencyCode"></span>
+                                            </div>
+                                        </div>
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                            <br>
+                            <div fxFlex="100" class="border-top p-t-10"
+                                *ngIf="configService.localSettings.Global.OrderAllowCoupons && ((itemsService.selectedPacks.length + itemsService.selectedOrderItems.length) > 0)">
+                                <strong translate="unifiedapplication_add_promo_code"></strong>
+                            </div>
+                            <br>
+                            <div fxFlex="100" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start none"
+                                *ngIf="configService.localSettings.Global.OrderAllowCoupons && ((itemsService.selectedPacks.length + itemsService.selectedOrderItems.length) > 0)">
+                                <div class="m-r-20" fxLayout="column" fxFlex="85" fxFlex.lt-sm="40">
+                                    <mat-form-field class="" appearance="outline">
+                                        <mat-label translate="Enter_promo_code"></mat-label>
+                                        <small class="c-red coupon_error"
+                                            [textContent]="userService.couponInfo.promoCodeValid ===false ? ('Invalid_promo_code' | translate) : ''"></small>
+                                        <input name="promoCode" matInput [(ngModel)]="userService.couponInfo.promoCode"
+                                            (keypress)="userService.couponInfo.promoCodeValid =''">
+                                    </mat-form-field>
+                                </div>
+                                <div class="m-l-20" fxLayout="column" fxFlex="15" fxFlex.lt-sm="40"
+                                    fxLayoutAlign="start none">
+                                    <button mat-raised-button color="primary"
+                                        [disabled]="!userService.couponInfo.promoCode" (click)="validatePromoCode();"
+                                        translate="">{{'apply_code' | translate}}</button>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxFlex="100" fxLayoutAlign="start center" class="">
+                                <div>
+                                    <!-- Promo name -->
+                                    <mat-chip-list aria-label="CouponCode">
+                                        <ng-container
+                                            *ngFor="let Coupon of orderService.calculateOrderResponse.CouponResults">
+                                            <mat-chip *ngIf="Coupon.IsValid && userService.couponInfo.OrderAllowCoupons"
+                                                (removed)="removePromo(Coupon.Code);">
+                                                <ng-container *ngIf="isCouponCode(Coupon)"> <span
+                                                        [textContent]="Coupon.Code"></span> &nbsp;&nbsp; <span>-</span>
+                                                    <span
+                                                        [textContent]="Coupon.Discount | currency:(orderService.calculateOrderResponse.CurrencySymbol || this.companyService.selectedCurrency.CurrencyCode)"></span>
+                                                    <button matChipRemove>
+                                                        <mat-icon>cancel</mat-icon>
+                                                    </button>
+                                                </ng-container>
+                                            </mat-chip>
+                                        </ng-container>
+                                    </mat-chip-list>
+                                </div>
+                            </div>
+                            <br>
+                            <div>
+                                <mat-radio-group aria-label="Select an option" fxLayout="column"
+                                    [(ngModel)]="userService.selectedShippingMethod">
+
+                                    <mat-label class="color-f-s-13" translate="unifiedapplication_choosing_a_shipping">
+                                    </mat-label>
+                                    <mat-radio-button class="m-b-10 color2-f-s-12" [value]="shipmethod.ShipMethodId"
+                                        *ngFor="let shipmethod of userService.shippingMethods"
+                                        (click)="getShipName(shipmethod.ShipMethodId)">
+                                        <div fxLayout="column">
+                                            <div>
+                                                <span [textContent]="shipmethod.Description"></span> &nbsp;&nbsp;
+                                                <span
+                                                    [textContent]="shipmethod.ShippingAmount | currency:companyService.selectedCurrency.CurrencyCode"></span>
+                                            </div>
+                                        </div>
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                            <br>
+                            <div fxFlex="100" fxLayout="row" class="border-top p-t-10">
+                                <div class="mat-form-field ds-validate l-height-3">
+                                    <div fxFlex="100" fxFlex.xs="100" class="checkbox">
+                                        <mat-checkbox name="TC1" [checked]="checkboxes.accept1" checkbox-validate="true"
+                                            validate>
+                                            <p class="color2-f-s-12"
+                                                translate="unifiedapplication_by_checkmark_this_box_iam_giving_the_company_permission_type_{{userService.customerTypeID}}">
+                                            </p>
+                                        </mat-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div fxFlex="100" fxLayout="row">
+                                <div class="mat-form-field ds-validate l-height-3">
+                                    <div fxFlex="100" fxFlex.xs="100" class="checkbox">
+                                        <mat-checkbox name="TC1" [checked]="checkboxes.accept3" checkbox-validate="true"
+                                            validate>
+                                            <p class="color2-f-s-12"
+                                                translate="unifiedapplication_by_checkmark_this_box_iam_signaling_my_agreement_with_type_{{userService.customerTypeID}}">
+                                            </p>
+                                        </mat-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                    <br>
+                </mat-accordion>
+            </div>
+        </div>
+        <div class="secondContent" fxFlex="30" fxFlex.lt-lg="100" id="sideCartBox"
+            [ngClass]="{ 'full-sideCartBox-height': isPanelOpen }" (opened)="isPanelOpen = true"
+            (closed)="isPanelOpen = false" fxLayout="column">
+            <div id="insideSideCartBox">
+                <mat-card>
+                    <mat-accordion [togglePosition]="'before'" multi>
+                        <div fxLayout="column" class="p-t-9">
+                            <div fxlayout="row" fxFlex="100" calss="m-b-10">
+                                <div fxFlex="7" fxLayoutAlign="start none" class="p-r-25">
+                                    <mat-icon matBadge="{{getQuanity()}} " matBadgeOverlap="true" matBadgeSize="small"
+                                        class="c-gray">
+                                        shopping_cart</mat-icon>
+                                </div>
+                                <div fxFlex="75" fxLayout="column">
+                                    <div>
+                                        <span class="orderSummary" translate="unifiedapplication_order_summary"></span>
+                                    </div>
+                                    <div>
+                                        <span class="itemCount" translate="unifiedapplication_global_total"></span>
+                                        <span *ngIf="itemsService.selectedOrderItems.length>0" class="itemCount"
+                                            [textContent]="': (' + getOrderQuanity()+ ' items)'"></span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20" fxLayoutAlign="none end" fxLayout="column">
+                                    <div *ngIf="itemsService.selectedOrderItems.length>0">
+                                        <strong
+                                            [textContent]="(orderService.calculateOrderResponse.Total) ? (orderService.calculateOrderResponse.Total) : 0 | currency:companyService.selectedCurrency.CurrencyCode"></strong>
+                                    </div>
+                                    <div>
+                                        <span class="itemCount" translate="unifiedapplication_global_pv"></span>
+                                        <span class="itemCount" *ngIf="itemsService.selectedOrderItems.length>0">:
+                                            {{((orderService?.orderBusinessVolume) || 0)}}</span>
+                                        <span class="itemCount" *ngIf="itemsService.selectedOrderItems.length==0">:
+                                            {{((orderService?.autoorderBusinessVolume)||0)}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- Section For Pack Items -->
+                            <div class="m-t-b-15" *ngIf="itemsService.selectedPacks.length > 0">
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <div fxLayout="row" fxFlex="100">
+                                            <div fxLayout="column" fxFlex="80">
+                                                <div>
+                                                    <span class="color3-f-s-13"
+                                                        translate="unifiedapplication_shop_kit_order"></span>
+                                                </div>
+                                                <div>
+                                                    <span class="itemCount"
+                                                        translate="unifiedapplication_sub_total"></span>
+                                                    <span class="itemCount"
+                                                        [textContent]="': (' + getPacksQuanity()+ ' items)'"></span>
+                                                </div>
+                                            </div>
+                                            <div fxFlex="20" fxLayoutAlign="none end" fxLayout="column">
+                                                <div *ngIf="orderService.packTotal">
+                                                    <span class="itemCount"
+                                                        [textContent]="orderService.packTotal | currency: companyService.selectedCurrency.CurrencyCode"></span>
+                                                </div>
+                                                <div>
+                                                    <span class="itemCount"
+                                                        translate="unifiedapplication_global_pv"></span>
+                                                    <span class="itemCount"
+                                                        [textContent]="' : ' + (orderService.packBusinessVolume || 0)"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-expansion-panel-header>
+                                    <div fxLayout="column" class="in collapse borderTop" aria-expanded="true"
+                                        aria-hidden="false">
+                                        <div fxLayout="row" *ngFor="let item of getItems('pack'), let i = index"
+                                            class="items m-t-5 md-no-proxy md-with-secondary _md" fxFlex="100">
+                                            <div class="cart-items__images" fxFlex="30">
+                                                <img class="img-avatar"
+                                                    [src]="configService.localSettings.Disco.DiscoUrl+ '/CMS/images/inventory' + getImage(item)"
+                                                    [default]="'assets/images/noimage.png'"
+                                                    onerror="this.src='assets/images/noimage.png'">
+                                            </div>
+                                            <div class="md-list-item-text layout-column p-t-8" fxLayout="column"
+                                                fxFlex="67">
+                                                <h3 class="product_detail_text1 color3-f-s-13"
+                                                    [textContent]="item.ProductName | slice:0:40"
+                                                    matTooltip="{{item.ProductName}}"></h3>
+                                                <span class="f-s-12" *ngIf="item.selectedOptions"
+                                                    [textContent]="item.selectedOptions"></span>
+                                                <p class="product_detail_qv  m-b-0">{{'global_pv'|translate}}<span> :
+                                                        {{item.Quantity * (item.CV || item.QV || 0)}}</span>
+                                                </p>
+                                                <div class="input-group" fxLayoutAlign="center center">
+                                                    <span class="input-group-btn">
+                                                        <button mat-button-icon class=""
+                                                            (click)="decreaseQuantiy('pack', item)" type="button">
+                                                            <mat-icon class="c-gray">remove</mat-icon>
+                                                        </button>
+                                                    </span>
+                                                    <input type="text"
+                                                        [(ngModel)]="getQuantityModel('pack', item)[item.ItemID]"
+                                                        (change)="checkQuantity('pack', item)"
+                                                        (keyup)="($event.which === 38) ? increaseQuantiy('pack', item) : 0"
+                                                        (keydown)="($event.which === 40) ? decreaseQuantiy('pack', item) : 0"
+                                                        (keypress)="getLastQuantity('pack', item)"
+                                                        (ngInit)="getQuantityModel('pack', item)[item.ItemID] ? getQuantityModel('pack', item)[item.ItemID] : getQuantityModel('pack', item)[item.ItemID] = 1"
+                                                        class="input-control" maxlength="2" validate=""
+                                                        inputonlynumber="true" aria-invalid="false">
+                                                    <span class="input-group-btn">
+                                                        <button mat-button-icon class="c-gray"
+                                                            (click)="increaseQuantiy('pack', item)" type="button">
+                                                            <mat-icon>add</mat-icon>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div fxFlex="8">
+                                                <button mat-icon-button (click)="removeFromCart('pack', item)">
+                                                    <mat-icon class="c-gray">close</mat-icon>
+                                                </button>
+                                                <div class="md-secondary-container">
+                                                    <div class="price_set">
+                                                        <p
+                                                            [textContent]="(item.Quantity * item.Price) | currency: companyService.selectedCurrency.CurrencyCode">
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                                <mat-divider></mat-divider>
+                            </div>
+                            <!-- Section For Orders Items -->
+                            <div class="m-t-b-15" *ngIf="itemsService.selectedOrderItems.length > 0">
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <div fxLayout="row" fxFlex="100">
+                                            <div fxLayout="column" fxFlex="80">
+                                                <div>
+                                                    <span class="color3-f-s-13"
+                                                        translate="unifiedapplication_initial_order"></span>
+                                                </div>
+                                                <div>
+                                                    <span class="itemCount"
+                                                        translate="unifiedapplication_sub_total"></span>
+                                                    <span class="itemCount"
+                                                        [textContent]="': (' + getOrderQuanity()+ ' items)'"></span>
+                                                </div>
+                                            </div>
+                                            <div fxFlex="20" fxLayoutAlign="none end" fxLayout="column">
+                                                <div *ngIf="orderService.orderTotal">
+                                                    <span class="itemCount"
+                                                        [textContent]="orderService.orderTotal ? orderService.orderTotal : 0 | currency: companyService.selectedCurrency.CurrencyCode"></span>
+                                                </div>
+                                                <div>
+                                                    <span class="itemCount"
+                                                        translate="unifiedapplication_global_pv"></span><span
+                                                        class="itemCount"
+                                                        [textContent]="' : ' + (orderService?.orderBusinessVolume || 0)"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </mat-expansion-panel-header>
+                                    <div fxLayout="column" class="in collapse borderTop" aria-expanded="true"
+                                        aria-hidden="false">
+                                        <div fxLayout="row" *ngFor="let item of getItems('order')"
+                                            class="items m-t-5 md-no-proxy md-with-secondary _md" fxFlex="100">
+                                            <div class="cart-items__images" fxFlex="30">
+                                                <img class="img-avatar"
+                                                    [src]="configService.localSettings.Disco.DiscoUrl+ '/CMS/images/inventory' + getImage(item)"
+                                                    [default]="'assets/images/noimage.png'"
+                                                    onerror="this.src='assets/images/noimage.png'">
+                                            </div>
+                                            <div class="md-list-item-text layout-column p-t-8" fxLayout="column"
+                                                fxFlex="67">
+                                                <h3 class="product_detail_text1 color3-f-s-13"
+                                                    [textContent]="item.ProductName | slice:0:40"
+                                                    [matTooltip]="item.ProductName"></h3>
+                                                <span class="f-s-12" *ngIf="item.selectedOptions"
+                                                    [textContent]="item.selectedOptions"></span>
+                                                <p class="product_detail_qv  m-b-0">{{'global_pv'|translate}}<span> :
+                                                        {{item.Quantity * (item.CV || item.QV || 0)}}</span>
+                                                </p>
+                                                <div class="input-group" fxLayoutAlign="center center">
+                                                    <span class="input-group-btn">
+                                                        <button mat-button-icon class=""
+                                                            (click)="decreaseQuantiy('order', item)" type="button">
+                                                            <mat-icon class="c-gray">remove</mat-icon>
+                                                        </button>
+                                                    </span>
+                                                    <input type="text"
+                                                        [(ngModel)]="getQuantityModel('order', item)[item.ItemID]"
+                                                        (change)="checkQuantity('order', item); "
+                                                        (keyup)="($event.which === 38) ? increaseQuantiy('order', item) : 0"
+                                                        (keydown)="($event.which === 40) ? decreaseQuantiy('order', item) : 0"
+                                                        (keypress)="getLastQuantity('order', item)"
+                                                        (ngInit)="getQuantityModel('order', item)[item.ItemID] ? getQuantityModel('order', item)[item.ItemID] : getQuantityModel('order', item)[item.ItemID] = 1"
+                                                        class="input-control" validate inputonlynumber="true"
+                                                        maxlength="2" aria-invalid="false">
+                                                    <span class="input-group-btn">
+                                                        <button mat-button-icon (click)="increaseQuantiy('order', item)"
+                                                            type="button">
+                                                            <mat-icon class="c-gray">add</mat-icon>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div fxFlex="8">
+                                                <button mat-icon-button (click)="removeFromCart('order', item)">
+                                                    <mat-icon class="c-gray">close</mat-icon>
+                                                </button>
+                                                <div class="md-secondary-container">
+                                                    <div class="price_set">
+                                                        <p
+                                                            [textContent]="(item.Quantity * item.Price) | currency: companyService.selectedCurrency.CurrencyCode">
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                                <mat-divider></mat-divider>
+                            </div>
+                            <div fxLayout="column" fxFlex="100" class="m-l-48"
+                                *ngIf="itemsService.selectedOrderItems.length > 0 || itemsService.selectedPacks.length > 0">
+                                <div fxLayout="row" fxFlex="100">
+                                    <div fxFlex="50">
+                                        <span class="itemCount" translate="unifiedapplication_sub_total"></span>
+                                    </div>
+                                    <div fxFlex="50" fxLayoutAlign="end none">
+                                        <span class="itemCount"
+                                            [textContent]="((orderService.calculateOrderResponse.SubTotal) ? (orderService.calculateOrderResponse.SubTotal) : 0) | currency: companyService.selectedCurrency.CurrencyCode"></span>
+                                    </div>
+                                </div>
+                                <div fxLayout="row" fxFlex="100">
+                                    <div fxFlex="50">
+                                        <span class="itemCount" translate="unifiedapplication_discounttotal"></span>
+                                    </div>
+                                    <div fxFlex="50" fxLayoutAlign="end none">
+                                        <span class="itemCount"
+                                            [textContent]="((orderService.calculateOrderResponse.DiscountTotal) ? (orderService.calculateOrderResponse.DiscountTotal) : 0) |currency:companyService.selectedCurrency.CurrencyCode"></span>
+                                    </div>
+                                </div>
+                                <div fxLayout="row" fxFlex="100">
+                                    <div fxFlex="50">
+                                        <span class="itemCount" translate="unifiedapplication_shippingtotal"></span>
+                                    </div>
+                                    <div fxFlex="50" fxLayoutAlign="end none">
+                                        <span class="itemCount"
+                                            [textContent]="((orderService.calculateOrderResponse.ShippingTotal) ? (orderService.calculateOrderResponse.ShippingTotal) : 0) |currency:companyService.selectedCurrency.CurrencyCode"></span>
+                                    </div>
+                                </div>
+                                <div fxLayout="row" fxFlex="100">
+                                    <div fxFlex="50">
+                                        <span class="itemCount" translate="unifiedapplication_taxtotal"></span>
+                                    </div>
+                                    <div fxFlex="50" fxLayoutAlign="end none">
+                                        <span class="itemCount"
+                                            [textContent]="((orderService.calculateOrderResponse.TaxTotal) ? (orderService.calculateOrderResponse.TaxTotal) : 0) |currency:companyService.selectedCurrency.CurrencyCode"></span>
+                                    </div>
+                                </div>
+                                <div fxLayout="row" fxFlex="100">
+                                    <div fxFlex="50">
+                                        <span class="itemCount" translate="unifiedapplication_global_total"></span>
+                                    </div>
+                                    <div fxFlex="50" fxLayoutAlign="end none">
+                                        <span class="itemCount"
+                                            [textContent]="((orderService.calculateOrderResponse.Total) ? (orderService.calculateOrderResponse.Total) : 0) |currency:companyService.selectedCurrency.CurrencyCode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Section For Autoship Items -->
+                            <div class="m-t-b-15" *ngIf="itemsService.selectedAutoOrderItems.length > 0">
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <div fxLayout="row" fxFlex="100">
+                                            <div fxLayout="column" fxFlex="80">
+                                                <div>
+                                                    <span class="color3-f-s-13"
+                                                        translate="unifiedapplication_autoship_order"></span>
+                                                </div>
+                                                <div>
+                                                    <span class="itemCount"
+                                                        translate="unifiedapplication_sub_total"></span>
+                                                    <span class="itemCount"
+                                                        [textContent]="': (' + getAutoOrderQuanity() + ' items)'"></span>
+                                                </div>
+                                            </div>
+                                            <div fxFlex="20" fxLayoutAlign="none end" fxLayout="column">
+                                                <div>
+                                                    <span class="itemCount"
+                                                        [textContent]="((orderService.calculateAutoOrderResponse.SubTotal ? (orderService.calculateAutoOrderResponse.SubTotal - orderService.calculateAutoOrderResponse.DiscountTotal) : 0) | currency:companyService.selectedCurrency.CurrencyCode)"></span>
+                                                </div>
+                                                <div>
+                                                    <span class="itemCount"
+                                                        translate="unifiedapplication_global_pv"></span><span
+                                                        class="itemCount">
+                                                        :
+                                                        {{(orderService?.autoorderBusinessVolume ||
+                                                        0)}}</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </mat-expansion-panel-header>
+                                    <div fxLayout="column" class="in collapse borderTop" aria-expanded="true"
+                                        aria-hidden="false">
+                                        <div fxLayout="row" *ngFor="let item of getItems('autoship')"
+                                            class="items m-t-5 md-no-proxy md-with-secondary _md" fxFlex="100">
+                                            <div class="cart-items__images" fxFlex="30">
+                                                <img class="img-avatar"
+                                                    [src]="configService.localSettings.Disco.DiscoUrl+ '/CMS/images/inventory' + getImage(item)"
+                                                    [default]="'assets/images/noimage.png'"
+                                                    onerror="this.src='assets/images/noimage.png'">
+                                            </div>
+                                            <div class="md-list-item-text layout-column p-t-8" fxLayout="column"
+                                                fxFlex="67">
+                                                <p class="product_detail_text1 color3-f-s-13"
+                                                    [textContent]="item.ProductName | slice:0:40"
+                                                    [matTooltip]="item.ProductName"></p>
+                                                <span class="f-s-12" *ngIf="item.selectedOptions"
+                                                    [textContent]="item.selectedOptions"></span>
+                                                <p class="product_detail_qv  m-b-0">{{"unifiedapplication_global_pv" |
+                                                    translate}}<span> : {{item.Quantity * (item.CV ||
+                                                        item.QV || 0)}}</span>
+                                                </p>
+                                                <div class="input-group" fxLayoutAlign="center center">
+                                                    <span class="input-group-btn">
+                                                        <button mat-button-icon class="c-gray"
+                                                            (click)="decreaseQuantiy('autoship', item)" type="button">
+                                                            <mat-icon>remove</mat-icon>
+                                                        </button>
+                                                    </span>
+                                                    <input type="text"
+                                                        [(ngModel)]="getQuantityModel('autoship',item)[item.ItemID]"
+                                                        (change)="checkQuantity('autoship', item)"
+                                                        (keyup)="($event.which === 38) ? increaseQuantiy('autoship', item) : 0"
+                                                        (keydown)="($event.which === 40) ? decreaseQuantiy('autoship', item) : 0"
+                                                        (keypress)="getLastQuantity('autoship', item)"
+                                                        (ngInit)="getQuantityModel('autoship', item)[item.ItemID] ? getQuantityModel('autoship', item)[item.ItemID] : getQuantityModel('autoship', item)[item.ItemID] = 1"
+                                                        class="input-control" maxlength="2" validate=""
+                                                        inputonlynumber="true" aria-invalid="false">
+                                                    <span class="input-group-btn">
+                                                        <button mat-button-icon class=""
+                                                            (click)="increaseQuantiy('autoship', item)" type="button">
+                                                            <mat-icon class="c-gray">add</mat-icon>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div fxFlex="8">
+                                                <button mat-icon-button (click)="removeFromCart('autoship', item)">
+                                                    <mat-icon class="c-gray">close</mat-icon>
+                                                </button>
+                                                <div class="md-secondary-container">
+                                                    <div class="price_set">
+                                                        <p
+                                                            [textContent]="(item.Quantity * item.Price) | currency: companyService.selectedCurrency.CurrencyCode">
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                                <mat-divider></mat-divider>
+                            </div>
+                            <div fxLayout="column" fxFlex="100" class="m-l-48"
+                                *ngIf="itemsService.selectedAutoOrderItems.length > 0">
+                                <div fxLayout="row" fxFlex="100">
+                                    <div fxFlex="12" fxFlex.sm="5" fxFlex.md="5" fxLayoutAlign="start center">
+                                        <mat-icon class="c-gray" style="margin-bottom: 18px;" (click)="picker.open()">
+                                            calendar_today</mat-icon>
+                                    </div>
+                                    <div fxFlex="70">
+                                        <p class="itemCount">{{'unifiedapplication_autoship_order_note_freq' | translate:{frequency:frequencyDescription(persistentService.retailData.Autoship.FrequencyTypeID)} }}</p>
+                                    </div>
+                                    <div fxFlex="20"></div>
+                                </div>
+                                <div fxFlex="60" fxLayout="row">
+                                    <div fxFlex="60">
+                                        <mat-form-field class="example-full-width" fxFlex appearance="outline">
+                                            <mat-label>Choose a date</mat-label>
+                                            <input matInput [matDatepicker]="picker"
+                                                [(ngModel)]="autoshipConfigurationService.autoshipDate"
+                                                [min]="AutoshipMinDate" [max]="AutoshipMaxDate" disabled>
+                                            <mat-datepicker-toggle matSuffix [for]="picker">
+                                                <mat-icon class="c-gray" matDatepickerToggleIcon>keyboard_arrow_down
+                                                </mat-icon>
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #picker disabled="false"
+                                                [startAt]="autoshipConfigurationService.autoshipDate">
+                                            </mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="40"></div>
+                                </div>
+                                <div fxFlex="60" fxLayout="row">
+                                    <div fxFlex="100">
+                                        <mat-form-field fxFlex="83" fxFlex.xs="67" fxFlex.sm="60" fxFlex.md="60"
+                                            appearance="outline">
+                                            <mat-label translate="unifiedapplication_choose_frequency"></mat-label>
+                                            <mat-select
+                                                [(ngModel)]="persistentService.retailData.Autoship.FrequencyTypeID"
+                                                (selectionChange)="setFrequency();">
+                                                <mat-option *ngFor="let freq of commonData.FrequencyTypes"
+                                                    [value]="freq.ID">
+                                                    {{freq.Description | translate}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-accordion>
+                </mat-card>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center" class="placeorder-button" fxLayoutGap="10px">
+                <div class="addButton">
+                    <button mat-raised-button color="primary" translate="" [routerLink]="['/products/all']"
+                        routerLinkActive="router-link-active">
+                        {{'unifiedapplication_add_more_items' |translate}}
+                    </button>
+                </div>
+                <div class="placeOrderButton">
+                    <button mat-raised-button color="primary" validate trigger-check="true" [disabled]="IsSubmitDisable"
+                        (success)="checkCvvModal()" translate="">
+                        {{ "unified_place_order" | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function OnIFrameSave(e) {
+
+    }
+</script>

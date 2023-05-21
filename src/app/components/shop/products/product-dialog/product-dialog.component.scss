@@ -1,0 +1,37 @@
+.img-parent {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  min-height: 290px;
+  max-height: 80%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+  border-bottom: 1px solid var(--theme-deafult-medium-grey);
+
+  img {
+    height: auto;
+    max-height: 290px;
+    max-width: 100%;
+  }
+}
+
+::ng-deep .product-dialog .close-button {
+  float: right;
+  top: -52px;
+  right: -52px;
+}
+
+::ng-deep .product-dialog .mat-dialog-container {
+  margin: 20px 0px;
+  overflow: unset;
+}
+
+.images-options{
+  margin-top: 10px !important;
+}

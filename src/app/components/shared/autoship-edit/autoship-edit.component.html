@@ -1,0 +1,276 @@
+<mat-card id="autoshipEditor">
+  <mat-card-content>
+    <div fxLayout="column">
+      <div fxLayout="row" fxLayout.lt-lg="column" fxFlex="100" class="main">
+        <div fxFlex="49" fxLayout="column" class="p-r-15">
+          <div fxLayout="row" class="text-uppercase  borderBottom">
+            <div fxFlex="70" class="color-f-s-14">
+              <span translate="autoshiip"></span>
+              <span [textContent]="''+persistentService?.retailData?.CurrentSelectedAutoOrder"></span>
+            </div>
+            <div fxFlex="10" class="text-center color-f-s-14" translate="global_pv"></div>
+            <div fxFlex="20" class="text-right color-f-s-14" translate="price"></div>
+          </div>
+          <div fxLayout="row" class="items m-t-5 md-no-proxy mx-height-30 _md borderBottom1"
+            *ngFor="let item of itemsService.selectedAutoOrderItems, let i = index">
+            <div fxLayout="row" fxFlex="70">
+              <div class="cart-items__images" fxFlex="30">
+                <img class="img-avatar"
+                  [src]="configService.localSettings.Disco.DiscoUrl+ '/CMS/images/inventory' + item.ImageUrl"
+                  [default]="'assets/images/noimage.png'" onerror="this.src='assets/images/noimage.png'">
+              </div>
+              <div class="md-list-item-text layout-column p-t-8" fxLayout="column" fxFlex="55">
+                <h3 class="product_detail_text itemName" matTooltip="Ignite Plumping Lip Gloss"
+                  [textContent]="(item.ItemName || item.ProductName) | slice:0:40"></h3>
+                <span class="product_detail_text" [textContent]="item.selectedOptions"></span>
+                <div fxLayout="row" class="">
+                  <div class="input-group" fxLayoutAlign="center center">
+                    <span class="input-group-btn">
+                      <button mat-button-icon class="" type="button"
+                        (click)="cart1Service.decreaseQuantiy(item,true,false)">
+                        <mat-icon class="c-gray">remove</mat-icon>
+                      </button>
+                    </span>
+                    <input type="text" class="input-control" maxlength="2"
+                      [(ngModel)]="getQuantityModel('autoship',item)[item.ItemID]" validate inputonlynumber="true"
+                      (change)="checkQuantity('autoship', item)"
+                      (keyup)="($event.which === 38) ? cart1Service.increaseQuantiy(item, true, false) : 0"
+                      (keydown)="($event.which === 40) ? cart1Service.decreaseQuantiy(item, true, false) : 0">
+                    <span class="input-group-btn">
+                      <button mat-button-icon class="" type="button"
+                        (click)="cart1Service.increaseQuantiy(item,true,false)">
+                        <mat-icon class="c-gray">add</mat-icon>
+                      </button>
+                    </span>
+                  </div>
+                  <div fxLayout="row" class="actionButton">
+                    <!-- Edit item -->
+                    <button mat-button class="" waves="circle" type="button"
+                      (click)="cart1Service.showProductDetail(item, true, item.HasOptions, false, true)">
+                      <mat-icon class="c-gray">edit</mat-icon>
+                    </button>
+                    <!-- Delete item -->
+                    <button mat-button class="" waves="circle" type="button" (click)="deleteItem(item)">
+                      <mat-icon class="c-gray">delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="10" fxLayoutAlign="center start">
+              <span class="color-f-s-14" [textContent]="item.Quantity * (item.BusinessVolume || item.PV || item.CV || 0)"></span>
+            </div>
+            <div fxFlex="20" fxLayoutAlign="end start">
+              <span class="color-f-s-14" [textContent]="(item.Price | currency: companyService.selectedCurrency.CurrencyCode)"></span>
+            </div>
+          </div>
+          <div>
+            <div class="p-t-10 p-b-10 borderBottom1" fxFlex='100' fxLayout="row">
+              <div class="text-right" fxFlex="60"><span translate>sub_total</span>:</div>
+              <div class="text-right" fxFlex="20">
+                <strong>
+                  <span class="m-r-15" data-text="discount-total "
+                    [textContent]="orderService.autoorderBusinessVolume"></span>
+                </strong>
+              </div>
+              <div class="text-right" fxFlex="20">
+                <strong>
+                  <span data-text="taxtotal"
+                    [textContent]="(orderService.calculateAutoOrderResponse.SubTotal | currency: companyService.selectedCurrency.CurrencyCode)"></span>
+                </strong>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="p-t-10 p-b-10" fxFlex='100' fxLayout="row">
+              <div class="text-right" fxFlex="60"> {{'global_total'|translate}} :</div>
+              <div class="text-right" fxFlex="40">
+                <strong>
+                  <span data-text="subtotal"
+                    [textContent]="(orderService.calculateAutoOrderResponse.Total | currency: companyService.selectedCurrency.CurrencyCode)"></span>
+                </strong>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxFlex="2" class="borderLeft">
+        </div>
+        <div fxFlex="49" class="padding-t-20">
+          <div fxLayout="column" fxFlex="100">
+            <div class="borderBottom" fxFlex="5">
+              <span class="color-f-s-17" translate="shipping_payment"></span>
+            </div>
+            <div fxLayout="row" class="borderBottom1" fxFlex="95">
+              <div class="m-t-10">
+                <mat-icon class="c-gray">access_time</mat-icon>
+              </div>
+              <div class="flex-grow p-l-15 m-t-10 m-b-10">
+                <div *ngIf="!IsMultipleFrequency" class="f-s-12 c-black87 text-uppercase color-f-s-12"
+                  translate="frequency"></div>
+                <div *ngIf="IsMultipleFrequency" class="f-s-12 c-black87 text-uppercase color-f-s-12"
+                  translate="Date Picker"></div>
+                  <!-- <div [textContent]="getAutoshipStartDate() | date: 'MMMM d, yyyy'"><span><mat-icon class="c-gray">edit</mat-icon></span>
+                  </div> -->
+                  <div fxLayout="row" fxLayoutAlign="start center">
+                    <div [textContent]="getAutoshipStartDate() | date: 'MMMM d, yyyy'">
+                    </div>
+                    <div>
+                      <mat-icon class="c-gray cursor-pointer" (click)="picker.open()">edit</mat-icon>
+                    </div>
+                  </div>  
+                <div *ngIf="!IsMultipleFrequency" [textContent]="getAutoshipFrequency() | translate"></div>
+                <!-- Multiple Frequency -->
+                <div fxLayout="row">
+                  <div class="p-0" *ngIf="IsMultipleFrequency">
+                    <div class="f-s-12 c-black87 text-uppercase p-0 color-f-s-12" translate="frequency"></div>
+                    <div class="p-0">
+                      <mat-form-field fxFlex="100">
+                        <mat-select frequencychecksection="true" [(ngModel)]="frequencyTypeID"
+                          (selectionChange)="setFrequency(frequencyTypeID);" aria-label="frequency">
+                          <mat-option *ngFor="let freq of commonData.FrequencyTypes" [value]="freq.ID" translate="">
+                            {{freq.Description | translate}} </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxLayoutAlign="center center">
+                    <mat-form-field appearance="none" fxFlex>
+                       <!-- <mat-label fxHide>Choose a date</mat-label> -->
+                       <input matInput [matDatepicker]="picker" [(ngModel)]="autoshipConfigurationService.autoshipDate" [min]="AutoshipMinDate"
+                         [max]="AutoshipMaxDate" disabled (dateChange)="editAutoshipFrequency($event);" fxHide>
+                       <mat-datepicker-toggle style="display: none;" matSuffix [for]="picker">
+                         <mat-icon class="c-gray" matDatepickerToggleIcon fxHide>keyboard_arrow_down </mat-icon>
+                       </mat-datepicker-toggle>
+                       <mat-datepicker #picker disabled="false" [startAt]="autoshipConfigurationService.autoshipDate"></mat-datepicker>
+                     </mat-form-field>
+                 </div>
+                </div>
+              </div>
+            </div>
+            <div fxLayout="row" fxFlex="100" class="borderBottom1">
+              <div class="m-t-10" fxFlex="5">
+                <mat-icon class="c-gray">local_shipping</mat-icon>
+              </div>
+              <div class="flex-grow p-l-15 m-t-10 m-b-10" fxFlex="50">
+                <div id="shipmethods">
+                  <div class="f-s-12 c-black87 text-uppercase color-f-s-12" translate="shipping_method"></div>
+                  <div [textContent]="getShipMethodName()" translate></div>
+                </div>
+              </div>
+              <!-- Edit shipping frequency -->
+              <div class="editButton" fxLayoutAlign="end start" fxFlex="45">
+                <a class="text-uppercase c-color1 m-t-10" (click)="editAutoshipShippingMethod()"
+                  translate="global_edit"></a>
+              </div>
+            </div>
+            <div fxLayout="row" fxFlex="100" class="borderBottom1">
+              <div class="m-t-10" fxFlex="5">
+                <mat-icon class="c-gray"> location_on</mat-icon>
+              </div>
+              <div class="flex-grow p-l-15 m-t-10 m-b-10" fxFlex="50">
+                <h5 class="f-s-12 c-black87 text-uppercase p-0 color-f-s-12" translate="shipping_address_lower"></h5>
+                <div class="view-shippingaddress" flex fxLayout="row">
+                  <address class="color-f-s-14"
+                    *ngIf="!isStateRestrict && !utilityService.isEmptyObject(userService.shippingAddress)">
+                    <span [textContent]="userService.shippingAddress.Street1"></span>
+                    <br>
+                    <span [textContent]="userService.shippingAddress.Street2"></span>
+                    <br>
+                    <span [textContent]="userService.shippingAddress.City"></span>
+                    <span [textContent]="userService.shippingAddress.Region"></span>
+                    <span [textContent]="userService.shippingAddress.PostalCode"></span>
+                  </address>
+                </div>
+              </div>
+              <!-- Edit shipping frequency -->
+              <div class="editButton" fxLayoutAlign="end start" fxFlex="45">
+                <button *ngIf="isStateRestrict || utilityService.isEmptyObject(userService.shippingAddress)"
+                  class="btn bgm-color2 m-l-0 text-uppercase c-color1 m-t-10" mat-button
+                  (click)="editAutoshipShippingAddress()">{{'add_address' | translate}}</button>
+                <a class="text-uppercase c-color1 m-t-10"
+                  *ngIf="!isStateRestrict && !utilityService.isEmptyObject(userService.shippingAddress)"
+                  (click)="editAutoshipShippingAddress()" translate="global_edit"></a>
+              </div>
+            </div>
+            <div fxLayout="row" fxFlex="100">
+              <div fxFlex="5" class="m-t-10">
+                <mat-icon class="c-gray">credit_card</mat-icon>
+              </div>
+              <div fxFlex="95" fxLayout="column" class="flex-grow p-l-15 m-t-10 m-b-10">
+                <div>
+                  <span class="" translate="shop_payment_new"></span>
+                </div>
+                <div>
+                  <mat-form-field fxFlex>
+                    <mat-label *ngIf="userService.paymentMethods.length > 0 && !userService.isPaymentChanged"
+                      [textContent]="getDisplayValue()">
+                    </mat-label>
+                    <mat-label *ngIf="userService.paymentMethods.length == 0" translate="unified_add_payment_method">
+                    </mat-label>
+                    <mat-select>
+                      <mat-select-trigger>
+                        <span *ngIf="userService.paymentMethods.length > 0" [textContent]="getDisplayValue()"></span>
+                      </mat-select-trigger>
+                      <ng-container *ngIf="paymentService.PaymentTypeResponse['SaveMethods']">
+                        <mat-option *ngFor="let paymentMethod of paymentService.PaymentTypeResponse['SaveMethods']"
+                          value="Credit Card" (click)="addSavePayment(paymentMethod);" class="c-color1"
+                          [attr.merchant_id]="paymentMethod.MerchantId" translate>
+                          <mat-icon class="p-r-10">credit_card</mat-icon>
+                          <span style="cursor: pointer">
+                            <span [textContent]="getPaymentDescription(paymentMethod)"></span>
+                            <span> {{'_exp'|translate}}&nbsp;&nbsp; <span
+                                [textContent]="paymentMethod.Expires | date:'MM/yyyy'"></span>
+                            </span>
+                          </span>
+                          <span class="multipay__dropdown-list__filler"></span>
+                          <button mat-icon-button class="btn-icon btn-icon--small btn-link" (click)="removeCardDetail(paymentMethod);">
+                            <mat-icon class="p-r-10">delete</mat-icon>
+                          </button>
+                        </mat-option>
+                      </ng-container>
+                      <ng-container *ngIf="paymentService.PaymentTypeResponse['AllowedMethods']">
+                        <mat-option *ngFor="let addpayments of paymentService.PaymentTypeResponse['AllowedMethods']"
+                          value="Credit Card" (click)="addSavePayment(addpayments);" class="c-color1"
+                          [attr.merchant_id]="addpayments.MerchantId"
+                          [innerHTML]="addpayments.DisplayName | paymentTranslate:addpayments.DisplayName" translate>
+                        </mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="ds-row__item clearfix m-l-0"
+                  *ngIf="(paymentService.SelectedPaymentTypes.CanSavePayments == false || paymentService.SelectedPaymentTypes.CanSavePayments == 'false')">
+                  <span class="ds-row__item clearfix" *ngIf="!userService.paymentMethods[0].Redirect"
+                    [innerHTML]="('order_pending') | translate" translate></span>
+                  <span class="ds-row__item clearfix" *ngIf="userService.paymentMethods[0].Redirect"
+                    [innerHTML]="('order_needs_redirect') | translate" translate></span>
+                  <span [innerHTML]="('click_here_payment_inst') | translate">
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayout.lt-md="column" class="footerBottom" fxFlex='100' fxLayoutAlign.lt-sm="center center"
+        fxLayoutAlign.sm="start stretch">
+        <div fxLayoutAlign="start center" fxFlex='50'>
+          <button mat-raised-button (click)="addAutoshipItem()">{{'add_more_items' | translate}}</button>
+        </div>
+        <div fxFlex='50'>
+          <div fxLayout="row" fxLayoutAlign.gt-sm="end end" class="m-t-12">
+            <button mat-button (click)="cancelAutoship()"
+              *ngIf="this.utilityService.getAutoshipEditFlag()">{{'cancel_autoship' | translate}}</button>
+            <button mat-button [attr.disabled]="isDisabledCreateOrder" *ngIf="autoshipChanged()"
+              (click)="updateAutoOrder()">{{'save_' | translate}}</button>
+            <button mat-button
+              *ngIf="AutoshipSetting['IsShowDeleteAutoship'] && this.utilityService.getAutoshipEditFlag()"
+              (click)="deleteAutoship();">
+              <mat-icon>delete</mat-icon>{{"delete_" | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

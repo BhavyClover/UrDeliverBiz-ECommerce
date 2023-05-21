@@ -1,0 +1,197 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+<div class="dialog-content-wrapper invoiceDialog" id="invoice-wrapper">
+    <mat-toolbar class="header m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title" fxFlex translate="invoice_"></span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content id="invoice-content" fxLayout="column">
+        <div fxLayout="row" fxFlex="100">
+            <div fxFlex="40">
+                <div fxLayout="column">
+                    <div>
+                        <p class="colorf-s-14">
+                            <span [textContent]="config.localSettings.Company.Address.Street"></span>&nbsp;
+                            <br />
+                            <span [textContent]="config.localSettings.Company.Address.City"></span>&nbsp;
+                            <span [textContent]="config.localSettings.Company.Address.State"></span>&nbsp;
+                            <span [textContent]="config.localSettings.Company.Address.Zip"></span>&nbsp;
+                            <br />
+                            <span [textContent]="config.localSettings.Company.Address.Country"></span>
+                            <br />
+                            <span [textContent]="config.localSettings.Company.Address.Phone"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="20">
+
+            </div>
+            <div fxLayoutAlign="end start" fxFlex="40">
+                <div fxLayoutAlign="end" fxLayout="column">
+                    <div class="invoice">
+                        <h3 translate="invoice_"></h3>
+                    </div>
+                    <div>
+                        <label class="colorf-s-14" translate="Order Date"></label> <span class="colorf-s-14"
+                            [textContent]="OrderData.OrderDate  | date :'MM/dd/yyyy'"></span>
+                    </div>
+                    <div>
+                        <label class="colorf-s-14" translate="invoice_"></label> <span class="colorf-s-14"
+                            [textContent]="OrderData.OrderNumber"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="horizontalLine">
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.gt-xs="space-around center" class="p-t-10 m-b-30">
+            <div class="p-r-b">
+                <div fxLayout="row" *ngIf="OrderData?.Packages && OrderData?.Packages?.length>0">
+                    <div class="p-r-15">
+                        <label class="colorf-s-14" translate="invoice_ship_to"></label>&nbsp;
+                    </div>
+                    <div>
+                        <span class="colorf-s-14" [textContent]="OrderData?.Packages[0].ShipTo"></span><br>
+                        <span class="colorf-s-14" [textContent]="OrderData?.Packages[0].Address1"></span>&nbsp;<span
+                            class="colorf-s-14" [textContent]="OrderData?.Packages[0].Address2"></span><br>
+                        <span class="colorf-s-14" [textContent]="OrderData?.Packages[0].City"></span>&nbsp;<span
+                            class="colorf-s-14" [textContent]="OrderData?.Packages[0].State"></span>&nbsp;<span class="colorf-s-14"
+                            [textContent]="OrderData?.Packages[0].Zip"></span>,&nbsp;<span class="colorf-s-14"
+                            [textContent]="OrderData?.Packages[0].CountryCode"></span>
+                    </div>
+                </div>
+            </div>
+            <div>
+            </div>
+        </div>
+        <div class="table1 m-b-30">
+            <table>
+                <thead>
+                    <tr>
+                        <th translate="invoice_customer"></th>
+                        <th translate="Source"></th>
+                        <th translate="invoice_status"></th>
+                        <th translate="ship_via"></th>
+                        <th translate="shipping_date"></th>
+                        <th translate="tracking"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td [textContent]="OrderData.DistributorID"></td>
+                        <td [textContent]="OrderData.OrderTypeDescription"></td>
+                        <td [textContent]="OrderData.IsShipped"></td>
+                        <td [textContent]="OrderData.Packages?.length>0?OrderData.Packages[0].Carrier:'--'"> </td>
+                        <td [textContent]="OrderData.Packages?.length>0?OrderData.Packages[0].ShippedDate :'--'"></td>
+                        <td [textContent]="OrderData.Packages?.length>0?OrderData.Packages[0].TrackingNumber:'--'"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table2 m-b-30">
+            <table>
+                <thead>
+                    <tr>
+                        <th translate="SKU"></th>
+                        <th translate="global_description"></th>
+                        <th translate="global_quantity"></th>
+                        <th translate="unit_price"></th>
+                        <th translate="global_pv"></th>
+                        <th translate="invoice_unit_cv"></th>
+                        <th translate="invoice_line_total"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let items of OrderData.LineItems">
+                        <td [textContent]="items.SKU"></td>
+                        <td [textContent]="items.ProductName"></td>
+                        <td [textContent]="items.Qty"></td>
+                        <td [textContent]="items.Amount | currency:companyService.selectedCurrency.CurrencyCode"> </td>
+                        <td [textContent]="items.CV"> </td>
+                        <td [textContent]="items.QV"> </td>
+                        <td
+                            [textContent]="(items.Amount* items.Qty)| currency:companyService.selectedCurrency.CurrencyCode">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxFlex="100">
+            <div fxLayout="column" fxFlex="67" fxFlex.sm="62" fxHide.lt-sm class="m-t-20">
+                <div>
+                    <label class="colorf-s-14" translate="invoice_notes"></label>
+                </div>
+                <div class="noteBox">
+
+                </div>
+            </div>
+            <div fxFlex="5" fxHide.lt-sm></div>
+            <div fxFlex="28" fxFlex.sm="33" fxFlex.xs="100" class="table3">
+                <table style="border-spacing: 0px; max-width: 100%;">
+                    <tr>
+                        <td translate="subTotal"></td>
+                        <td class="table3td"
+                            [textContent]="OrderData?.Totals[0]?.SubTotal| currency:companyService.selectedCurrency.CurrencyCode">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td translate="shippinghandling"></td>
+                        <td class="table3td"
+                            [textContent]="OrderData?.Totals[0]?.Shipping| currency:companyService.selectedCurrency.CurrencyCode">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td translate="tax"></td>
+                        <td class="table3td"
+                            [textContent]="OrderData?.Totals[0]?.Tax| currency:companyService.selectedCurrency.CurrencyCode">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td translate="grand_total"></td>
+                        <td class="table3td"
+                            [textContent]="(OrderData?.Totals[0]?.SubTotal + OrderData?.Totals[0]?.Shipping +OrderData?.Totals[0]?.Tax)| currency:companyService.selectedCurrency.CurrencyCode">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td translate="discount"></td>
+                        <td class="table3td"
+                            [textContent]="OrderData?.Totals[0]?.DiscountTotal| currency:companyService.selectedCurrency.CurrencyCode">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td translate="total_paid"></td>
+                        <td class="table3td"
+                            [textContent]="OrderData.Totals[0]?.Total| currency:companyService.selectedCurrency.CurrencyCode">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td translate="total_due"></td>
+                        <td class="table3tdLast"
+                            [textContent]="OrderData.Totals[0]?.TotalDues| currency:companyService.selectedCurrency.CurrencyCode">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div fxLayout="column" fxFlex="67" fxFlex.sm="62" fxFlex.xs="100" fxHide.gt-xs class="m-t-20">
+                <div>
+                    <label class="colorf-s-14" translate="invoice_notes"></label>
+                </div>
+                <div class="noteBox" [textContent]="OrderData.SpecialInstructions">
+                </div>
+            </div>
+        </div>
+        <div fxLayoutAlign="center center" class="footer">
+            <p translate="thank_you_for_your_business"></p>
+        </div>
+    </div>
+    <hr>
+    <div fxLayoutAlign="end center" class="print-icon">
+        <button mat-icon-button styleSheetFile="assets/scss/orderinvoice.css" printSectionId="invoice-content" ngxPrint>
+            <mat-icon>print</mat-icon>
+        </button>
+    </div>
+</div>

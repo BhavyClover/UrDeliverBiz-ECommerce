@@ -1,0 +1,89 @@
+<div class="bgm-white">
+  <div class="container contacts">
+    <div class="p-30">
+      <div fxLayout="column" class="bg-white-smoke" fxFill fxLayout.gt-sm="row" fxLayoutAlign="center center" fxFlex>
+        <div fxLayout="column" fxFlex="50" fxFlex.lt-md="100" fxLayoutAlign="center" fxFill>
+          <img
+            src="../../../../assets/images/img/contact-banner_1366x768.png"
+            alt="product-image" width="100%">
+        </div>
+        <div fxLayout="column" fxFlex="50" fxFlex.lt-md="100" fxLayoutAlign="center center" fxFill>
+          <div class="content p-30" fxLayout="column" fxFlex="50" fxFlex.lt-md="100" fxLayoutAlign="center">
+            <p class="m-t-12 f-s-36 f-w-700">Say Hello!</p>
+            <p class="m-t-20">We're available regular office hours to discuss our products. We're always looking to hear from our customers — it's how we develop our products and know that we're doing a good job. Our office hours are Monday to Friday, 10AM to 6PM, and we usually response within a single business day.</p>
+            <p class="m-t-12">Brand Partners Email Support: <a href="mailto:support@zenyge.zendesk.com">support@zenyge.zendesk.com</a></p>
+            <p class="m-t-12">Restaurants Email Support: <a href="mailto: customerservice@zenyge.com"> customerservice@zenyge.com</a></p>
+            <p class="m-t-12">Call or Text : (512) 271-6082</p>
+          </div>
+          <div fxLayout="row" class="p-30" fxFlex="50" fxFlex.lt-md="100" fxLayoutAlign="center">
+            <div fxFlex="100" fxFlex.sm="50"   class="contact-form">
+              <form fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                  <mat-form-field class="w-100 ds-validate design"  appearance="outline">
+                    <mat-label translate="user_first_name"></mat-label>
+                    <input matInput [(ngModel)]="contact.FirstName" [ngModelOptions]="{standalone: true}" name="FirstName"
+                      validate noempty="true">
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                  <mat-form-field class="w-100 ds-validate design" appearance="outline">
+                    <mat-label translate="user_last_"></mat-label>
+                    <input matInput [(ngModel)]="contact.LastName" [ngModelOptions]="{standalone: true}" name="LastName"
+                      validate noempty="true">
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                  <mat-form-field class="w-100 ds-validate design" appearance="outline">
+                    <mat-label translate="MobilePhone_"></mat-label>
+                    <input type="number" maxlength="10" matInput [(ngModel)]="contact.MobilePhone" [ngModelOptions]="{standalone: true}" name="Phone"
+                      phoneno="true" inputspace="true" validate noempty="true" maxlength="20" inputonlynumber="true">
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                  <mat-form-field class="w-100 ds-validate design" appearance="outline">
+                    <mat-label translate="email_"></mat-label>
+                    <input matInput [(ngModel)]="contact.Email" [ngModelOptions]="{standalone: true}" name="email"
+                      validate noempty="true" email="true">
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                  <mat-form-field class="w-100 ds-validate" appearance="outline">
+                    <mat-label translate="message_"></mat-label>
+                    <textarea matInput rows="6" [(ngModel)]="contact.Message" [ngModelOptions]="{standalone: true}"
+                      name="content"></textarea>
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                  <mat-form-field class="w-100 ds-validate" appearance="none">
+                    <div fxLayout="column" fxFlex="100">
+                        <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between none">
+                          <div class="captcha_code" id="captcha_code" fxFlex="56" fxFlex.xs="63">
+                      <span translate>captcha_</span><span id="captchaQuestion"></span><span> = </span>
+                    </div>
+                          <div class="captcha_answer m-r-10" fxFlex="39" fxFlex.xs="30">
+                      <input matInput id="answer" inputonlynumber="true" validate noempty="true"
+                      [(ngModel)]="contact.result" (focusout)="checkCaptch()" [ngModelOptions]="{standalone: true}" name="answer" type="text" >
+                          </div>
+                    </div>
+                    <div class="captchaError" *ngIf="!captchaError">
+                      <small class="has-error help-block" translate>enter_valid_captcha</small>
+                    </div>
+                    <div class="reload_captcha">
+                      <span translate>reload_captcha</span><span><img src="/assets/images/arrow.png"
+                          [default]="'assets/images/noimage.png'" (click)="getRandom(true)"></span>
+                    </div>
+                    </div>
+                  </mat-form-field>
+                </div>
+                <div class="button-wrap" fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                  <button class="btn-project shop-btn product-button" mat-raised-button color="black"validate trigger-check="true"
+                    (success)="contactUser()">{{'_submit'| translate}}</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>    

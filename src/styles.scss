@@ -1,0 +1,256 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* You can add global styles to this file, and also import other style files */
+@import "~swiper/dist/css/swiper.min.css";
+@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
+
+@font-face {
+  font-family: poppins;
+  src: url('../src/assets/images/img/Poppins-Regular.ttf');
+}
+// Color 1 scss
+@import "./assets/scss/color1.scss";
+@import "./assets/scss/theme/theme";
+@import "./assets/scss/custom.scss";
+@import "app/components/shared/sidebar-summary-cart/sidebar-summary-cart.component.scss";
+
+@import '~@angular/material/theming';
+$custom-typography: mat-typography-config(
+  $font-family: 'poppins'
+);
+
+@include angular-material-typography($custom-typography);
+
+.mat-drawer-content {
+  overflow: unset !important;
+}
+.mat-drawer-container[fullscreen] {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: unset !important;
+}
+div#mainDIV {
+  overflow: unset !important;
+}
+/*Market Selector */
+.marketselector-dialog-container .mat-dialog-container {
+  padding: 0px !important;
+}
+.marketselector-dialog-container .mat-card {
+  padding: 0px;
+  overflow: hidden;
+}
+.marketselector-dialog-container .mat-card-header {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  align-content: center;
+  margin-bottom: 10px;
+}
+.marketselector-dialog-container mat-card-header {
+  margin-bottom: 0px;
+}
+.marketselector-dialog-container .mat-card-header-text {
+  margin: 0px;
+  width: 100%;
+  text-align: center;
+  background-color: var(--theme-deafult-secondary);
+}
+.marketselector-dialog-container div.mat-card-header-text {
+  padding: 10px;
+}
+.marketselector-dialog-container .mat-card-title {
+  margin-bottom: 0px !important;
+  display: inline-block;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--theme-deafult);
+}
+.marketselector-dialog-container .mat-form-field-flex {
+  border-radius: 0px !important;
+  padding: 0px 0.75em !important;
+  box-shadow: 0 1px 4px 0 var(--theme-deafult-secondary) !important;
+  background-color: var(--theme-deafult) !important;
+}
+#ds_application2 {
+  .mat-expansion-panel {
+    margin: 24px 8px 8px 8px !important;
+    color: var(--theme-deafult-secondary);
+    background-color: var(--theme-deafult-grey);
+  }
+  h4 {
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 18px !important;
+    opacity: 0.7 !important;
+  }
+  #verifystatus-Content {
+    margin: 24px 8px 8px 8px !important;
+  }
+}
+.avtar img {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+}
+
+.f-s-16 {
+  font-size: 16px;
+}
+.p-l-15 {
+  padding-left: 15px;
+}
+.m-b-0 {
+  margin-bottom: 0px !important;
+}
+.m-0 {
+  margin: 0px !important;
+}
+.bgm-color2 {
+  background-color: var(--theme-main-blue) !important;
+  color: var(--theme-deafult);
+}
+.text-uppercase {
+  text-transform: uppercase;
+}
+.f-s-12 {
+  font-size: 12px;
+}
+.d-flex {
+  display: flex;
+}
+
+.ds-summary-cart > mat-sidenav-container {
+  width: 420px;
+}
+
+.marketselecter_find_popup {
+  position: fixed !important;
+  top: 0;
+}
+.mat-fab-bottom-right {
+  top: auto;
+  right: 20px;
+  bottom: 1rem;
+  left: auto;
+  position: fixed;
+}
+
+.has-error .help-block {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 47px;
+  left: 0px;
+}
+#login{
+  .has-error .help-block {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 60px !important;
+    left: 12px !important;
+  }
+}
+.contacts{
+  .has-error .help-block {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 36px !important;
+    left: 0px !important;
+  }
+}
+.captcha_answer {
+  .has-error {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    top: 4px;
+    left: 0px;
+  }
+}
+.captchaError {
+  .has-error {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    top: 0px;
+    right: 0px;
+    float: right;
+  }
+}
+.help-block {
+  color: var(--theme-main-red) !important;
+}
+.mail_position {
+  bottom: 8px;
+  position: relative;
+}
+.v-align-middle{
+  vertical-align: middle;
+}
+.main-nav__link {
+  color: var(--theme-deafult-secondary);
+  font-weight: 500;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 48px;
+  min-height: 48px;
+  -webkit-transition: all .25s;
+  transition: all .25s;
+}
+.m-t--15 {
+  margin-top: -15px;
+}
+.l-height-5{
+  line-height: 5;
+}
+.l-height-3{
+  line-height: 3;
+}
+.checkbox .has-error {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 25px;
+  left: 24px;
+}
+.f-w-700{
+  font-weight: 700;
+}
+.f-w-400{
+  font-weight: 400;
+}
+.f-s-36{
+  font-size: 36px;
+}
+.m-t-12{
+  margin-top: 12px !important;
+}
+.font-IBM{
+  font-family: 'poppins', sans-serif !important;
+}
+.mat-card{
+  font-family: 'poppins', sans-serif !important;
+}
+.b-r-23{
+  border-radius: 23px !important;
+}
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background  {
+  background-color: var(--theme-deafult-secondary) !important;
+}
+::ng-deep .mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element{
+background: var(--theme-deafult-secondary) !important;
+}
+::ng-deep .mat-form-field-infix{
+  font-family:  'poppins', sans-serif !important ;
+}
+

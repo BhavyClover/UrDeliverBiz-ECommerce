@@ -1,0 +1,103 @@
+<div class="container">
+<div class="vertical-products sec-padding">
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start start" class="p-0">
+      <div fxFlex="100" fxFlex.gt-xs="33.3" class="product-panel">
+        <div class="widget-column">
+            <div class="title">
+                <h4 class="widget-title">Featured Products</h4>
+              </div>
+              <ul class="product-list" *ngIf="products?.length > 0">
+                <li *ngFor="let product of products | slice:0:3" fxLayout="row">
+                  <div class="media-image">
+                    <ngx-skeleton-loader loadingText="Ziplingo"  [theme]="{ width: '80px', height: '80px' }" animation="progress" *ngIf="!contentLoaded"></ngx-skeleton-loader>
+
+                    <a *ngIf="contentLoaded" [routerLink]="['/product', product.ItemID]">
+                      <img [default]="'assets/images/product/no-img.png'" style="width: 80px; height: 80px;" onerror="this.src='assets/images/noimage.png'" [src]="configService.localSettings.Disco.DiscoUrl+'/CMS/Images/Inventory/'+product.ImageUrl"  class="small" alt=""> </a>
+                  </div>
+                  <div class="media-body">
+                    <ngx-skeleton-loader loadingText="Ziplingo"
+              *ngIf="!contentLoaded"
+                count="3"
+                [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }"
+              ></ngx-skeleton-loader>
+                    <a *ngIf="contentLoaded" [routerLink]="['/product', product.ItemID]"><span>{{product.ProductName}}</span></a>
+                    <div *ngIf="contentLoaded" class="stars">
+                        <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                        <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                        <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                        <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                        <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                     </div>
+                     <p *ngIf="contentLoaded" class="price">{{product.Prices[0].Price | currency : companyService.selectedCurrency.CurrencyCode  }}</p>
+                  </div>
+                </li>
+              </ul>
+        </div>
+      </div>
+      <div fxFlex="100" fxFlex.gt-xs="33.3" class="product-panel">
+          <div class="widget-column">
+              <div class="title">
+                  <h4 class="widget-title">Top Selling Products</h4>
+                </div>
+                <ul class="product-list" *ngIf="products?.length > 0">
+                  <li *ngFor="let product of products | slice:6:9 " fxLayout="row">
+                    <div class="media-image">
+                      <ngx-skeleton-loader loadingText="Ziplingo"  [theme]="{ width: '80px', height: '80px' }" animation="progress" *ngIf="!contentLoaded"></ngx-skeleton-loader>
+                      <a *ngIf="contentLoaded" [routerLink]="['/product', product.ItemID]">
+                        <img [default]="'assets/images/product/no-img.png'" onerror="this.src='assets/images/noimage.png'" style="width: 80px; height: 80px;" [src]="configService.localSettings.Disco.DiscoUrl+'/CMS/Images/Inventory/'+product.ImageUrl" alt="" class="small" > </a>
+                    </div>
+                    <div class="media-body">
+                      <ngx-skeleton-loader loadingText="Ziplingo"
+              *ngIf="!contentLoaded"
+                count="3"
+                [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }"
+              ></ngx-skeleton-loader>
+                      <a *ngIf="contentLoaded" [routerLink]="['/product', product.ItemID]"><span>{{product.ProductName}}</span></a>
+                      <div *ngIf="contentLoaded" class="stars">
+                          <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                          <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                          <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                          <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                          <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                       </div>
+                       <p *ngIf="contentLoaded" class="price">{{product.Prices[0].Price | currency : companyService.selectedCurrency.CurrencyCode }}</p>
+                    </div>
+                  </li>
+                </ul>
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="33.3" class="product-panel">
+            <div class="widget-column">
+                <div class="title">
+                    <h4 class="widget-title">Hot Offer</h4>
+                  </div>
+                  <ul class="product-list" *ngIf="products?.length > 0">
+                    <li *ngFor="let product of products | slice:9:12 " fxLayout="row">
+                      <div class="media-image">
+                        <ngx-skeleton-loader loadingText="Ziplingo"  [theme]="{ width: '80px', height: '80px' }" animation="progress" *ngIf="!contentLoaded"></ngx-skeleton-loader>
+                        <a *ngIf="contentLoaded">
+                          <img [routerLink]="['/product', product.ItemID]" style="width: 80px; height: 80px;" [default]="'assets/images/product/no-img.png'" onerror="this.src='assets/images/noimage.png'" [src]="configService.localSettings.Disco.DiscoUrl+'/CMS/Images/Inventory/'+product.ImageUrl"  class="small" alt=""> </a>
+                      </div>
+                      <div class="media-body">
+                        <ngx-skeleton-loader loadingText="Ziplingo"
+                        *ngIf="!contentLoaded"
+                          count="3"
+                          [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }"
+                        ></ngx-skeleton-loader>
+                       <a *ngIf="contentLoaded" [routerLink]="['/product', product.ItemID]"><span>{{product.ProductName}}</span></a>
+                        <div *ngIf="contentLoaded" class="stars">
+                            <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                            <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                            <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                            <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                            <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                         </div>
+                         <p *ngIf="contentLoaded" class="price">{{product.Prices[0].Price | currency : companyService.selectedCurrency.CurrencyCode }}</p>
+                      </div>
+                    </li>
+                  </ul>
+            </div>
+          </div>
+  </div>
+</div>
+</div>

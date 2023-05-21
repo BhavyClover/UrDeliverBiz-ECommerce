@@ -1,0 +1,90 @@
+{
+    "Carts": [
+        {
+            "Region": 1,
+            "CartConfiguration": [
+                {
+                    "Name": "Enrollment Order Retail",
+                    "CurrencyCode": "USD",
+                    "LanguageID": "en",                     
+                    "StoreID": 4,
+                    "CountryCode": "US",
+                    "CustomerType": 2,
+                    "OrderTypeID": -1
+                },
+                {
+                    "Name": "Enrollment Order Distributor",
+                    "CurrencyCode": "USD",
+                    "LanguageID": "en",                     
+                    "StoreID": 4,
+                    "CountryCode": "US",
+                    "CustomerType": 1,
+                    "OrderTypeID": -1
+                },
+                {
+                    "Name": "Enrollment Order Preferred",
+                    "CurrencyCode": "USD",
+                    "LanguageID": "en",                     
+                    "StoreID": 4,
+                    "CountryCode": "US",
+                    "CustomerType": 3,
+                    "OrderTypeID": -1
+                },
+                {
+                    "Name": "Retail Shop Cart - Preferred",
+                    "CurrencyCode": "USD",
+                    "LanguageID": "en",                     
+                    "StoreID": 3,
+                    "CountryCode": "US",
+                    "CustomerType": 3,
+                    "OrderTypeID": 1
+                },
+                {
+                    "Name": "Retail Shopping Cart - Retail",
+                    "CurrencyCode": "USD",
+                    "LanguageID": "en",                     
+                    "StoreID": 3,
+                    "CountryCode": "US",
+                    "CustomerType": 2,
+                    "OrderTypeID": 1
+                },
+                {
+                    "Name": "Retail Shopping Cart - Distributor",
+                    "CurrencyCode": "USD",
+                    "LanguageID": "en",                     
+                    "StoreID": 3,
+                    "CountryCode": "US",
+                    "CustomerType": 1,
+                    "OrderTypeID": 1
+                },
+                {
+                    "Name": "Retail Shop AutoOrder Cart - Preferred",
+                    "CurrencyCode": "USD",
+                    "LanguageID": "en",                     
+                    "StoreID": 5,
+                    "CountryCode": "US",
+                    "CustomerType": 3,
+                    "OrderTypeID": 2
+                },
+                {
+                    "Name": "Retail Shopping AutoOrder Cart - Retail",
+                    "CurrencyCode": "USD",
+                    "LanguageID": "en",                     
+                    "StoreID": 5,
+                    "CountryCode": "US",
+                    "CustomerType": 2,
+                    "OrderTypeID": 2
+                },
+                {
+                    "Name": "Retail Shopping AutoOrder Cart - Distributor",
+                    "CurrencyCode": "USD",
+                    "LanguageID": "en",                     
+                    "StoreID": 5,
+                    "CountryCode": "US",
+                    "CustomerType": 1,
+                    "OrderTypeID": 2
+                }
+            ]
+        }
+    ]
+}

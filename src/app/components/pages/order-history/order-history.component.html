@@ -1,0 +1,55 @@
+
+<div class="page_orderhistory">
+   
+    <div class="orderhistory_table">
+        <div class="title">
+            <p translate="your_orders"></p>
+        </div>
+        <div class="orderTable">
+            <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" matSortActive="OrderDate" matSortDirection="desc">
+                <ng-container matColumnDef="Status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> {{'order_history_status' | translate}}</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.Status}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="TotalQV">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> {{'order_history_qv' | translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.TotalQV}}  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="TotalCV">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>  {{'order_history_cv' | translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.TotalCV}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="OrderTotal">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> {{'order_history_total' | translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{(element.Totals.length >0? element.Totals[0].SubTotal : 0) | currency:companyService.selectedCurrency.CurrencyCode}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="OrderNumberS">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>  {{'order_history_details' | translate}}</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> <a (click)="viewOrderInvoice(element)"  class="orderId">{{'view_order' | translate}}</a></mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="OrderDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>  {{'order_history_date' | translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.OrderDate | checkValidDate:'MM/dd/yyyy'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="OrderNumber">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> {{'order_history_id' | translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let element"><a (click)="viewOrderInvoice(element)" class="orderId">{{element.OrderNumber}}</a> </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="TrackingNumber">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>  {{'Tracking Number' | translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.Packages.length>0?element.Packages[0].TrackingNumber:''}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="TotalBonus">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>  {{'BV' | translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let element">  {{element.TotalBonus}}</mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator [length]="itemCount"  [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+
+
+</div>
+</div>

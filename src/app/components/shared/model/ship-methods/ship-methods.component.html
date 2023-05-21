@@ -1,0 +1,43 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+<div class="dialog-content-wrapper shippingmethodDialog" id="shippingmethod-wrapper">
+    <mat-toolbar class="header m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title" fxFlex translate=""> Edit Shipping Method</span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content id="shippingmethod-content" fxLayout="column">
+        <div fxLayoutAlign="center center" class="m-b-20">
+            <span translate="choose_your_ship_method"></span>
+        </div>
+        <ng-container *ngIf="shipMethods && shipMethods.length>0">
+
+            <div fxLayout="row" fxFlex="100" class="m-b-20" *ngFor="let ship of shipMethods">
+                <div fxFlex="100">
+                    <mat-radio-group aria-label="Select an option" fxLayout="column"
+                        [(ngModel)]="selectedShippingMethod">
+                        <mat-radio-button [value]="ship.ShipMethodId">
+                            <div fxLayout="row" fxFlex="100">
+                                <div fxFlex="80">
+                                    <span [textContent]="ship.Description"></span>
+                                </div>
+                                <div fxFlex="20" fxLayoutAlign="start none">
+                                    <span> <small class="text-muted"
+                                            [textContent]="ship.ShippingAmount | currency: companyService.selectedCurrency.CurrencyCode"></small></span>
+                                </div>
+                            </div>
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <div>
+            <button mat-raised-button class="updateButton" (click)="updateShipMethod()">
+                {{'update' | translate}}
+            </button>
+        </div>
+    </div>
+</div>

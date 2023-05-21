@@ -1,0 +1,46 @@
+<a *ngIf="item.route !=='' && ((item.displayName == 'Log Out') ? isLoggedIn() : 'true' && (item.displayName == 'Sign In') ? !isLoggedIn() : 'true' )"
+  fxLayoutAlign="space-between flex-start" mat-list-item class="main-nav__link"
+  [ngStyle]="{'padding-left': (depth * 12) + 'px'}" class="menu-list-item" (click)="onItemSelected(item)" [ngClass]="{'active': item.route ? router.isActive(item.route, true): false, 'expanded': expanded,
+  'text-gray': item.route ? router.isActive(item.route, true): false}">
+  <div fxFlex
+    *ngIf="(!children && ((item.displayName == 'Log Out') ? isLoggedIn() : 'true' && (item.displayName == 'Sign In') ? !isLoggedIn() : 'true' && (item.displayName == 'Join Us/ Customer Store') ? isLoggedIn() : 'true' ))">
+    <span class="v-align-middle m-10 side-list-title font-IBM"
+      (click)="logoutHandler(item.displayName)">{{item.displayName}}</span>
+  </div>
+  <div fxFlex *ngIf="isLoggedIn()">
+    <span class="v-align-middle m-10 side-list-title font-IBM" (click)="office()">Virtual office</span>
+  </div>
+  <div feFlex>
+    <span *ngIf="(children)" class="v-align-middle m-10 side-list-child font-IBM">{{children.displayName}}</span>
+  </div>
+  <span fxFlex *ngIf="item.children && item.children.length">
+    <span fxFlex></span>
+    <svg width="100%" viewBox="0 0 24 24" [ngClass]="{'rotate': expanded,'rotate-reverse': !expanded}">
+      <path fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+        d="M5 12h14M12 5l7 7-7 7"></path>
+    </svg>
+  </span>
+</a>
+<a *ngIf="item.route == ''" fxLayoutAlign="space-between flex-start" mat-list-item class="main-nav__link"
+  [ngStyle]="{'padding-left': (depth * 12) + 'px'}" class="menu-list-item outside-link" [href]="item.url"
+  target="_blank">
+
+  <div fxFlex>
+    <span *ngIf="(!children)" class="v-align-middle m-10 side-list-title font-IBM">{{item.displayName}}</span>
+    <span *ngIf="children" class="v-align-middle m-10 side-list-child">{{children.displayName}}</span>
+  </div>
+  <span fxFlex *ngIf="item.children && item.children.length">
+    <span fxFlex></span>
+    <svg width="100%" viewBox="0 0 24 24" [ngClass]="{'rotate': expanded,'rotate-reverse': !expanded}">
+      <path fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+        d="M5 12h14M12 5l7 7-7 7"></path>
+    </svg>
+  </span>
+</a>
+<div *ngIf="expanded " style="font-size: 20px !important;">
+  <ng-container *ngFor="let child of item.children">
+    <app-sidebar *ngIf="((child.route == '/login' || child.route == '/join') ? !isLoggedIn() : 'true')"
+      [children]="child" [item]="child" [depth]="depth+1" (click)="closeDialog(item)">
+    </app-sidebar>
+  </ng-container>
+</div>

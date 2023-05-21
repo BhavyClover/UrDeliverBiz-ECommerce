@@ -1,0 +1,94 @@
+<div class="product-dialog">
+  <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+  </button>
+  <div mat-dialog-title>
+  </div>
+  <div mat-dialog-content>
+    <div fxLayout="row wrap">
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <div class="swiper-container h-100" fxLayoutAlign="center">
+          <div class="swiper-wrapper img-parent" fxFlex="100" fxFlex.sm="100" fxFlex.xs="100"
+            fxLayoutAlign="space-evenly center">
+            <div fxFlex="100" fxLayoutAlign="center center">
+              <img [default]="'assets/images/product/no-img.png'"
+                [src]="configService.localSettings.Disco.DiscoUrl+'/CMS/Images/Inventory/'+path" alt=""
+                class="img-fluid" onerror="this.src='assets/images/noimage.png'">
+            </div>
+            <div class="images-options" fxLayoutGap="5px" fxLayout="row wrap" *ngIf="product?.Images?.length > 1"
+              fxFlex.xs="100" fxFlex.sm="100">
+              <ng-container *ngFor="let images of product?.Images;">
+                <img [default]="'assets/images/product/no-img.png'"
+                  [src]="configService.localSettings.Disco.DiscoUrl+'/CMS/Images/Inventory/'+images?.Path" alt=""
+                  style="width: 100px;" (click)="changeimage(images?.Path)" onerror="this.src='assets/images/noimage.png'">
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="50" ngClass.gt-sm="px-2 m-0" ngClass.sm="mt-2" ngClass.xs="mt-2">
+        <div class="product-right">
+          <div class="product-details">
+            <h2 class="mb-10">{{product?.ProductName}}</h2>
+            <h4 class="mb-10"><del>{{(product?.RetailPrice * OrderQuantityCount)
+                |currency:companyService.selectedCurrency.CurrencyCode}}</del></h4>
+            <h3 class="price mb-10"
+              [textContent]="getPrice(product, OrderQuantityCount) |currency:companyService.selectedCurrency.CurrencyCode">
+            </h3>
+            <div class="discription">
+              <p class="bold">Product details</p>
+              <p class="text-muted productDescription" [innerHTML]="product?.Description"></p>
+            </div>
+          </div>
+          <div class="py-1 mt-15" *ngIf="product?.HasOptions">
+            <div *ngIf="product?.ItemOptions && product?.ItemOptions.length>0">
+              <ng-container *ngFor="let option of product?.ItemOptions; let i = index">
+                <div class="m-0 p-20-0 custom-size">
+                  <p [textContent]="option.Option"></p>
+                  <mat-form-field appearance="outline">
+                    <mat-select readonly="true" [(ngModel)]="value[i]"
+                      (selectionChange)="checkOptions(product?.ItemOptions)" name="value.Option"
+                      placeholder="Select {{ option.Option }}" (click)="openSelect($event)"
+                      class="md-no-underline-select">
+                      <mat-option *ngFor="let value of getValidValues(product,option,option.Values)"
+                        (ngInit)="setInitialItemOption(option, value)" [value]="value.Option"
+                        (click)="value.isAvailable && selectOption(product, option, value, product?.CategoryId == 6 )">
+                        {{ value.Option }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div class="" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="quantity mt-15">
+              <span class="text-muted fw-500">Quantity</span>
+              <div fxLayout="row" fxLayout.xs="column" class="text-muted mt-15">
+                <div fxLayout="row" fxLayoutAlign="center start">
+                  <button [disabled]="(!isOptionsSelected && product?.ItemOptions.length>0)" mat-icon-button
+                    matTooltip="Remove" (click)="decreaseQuantity()">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  <input [(ngModel)]="OrderQuantityCount" maxlength="2" validate inputonlynumber="true" name="quantity"
+                    (keyup)="($event.which === 38) ? increaseQuantity() : 0"
+                    (keydown)="($event.which === 40) ? decreaseQuantity() : 0" class="form-control input-number">
+                  <button [disabled]="(!isOptionsSelected && product?.ItemOptions.length>0)" mat-icon-button
+                    matTooltip="Add" (click)="increaseQuantity()">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button [disabled]="product?.HasOptions && !isOptionsSelected && product?.ItemOptions.length>0"
+              mat-raised-button color="primary" class="btn-project mr-10"
+              (click)="buyButtonEnabled() && addToCartOrShowDetails('', product)" translate="">{{'global_addtocart' |
+              translate}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

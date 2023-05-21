@@ -1,0 +1,38 @@
+<div class="product-item">
+   <mat-card fxLayout="column">
+      <div class="product-img borderBottom">
+         <a class="product-link" [routerLink]="['/product', product?.ItemID]" [queryParams]="{itemType: 'order'}">
+            <img [default]="'assets/images/product/no-img.png'"
+               [src]="configService.localSettings.Disco.DiscoUrl+'/CMS/Images/Inventory'+product?.ImageUrl" alt="" onerror="this.src='assets/images/noimage.png'">
+         </a>
+      </div>
+      <div class="product-info-wrapper">
+         <div class="title-wrap">
+            <h4 class="color1-f-s-16">{{product?.ProductName || '****'}}</h4>
+         </div>
+         <div class="stars">
+
+         </div>
+         <div class="price-wrap" fxLayout="row" fxLayoutAlign="start">
+            <p class="color1-f-s-14 p-r-10" *ngIf="product.OriginalPrice != product?.Prices[0].Price">
+               <del>{{product?.OriginalPrice | currency:companyService.selectedCurrency.CurrencyCode}}</del></p>
+            <p class="color1-f-s-14">{{product?.Prices[0].Price |
+               currency:companyService.selectedCurrency.CurrencyCode}}</p>
+
+         </div>
+      </div>
+      <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center" class="thirdContainer">
+         <div *ngIf="product.AllowAutoship" class="subscriptionButton m-b-20">
+            <button id="autoship-cart-btn" mat-raised-button color="primary"
+               (click)="cart1Service.addToCart(product, true, '', true, false, false)"
+               [textContent]="(('autoship' | translate)  | slice:0:30) + (('autoship' | translate).length > 30 ? '...' : '')"></button>
+         </div>
+         <div class="addButton"
+            *ngIf="!(persistentService.retailData.CurrentSelectedAutoOrder > 0 && utilityService.getAutoshipEditFlag())">
+            <button id="add-to-cart-btn" mat-raised-button color="primary"
+               (click)="cart1Service.addToCart(product, true, '', false, false, false)" translate
+               [textContent]="(('add_to_initial_order' | translate)  | slice:0:30) + (('add_to_initial_order' | translate).length > 30 ? '...' : '')"></button>
+         </div>
+      </div>
+   </mat-card>
+</div>

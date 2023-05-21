@@ -1,0 +1,146 @@
+<footer id="footer" class="footer sec-padding">
+  <div class="container">
+    <div
+      class="footer-wrapper"
+      fxLayout="row wrap"
+      fxLayoutAlign="space-between start"
+    >
+      <div
+        fxFlex="100"
+        fxFlex.gt-sm="30"
+        fxFlex.sm="50"
+        class="footer-widget about-widget"
+      >
+        <p>
+          <span class="c-black logo cursor-pointer" routerLink="/home">
+            <img
+              style="width: 250px !important"
+              src="../../../../assets/images/img/zenYGE-logo_white.png"
+              alt="logo"
+            />
+          </span>
+        </p>
+        <p class="m-t-15">
+          We're here to disrupt an industry that for so long has taken advantage
+          of customers and business owners.
+        </p>
+      </div>
+
+      <div
+        fxFlex="100"
+        fxFlex.gt-sm="23"
+        fxFlex.sm="50"
+        ngClass.xs="mt-2"
+        class="footer-widget links-widget links-widget-pac"
+      >
+        <div class="title">
+          <h5 class="c-white">Quick Links</h5>
+          <hr
+            style="
+              border: 1px solid var(--theme-deafult);
+              margin-top: 20px;
+              width: 200px;
+            "
+          />
+        </div>
+        <div class="row">
+          <ul>
+            <li><a class="c-white" routerLink="/home">Home</a></li>
+            <!-- <li><a class="c-white" routerLink="/products/all">Shop All</a></li> -->
+            <li><a class="c-white" routerLink="/about">About</a></li>
+            <li><a class="c-white" routerLink="/join" *ngIf="!isLoggedIn()">Join Us/ Customer Store</a></li>
+            <li><a class="c-white" routerLink="/contact">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        fxFlex="100"
+        fxFlex.gt-sm="23"
+        fxFlex.sm="50"
+        ngClass.xs="mt-2"
+        class="footer-widget subscribe-widget"
+      >
+        <div class="title">
+          <h5 class="c-white">Subscribe</h5>
+          <hr
+            style="
+              border: 1px solid var(--theme-deafult);
+              margin-top: 20px;
+              width: 200px;
+            "
+          />
+        </div>
+        <form action="#">
+          <p>Get latest updates and offers.</p>
+          <div fxLayout="column" class="newsletter-widget">
+            <input
+              type="text"
+              class="b-r-23"
+              placeholder="Enter Email Address"
+            />
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              class="ped-btn-footer b-r-23 c-white"
+            >
+              SUBSCRIBE
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div
+        fxFlex="100"
+        fxFlex.gt-sm="23"
+        fxFlex.sm="50"
+        ngClass.sm="mt-2"
+        ngClass.xs="mt-2"
+        class="footer-widget subscribe-widget"
+      >
+        <div class="title">
+          <h5 class="c-white">Contact Us</h5>
+          <hr
+            style="
+              border: 1px solid var(--theme-deafult);
+              margin-top: 20px;
+              width: 200px;
+            "
+          />
+        </div>
+        <div fxLayout="column" class="tel-box">
+          <div class="icon c-white"><b>E-MAIL SUPPORT</b></div>
+          <div class="text">
+            <p>
+              <a class="c-white" href="mailto:{{configService.localSettings.Company.Address.Email}}">{{
+                configService.localSettings.Company.Address.Email
+              }}</a>
+            </p>
+          </div>
+        </div>
+
+        <div fxLayout="column" class="tel-box m-t-15">
+          <div class="icon c-white"><b>CALL OR TEXT</b></div>
+          <div class="text">
+            <p class="c-white">
+              {{ configService.localSettings.Company.Address.Phone }}
+            </p>
+          </div>
+        </div>
+
+        <ul fxLayout="row" class="social list-inline">
+          <li
+            *ngFor="
+              let sociallink of configService.localSettings.Company.SocialLinks
+            "
+          >
+            <a [href]="sociallink.link" target="_blank"
+              ><i [class]="sociallink.icon"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

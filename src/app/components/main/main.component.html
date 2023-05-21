@@ -1,0 +1,217 @@
+<mat-sidenav-container fullscreen>
+  <mat-sidenav
+    [opened]="false"
+    mode="over"
+    #start
+    class="sidenav"
+    *ngIf="!utilityService.isShowSimplifiedheader"
+  >
+    <div class="d-flex header p-5" fxLayout="row">
+      <div
+        class="move-left avtar"
+        fxFlex="10"
+        fxFlex.xs="15"
+        fxLayoutAlign="start center"
+        *ngIf="userServiceModal.customerData?.ImageUrl || userServiceModal.enrollerInfo?.ImageUrl"
+      >
+        <img
+          class="avtar"
+          [default]="'assets/img/user.png'"
+          [src]="
+            userServiceModal.customerData.ImageUrl ||
+            userServiceModal.enrollerInfo.ImageUrl
+          "
+          onerror="this.src='assets/images/noimage.png'"
+        />
+      </div>
+      <div class="ds_userName" fxFlex="35" fxLayoutAlign="start center">
+        <h2
+          [textContent]="
+            (userServiceModal.customerData.FirstName ||
+            userServiceModal.customerData.LastName
+              ? welcmtext
+              : '') +
+            ' ' +
+            (userServiceModal.customerData.FirstName ||
+              userServiceModal.enrollerInfo.FirstName) +
+            ' ' +
+            (userServiceModal.customerData.LastName ||
+              userServiceModal.enrollerInfo.LastName)
+          "
+          class="f-s-22 text-uppercase"
+        ></h2>
+      </div>
+      <div fxLayoutAlign="end center" fxFlex="55" fxLayoutAlign="end center">
+        <button
+          mat-icon-button
+          color="warn"
+          class="close"
+          (click)="start.close()"
+        >
+          <mat-icon color="warn">close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="sidebar-items" fxLayout="column" class="p-16">
+      <app-sidebar
+        *ngFor="let item of navItems"
+        [item]="item"
+        (click)="close(item)"
+        (close)="closed(val)"
+      ></app-sidebar>
+    </div>
+  </mat-sidenav>
+  <!-- topbar start -->
+  <mat-toolbar class="bgm-black" *ngIf="!utilityService.isShowSimplifiedheader">
+    <mat-toolbar-row
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      class="top-bar p-5"
+    >
+      <div
+        fxLayout="row"
+        class="welcome-message"
+        mat-button
+        [matMenuTriggerFor]="enrollMenu"
+      >
+        <div class="widget-text">
+          <!-- Enroller Picture -->
+          <div class="enroll_img" fxLayout="row" fxLayoutAlign="center center">
+            <div *ngIf="userServiceModal.enrollerInfo?.ImageUrl">
+              <a class="avtar">
+                <img
+                  style="height: 45px; width: 45px"
+                  [src]="userServiceModal.enrollerInfo.ImageUrl"
+                  alt="companylogo"
+                  [default]="'assets/images/user.png'"
+                  onerror="this.src='assets/images/noimage.png'"
+                />
+              </a>
+            </div>
+            <div>
+              <button mat-button class="p-5 c-white">
+                <div
+                  class="shop_heading text-nonecase edb-space"
+                  translate="you_r_shop_with"
+                ></div>
+                <span *ngIf="true">
+                  <span
+                    [ngStyle.lt-sm]="{ 'font-size.px': 12 }"
+                    class="text-uppercase f-500"
+                    data-bind="label"
+                    >{{ userServiceModal.enrollerInfo.FirstName }} &nbsp;{{
+                      userServiceModal.enrollerInfo.LastName
+                    }}</span
+                  >
+                  <mat-icon>arrow_drop_down</mat-icon>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <mat-menu #enrollMenu="matMenu">
+            <!-- <button mat-menu-item routerLink="/contact">
+              {{ "contact_" | translate }}
+            </button> -->
+            <button
+              *ngIf="!isLoggedIn()"
+              mat-menu-item
+              (click)="navigateToChangeAffiliate()"
+            >
+              {{ "market_change_affiliate" | translate }}
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+      <div class="widgets-left" fxLayout="row">
+        <div
+          class="widget-text"
+          [matMenuTriggerFor]="menu"
+          *ngIf="!isLoggedIn()"
+        >
+          <button mat-button class="c-white">
+            <div
+              class="shop_heading text-nonecase edb-space"
+              translate="you_r_shopping_as"
+            ></div>
+            <span
+              class="text-uppercase f-500 text-truncate customer_type"
+              [ngStyle.lt-sm]="{ 'font-size.px': 12 }"
+              data-bind="label"
+              >{{ customerTypeDescription() }}</span
+            >
+            <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button
+              *ngFor="
+                let customerType of configService.commonSettings.CustomerTypes
+              "
+              mat-menu-item
+              (click)="changeCustomerType(customerType.ID)"
+            >
+              {{ customerType.Description | translate }}
+            </button>
+          </mat-menu>
+        </div>
+        <!-- <div class="vl"></div> -->
+        <div
+          class="widget-text m-t-10"
+          [matMenuTriggerFor]="langMenu"
+          #langMenuTrigger="matMenuTrigger"
+        >
+          <a class="flag-icon" mat-button>
+            <img
+              [src]="
+                'https://directscalestring.directscale.com/flags/4x3/' +
+                configService.commonData.selectedCountry?.toLowerCase() +
+                '.svg'
+              "
+              width="18"
+              alt="Country Flag"
+            />
+            <span fxShow="false" fxShow.gt-sm class="flag-menu-title c-white"
+              >{{ configService.commonData.selectedCountry | uppercase }} |
+              {{ configService.commonData.selectedLanguage | uppercase }}</span
+            >
+            <mat-icon class="mat-icon-sm caret cur-icon c-white"
+              >arrow_drop_down</mat-icon
+            >
+          </a>
+          <mat-menu
+            #langMenu="matMenu"
+            [overlapTrigger]="false"
+            xPosition="before"
+            class="app-dropdown"
+          >
+            <span *ngFor="let country of allowedCountries">
+              <button
+                mat-menu-item
+                (click)="updatecountry(country, lng.LanguageCode)"
+                *ngFor="let lng of country.CountryLanguages"
+              >
+                <img
+                  [src]="
+                    'https://directscalestring.directscale.com/flags/4x3/' +
+                    country.CountryCode +
+                    '.svg'
+                  "
+                  width="18"
+                />
+                {{ country.CountryName }} | {{ lng.LanguageName }}
+              </button>
+            </span>
+          </mat-menu>
+        </div>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <app-header
+    (sildeMobileNavEvent)="sildeMobileNav($event)"
+    *ngIf="!utilityService.isShowSimplifiedheader"
+  >
+  </app-header>
+  <router-outlet></router-outlet>
+
+  <app-footer></app-footer>
+</mat-sidenav-container>

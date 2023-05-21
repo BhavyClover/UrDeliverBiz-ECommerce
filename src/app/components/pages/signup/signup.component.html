@@ -1,0 +1,59 @@
+<div class="contact-page sec-padding">
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center" class="mt-20">
+    <mat-card fxLayout-padding fxFlex="50" fxFlex-xs="100">
+      <div class="contact-form">
+        <h3>Create an Account</h3>
+        <form fxLayout="row wrap">
+          <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+            <mat-form-field class="w-100 ds-validate">
+              <input matInput placeholder="First Name" [(ngModel)]="userInfo.firstName"
+                [ngModelOptions]="{standalone: true}" validate noempty="true">
+            </mat-form-field>
+          </div>
+          <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+            <mat-form-field class="w-100 ds-validate">
+              <input matInput placeholder="Last Name" [(ngModel)]="userInfo.lastName"
+                [ngModelOptions]="{standalone: true}"  validate noempty="true">
+            </mat-form-field>
+          </div>
+          <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+            <mat-form-field class="w-100 ds-validate">
+              <input matInput placeholder="Your Email (required)" [(ngModel)]="userInfo.email"
+                [ngModelOptions]="{standalone: true}"  validate noempty="true" email="true" (focusout)="validEmailData(userInfo.email);">
+      
+            </mat-form-field>
+          </div>
+          <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+            <mat-form-field class="w-100 ds-validate">
+              <input matInput placeholder="User Name" [(ngModel)]="userInfo.username"
+                [ngModelOptions]="{standalone: true}"  validate noempty="true" inputspace="true" validname="true" (paste)="$event.preventDefault()" (focusout)="verifyUsername(userInfo.username);">
+             
+            </mat-form-field>
+          </div>
+          <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+            <mat-form-field class="w-100 ds-validate">
+              <input matInput type="password"  id="txtPassword" placeholder="Password" [(ngModel)]="userInfo.password"
+                [ngModelOptions]="{standalone: true}"  validate noempty="true" regxvalid="true" zxcvbn="" regxvalidvalue="((?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,})" nospaceallow="true">
+            </mat-form-field>
+          </div>
+          <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+            <mat-form-field class="w-100 ds-validate">
+              <input matInput type="password" placeholder="Confirm Password" [(ngModel)]="userInfo.confirmpassword"
+                [ngModelOptions]="{standalone: true}"  validate noempty="true" password-match="true" >
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxFlex="100">
+            <div class="button-wrap">
+              <button class="btn-project m-r-10" mat-raised-button color="primary" type="submit">{{'back' | translate}}</button>
+            </div>
+            <div class="button-wrap">
+              <button class="btn-project m-l-0" mat-raised-button color="primary" validate trigger-check="true" (success)="createCustomer()">{{'create_' | translate}}</button>
+            </div>
+          </div>
+          
+        </form>
+      </div>
+    </mat-card>
+  </div>
+</div>
+

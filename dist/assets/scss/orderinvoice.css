@@ -1,0 +1,178 @@
+.dialog-title {
+    color: var(--theme-deafult);
+    font-size: 21px;
+}
+.header {
+    background-color: var(--theme-deafult-secondary);
+}
+.header-tab-action {
+    background: var(--theme-deafult-secondary) !important;
+    margin: 0px 5px;
+    border-radius: 10px;
+    color: var(--theme-deafult);
+}
+.horizontalLine {
+    border-top: 1px solid var(--theme-deafult-medium-grey);
+    box-shadow: 0px 1px 2px var(--theme-deafult-medium-grey);
+    margin: 30px 0px;
+}
+.table1 {
+    max-width: 100%;
+}
+.table1 table {
+    display: grid;
+    border-collapse: collapse;
+    background-color: transparent;
+    border-spacing: 0px;
+    min-width: 100%;
+    grid-template-columns: minmax(50px, 1fr) minmax(50px, 1.67fr) minmax(50px, 1.67fr) minmax(50px, 1.67fr) minmax(50px, 3.33fr) minmax(50px, 1.67fr);
+}
+.table1 thead, .table1 tbody, .table1 tr {
+    display: contents;
+}
+.table1 th, .table1 td {
+    padding: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.table1 th {
+    position: sticky;
+    top: 0;
+    background: var(--theme-deafult-grey);
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--theme-deafult-secondary);
+    text-align: center;
+    border: 1px solid var(--theme-deafult-medium-grey);
+    background-color: var(--theme-deafult-grey);
+    padding: 5px;
+    border-bottom: 0px;
+}
+.table1 td {
+    color: var(--theme-deafult-secondary);
+    text-align: center;
+    border: 1px solid var(--theme-deafult-medium-grey);
+    padding: 5px;
+}
+.table1 tr:nth-child(even) td {
+    background: var(--theme-deafult-grey);
+}
+.table2 {
+    max-width: 100%;
+}
+.table2 table {
+    display: grid;
+    border-collapse: collapse;
+    background-color: transparent;
+    border-spacing: 0px;
+    min-width: 100%;
+    grid-template-columns: minmax(50px, 1fr) minmax(50px, 1.67fr) minmax(50px, 1.67fr) minmax(50px, 1.67fr) minmax(50px, 3.33fr) minmax(50px, 1.67fr) minmax(50px, 3.33fr);
+}
+.table2 thead, .table2 tbody, .table2 tr {
+    display: contents;
+}
+.table2 th, .table2 td {
+    padding: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.table2 th {
+    position: sticky;
+    top: 0;
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--theme-deafult-secondary);
+    text-align: center;
+    border: 1px solid var(--theme-deafult-medium-grey);
+    background-color: var(--theme-deafult-grey);
+    padding: 5px;
+    border-bottom: 0px;
+}
+.table2 td {
+    color: var(--theme-deafult-secondary);
+    text-align: center;
+    border: 1px solid var(--theme-deafult-medium-grey);
+    padding: 5px;
+}
+.table2 tr:nth-child(even) td {
+    background: var(--theme-deafult-grey);
+}
+.noteBox {
+    height: 100px;
+    border: 1px solid var(--theme-deafult-grey);
+}
+.borderBox {
+    border: 1px solid var(--theme-deafult-medium-grey);
+}
+.footer {
+    background-color: var(--theme-deafult-grey);
+    padding: 15px;
+    margin-top: 5px;
+}
+.footer p {
+    color: var(--theme-deafult-secondary);
+    font-size: 14px;
+}
+.table3td {
+    text-align: right;
+    border: 1px solid var(--theme-deafult-medium-grey);
+    width: 130px;
+    border-bottom: 0px;
+}
+.table3tdLast {
+    text-align: right;
+    border: 1px solid var(--theme-deafult-medium-grey);
+    width: 130px;
+}
+.table3 td {
+    padding: 4px;
+    color: var(--theme-deafult-medium-grey);
+    font-size: 14px;
+}
+.invoice h3 {
+    color: var(--theme-deafult-grey);
+    font-size: 27px;
+}
+.p-t-10 {
+    padding-top: 10px !important;
+}
+.p-r-15 {
+    padding-right: 15px !important;
+}
+.m-b-30 {
+    margin-bottom: 30px !important;
+}
+.colorf-s-14 {
+    color: var(--theme-deafult-medium-grey);
+    font-size: 14px;
+}
+@media only screen and (max-width: 600px) {
+    .p-r-b {
+        padding: 0px 15px 20px 0px;
+   }
+}
+::ng-deep .mat-dialog-container {
+    margin: 0px;
+    padding: 0px !important;
+}
+.close-button {
+    float: right;
+    top: -24px;
+    right: -24px;
+}
+.close-icon {
+    transition: 1s ease-in-out;
+}
+.close-icon:hover {
+    transform: rotate(180deg);
+}
+::ng-deep .close-button {
+    float: right;
+    top: -52px;
+    right: -52px;
+}
+::ng-deep .mat-dialog-container {
+    overflow: unset;
+}

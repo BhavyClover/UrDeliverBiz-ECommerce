@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <base href="/">
+  <title>Ziplingo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../src/assets/images/img/favicon.png">
+  <!--Google font-->
+  <style type="text/css">@font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v140/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.woff) format('woff');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;font-feature-settings:'liga';}@font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v140/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}</style>
+<link rel="stylesheet" href="styles.5cb868f9c745a74322ed.css"></head>
+<style>
+  .loading-spinner img {
+    align-self: end;
+  }
+
+  .loading-message {
+    text-align: center;
+    align-self: start;
+  }
+
+  .loading-spinner {
+    position: fixed;
+    z-index: 1001;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Transparent Overlay */
+  .loading-spinner:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--theme-main-blue);
+    opacity: 0.2;
+    
+  }
+  .csw-loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid var(--theme-deafult);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  /* * {
+  font-family: 'poppins', sans-serif !important; 
+} */
+</style>
+
+<body style="font-family: 'poppins' !important;">
+  <app-root>
+    <ng-container *ngif="!(appInit.donePromise | async)">
+      <div class="progress-loader">
+        <div class="loading-spinner">
+          <!-- <img src="assets/svg/index.svg"> -->
+          <span class="csw-loader"></span>
+        </div>
+      </div>
+    </ng-container>
+  </app-root>
+<script src="runtime-es2015.a1ac991fc00ebf39524f.js" type="module"></script><script src="runtime-es5.a1ac991fc00ebf39524f.js" nomodule="" defer=""></script><script src="polyfills-es5.d4b117ac71bdb817a188.js" nomodule="" defer=""></script><script src="polyfills-es2015.a93358e1cf8813cb4159.js" type="module"></script><script src="main-es2015.5e444a6408926b5f2246.js" type="module"></script><script src="main-es5.5e444a6408926b5f2246.js" nomodule="" defer=""></script></body>
+
+</html>

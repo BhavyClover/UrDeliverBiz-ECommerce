@@ -1,0 +1,213 @@
+<div fxLayout="column" id="prod-details">
+   <div class="color-b">
+      <div class="container main">
+         <div class="details-wrapper p-20">
+            <div fxLayout="column" fxFlex="100">
+               <div fxLayout="row" fxLayout.lt-lg="column" fxFlex="100" fxLayoutGap="20px">
+                  <div fxFlex="70" fxFlex.md="65" fxFlex.sm="52" fxFlex.xs="48" fxLayout="column">
+                     <div class="prodBox cursor-pointer" fxFlex="100" (click)="goToslider(product.ItemID)">
+                        <img [src]="env.imageUrl +product.ImageUrl" alt="" class="img-bg"
+                           style="width: 80% !important;">
+                     </div>
+                  </div>
+                  <div fxFlex="30" fxFlex.md="38" fxFlex.sm="48" fxFlex.xs="52" fxLayout="column"
+                     fxLayoutAlign="start start" class="m-b-30">
+                     <div class="product-right w-100 m-t-30">
+                        <div>
+                           <span class="product-title" [textContent]="product?.ProductName"></span>
+                           <p class="price f-s-14 f-w-400"
+                              *ngIf="!productsService?.catalogMode && product && product.Prices">
+                              {{product?.Prices[0] && product?.Prices[0].Price |
+                              currency:companyService.selectedCurrency.CurrencyCode}}</p>
+                        </div>
+                        <hr style="margin:28px 0px; border-color:var(--theme-deafult-grey)">
+                        <div class="product_detail_qv">
+                        </div>
+                        <div class="price-column">
+                           <div class="price"
+                              [textContent]="getPrice(product, OrderQuantityCount) | currency:companyService.selectedCurrency.CurrencyCode">
+                           </div>
+                           <span *ngIf="product?.AllowAutoship && (product?.Price - product?.AutoshipPrice > 0)"
+                              translate
+                              [translateParams]="{value:(product.Price - product.AutoshipPrice | currency:companyService.selectedCurrency.CurrencyCode)}">subscribe_autoship</span>
+                        </div>
+                        <div class="price-column">
+                           <p> {{'global_pv'|translate}}<span> :
+                                 {{OrderQuantityCount * (product?.CV || product?.QV || 0)}}</span></p>
+                        </div>
+                        <div class="layout-row" fxLayout="row" *ngIf="product?.HasOptions">
+                           <div class="w-100 checkoptionbox">
+
+                              <ng-container *ngFor="let option of product?.ItemOptions; let i = index">
+                                 <div class="m-0 p-20-0 custom-size checkoptionbox">
+                                    <p [textContent]="option.Option" class="f-w-700 text"></p>
+                                    <mat-form-field appearance="outline">
+                                       <mat-select readonly="true" [(ngModel)]="value[i]"
+                                          (selectionChange)="checkOptions(product?.ItemOptions);" name="value.Option"
+                                          placeholder="Select {{option.Option}}" (click)="openSelect($event)"
+                                          class="md-no-underline-select">
+                                          <mat-option
+                                             *ngFor="let value of getValidValues(product, option, option.Values)"
+                                             (ngInit)="setInitialItemOption(option, value)" [value]="value.Option"
+                                             (click)="value.isAvailable && selectOption(product, option, value, false)">
+                                             {{value.Option}} </mat-option>
+                                       </mat-select>
+                                    </mat-form-field>
+                                 </div>
+                              </ng-container>
+                           </div>
+                        </div>
+                        <div class="quantity">
+                           <span class="f-w-700">Quantity</span>
+                           <div fxLayout="row" fxLayout.xs="column" class="text-muted">
+                              <div fxLayout="row" fxLayoutAlign="center start">
+                                 <button
+                                    [disabled]="(!isOptionsSelected && product?.HasOptions && product?.ItemOptions?.length>0)"
+                                    mat-icon-button matTooltip="Remove" (click)="decreaseQuantity()">
+                                    <mat-icon>remove</mat-icon>
+                                 </button>
+                                 <input [(ngModel)]="OrderQuantityCount" maxlength="2" validate
+                                    [disabled]="!isOptionsSelected && product?.HasOptions && product.ItemOptions && product.ItemOptions?.length>0"
+                                    inputonlynumber="true" name="quantity"
+                                    (keyup)="($event.which === 38) ? increaseQuantity() : 0"
+                                    (keydown)="($event.which === 40) ? decreaseQuantity() : 0"
+                                    class="form-control input-number">
+                                 <button
+                                    [disabled]="(!isOptionsSelected && product?.HasOptions && product.ItemOptions && product?.ItemOptions.length>0)"
+                                    mat-icon-button matTooltip="Add" (click)="increaseQuantity()">
+                                    <mat-icon>add</mat-icon>
+                                 </button>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="buttons mt-20">
+                           <button
+                              *ngIf="!hideAddToCart(product) && !(persistentService.retailData.CurrentSelectedAutoOrder > 0 && utilityService.getAutoshipEditFlag())"
+                              [disabled]="product?.HasOptions && !isOptionsSelected && product?.ItemOptions?.length>0"
+                              mat-raised-button color="primary" class="btn-project w-100"
+                              (click)="addToCart('order', product)" translate="">{{'global_addtocart' |
+                              translate}}</button>
+                           <button *ngIf="hideAddToCart(product, true)"
+                              [disabled]="product?.HasOptions && !isOptionsSelected && product?.ItemOptions?.length>0"
+                              mat-raised-button color="primary" class="btn-project w-100 m-t-10"
+                              (click)="addToCart('autoship', product)" translate="">{{'autoship_' | translate}}</button>
+                        </div>
+                     </div>
+                     <div class="prodReview product-right w-100">
+                        <mat-accordion>
+                           <mat-expansion-panel class="font-IBM">
+                              <mat-expansion-panel-header class="arrow-color">
+                                 <mat-panel-title>
+                                    <span class="f-s-14 f-w-700 question font-IBM" translate="product_details"></span>
+                                 </mat-panel-title>
+                              </mat-expansion-panel-header>
+                              <p class="font-IBM" class="review-wrapper" fxFlex="100" fxFlex.md="75"
+                                 [innerHtml]="product?.Description | unsafe"></p>
+                           </mat-expansion-panel>
+                           <mat-expansion-panel class="font-IBM" *ngIf="product.AllowAutoship">
+                              <mat-expansion-panel-header class="arrow-color">
+                                 <mat-panel-title>
+                                    <span class="f-s-14 f-w-700 question font-IBM" translate="autoship_"></span>
+                                 </mat-panel-title>
+                              </mat-expansion-panel-header>
+                              <p class="font-IBM" class="review-wrapper" fxFlex="100" fxFlex.md="75"
+                                 [innerHtml]="product?.Specifications | unsafe"></p>
+                           </mat-expansion-panel>
+                        </mat-accordion>
+                     </div>
+                  </div>
+               </div>
+               <hr style="margin:28px 0px; border-color:var(--theme-deafult-grey)">
+               <div class="products sec-padding p-top-0">
+                  <div>
+                     <div fxLayout="column">
+                        <div class="m-t-10" fxLayout="column" fxFill fxLayout.gt-xs="row"
+                           fxLayoutAlign="flex-start flex-start" fxLayoutGap="20px" fxFlex>
+                           <div fxLayout="column" fxFlex="33" fxFlex.lt-md="100" fxLayoutAlign="center" fxFill>
+                              <div class="img-hover text-center">
+                                 <p class="f-s-18 f-w-700 m-t-10">Free shipping</p>
+                                 <p class="f-s-14 f-w-400 m-t-10">All orders over $100 come with complimentary free
+                                    shipping. Simply check out normally.</p>
+                              </div>
+                           </div>
+                           <div fxLayout="column" fxFlex="33" fxFlex.lt-md="100" fxLayoutAlign="center" fxFill>
+                              <div class="img-hover text-center">
+                                 <p class="f-s-18 f-w-700 m-t-10">Effortless Returns</p>
+                                 <p class="f-s-14 f-w-400 m-t-10">Each package comes with a prepaid return label. You've
+                                    got sixty days to send it back.</p>
+                              </div>
+                           </div>
+                           <div fxLayout="column" fxFlex="33" fxFlex.lt-md="100" fxLayoutAlign="center" fxFill>
+                              <div class="img-hover text-center">
+                                 <p class="f-s-18 f-w-700 m-t-10">Gift Cards</p>
+                                 <p class="f-s-14 f-w-400 m-t-10">Not sure what to get as a gift? Grab a gift card and
+                                    use it at any one of our retail locations.</p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- perfect stretch -->
+               <div class="m-t-20">
+                  <div fxLayout="column">
+                     <div fxLayout="column" fxLayoutAlign="center" fxFlex="50" class="bg-img p-relative">
+                        <img
+                           src="https://cdn.shopify.com/s/files/1/0926/9298/files/AV200723_SH05_059.jpg?v=1600978896&width=1512"
+                           alt="image">
+                        <div class="content p-abs c-white">
+                           <div class="p-relative p-content-div">
+                              <p><span class="f-s-12">Our Gaurentee</span></p>
+                              <p class="m-t-12 f-s-36 f-w-700">The Perfect Stretch</p>
+                              <p class="m-t-20 w-35">Each {{'Clientname' | translate}} pieces comes tested in 360 degree
+                                 flexibility tests. That's how we gaurentee the perfect stretch.</p>
+                              <p class="m-t-30 shop-btn" routerLink="/products/all"><a class="c-black f-s-14">Shop
+                                    now</a></p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <hr style="margin:28px 0px; border-color:var(--theme-deafult-grey)">
+               <!--Recommended-->
+               <div class="p-30">
+                  <div fxLayout="column">
+                     <p class="f-s-24 f-w-700">Recommended</p>
+                     <div class="m-t-10" fxLayout="column" fxFill fxLayout.gt-xs="row"
+                        fxLayoutAlign="flex-start flex-start" fxLayoutGap="20px" fxFlex="100">
+                        <div *ngFor="let productImage of healthBeautyProduct; let i=index" fxLayout="column" fxFlex="32"
+                           fxFlex.lt-md="100" fxLayoutAlign="center" fxFill>
+                           <div fxFlex="70" fxFlex.lt-md="100" fxLayoutAlign="center center" (mouseover)="mouseEnter(i)"
+                              (mouseout)="mouseOut(i)" fxLayout="column" fxFill class="p-relative cursor-pointer"
+                              id="parent">
+                              <img (click)="goToShop(productImage.ItemID)" [src]="env.imageUrl +productImage.ImageUrl"
+                                 alt="" class="img-bg2" [id]="'product'+i" style="width: 100% !important;">
+                              <div class="content" fxLayout="column" fxFill fxLayoutAlign="end">
+                                 <div class="p-absolute abs-width">
+                                    <button [id]="'btn'+i"
+                                       class="shop-btn product-button d-none w-89 m-t-20 m-b-20 m-r-0 m-l-0"
+                                       mat-raised-button color="black" (click)="addProduct(productImage)">Quick
+                                       Add</button>
+                                 </div>
+                              </div>
+                           </div>
+                           <div fxFlex="10" fxLayout="row" class="content m-t-20">
+                              <div fxFlex="70">
+                                 <p><span class="font-IBM">{{productImage.ProductName}}</span></p>
+                                 <p><span class="m-t-10 font-IBM"><del
+                                          *ngIf="productImage.oldPrice">{{productImage.oldPrice}} </del>
+                                       {{'$'+productImage.Price}}</span></p>
+                              </div>
+                              <div *ngIf="productImage.oldPrice" fxFlex="30" class="text-end m-t-10">
+                                 <p class="f-s-12 sale" color="white">Sale</p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,62 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: var(--theme-deafult-secondary);
+}
+.material-icons.color_white {
+  color: var(--theme-deafult);
+}
+.close-button {
+  float: right;
+  top: -24px;
+  right: -24px;
+}
+.close-icon {
+  
+  transition: 1s ease-in-out;
+}
+
+.close-icon:hover {
+  transform: rotate(180deg);
+}
+
+::ng-deep .findenroller-dialog .close-button {
+  float: right;
+  top: -52px;
+  right: -52px;
+}
+
+::ng-deep .findenroller-dialog .mat-dialog-container {
+  margin: 20px 0px;
+  overflow: unset;
+}
+
+.enroller-data-table {
+  max-height: 400px;
+  overflow: auto;
+}
+.enroller-footer {
+  padding: 15px 0px;
+  a {
+    padding: 2px;
+    font-size: 14px;
+    color: var(--theme-main-blue);
+    text-decoration: none;
+  }
+}
+.searchInput .mat-icon {
+  width: 0em;
+  font-size: 30px;
+}

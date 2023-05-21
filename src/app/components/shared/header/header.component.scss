@@ -1,0 +1,238 @@
+.midHeader {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    top: 65px;
+    .mt{
+        margin-top: 30px;
+    }
+}
+.midHeader1 {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    top: 0;
+    .mt{
+        margin-top: 0px;
+    }
+}
+
+.line_space {
+
+    line-height: 35px;
+    padding: 0;
+    padding-bottom: var(--spacing-medium);
+    margin-top: var(--spacing-unit);
+}
+.header mat-icon,.f-s {
+}
+.btn{
+    background: transparent;
+    color: var(--theme-deafult);
+    border: none;
+    cursor: pointer;
+}
+
+.p-0 {
+    padding: 0px !important;
+}
+.logo{
+    letter-spacing: normal;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: 'poppins', sans-serif;
+}
+@media only screen and (max-width: 600px) {
+    .p-l {
+        padding-left: 115px;
+    }
+    .p-r-10 {
+        padding-right: 10px !important;
+    }
+}
+.avtar img{
+    height: 32px!important;
+    width: 32px!important;
+}
+.swalImg {
+   margin-left: 70%;
+   margin-top: -10%;
+} 
+
+.swal {
+    margin-top: 3%;
+    width: 225px;
+    height: 220px;
+}
+.text-uppercase {
+    text-transform: uppercase;
+}
+.nocursor{
+    cursor:none;
+}
+.logButton {
+    color: var(--theme-deafult);
+    width: 80%;
+    font-size: 14px;
+    padding: 12px;
+    text-align: center;
+    border-radius: 40px;
+  }
+.noColor {
+    background-color: transparent;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--theme-deafult);
+}
+
+.p-r-0 {
+    padding-right: 0px;
+}
+.backOfficeLogo {
+    padding: 0px;
+    color: var(--theme-deafult);
+}
+.p-0-10 {
+    padding: 0px 10px;
+}
+.h-90 {
+    height: 55px !important;
+}
+.f-s-40 {
+    font-size: 40px !important;
+}
+
+.home-person-logo {
+    padding: 0;
+}
+mat-icon {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-icon:hover {
+background-color: var(--theme-deafult-grey);
+border-radius: 50%;
+}
+
+
+@media (max-width: 480px) {
+ .midHeader {
+     top: 70px;
+     height: 80px !important;
+ }   
+ 
+}
+
+
+.menu-items {
+    margin: 0 20px;  
+    span, a{
+        color: var(--theme-deafult-dark);
+        font: 405 18px Poppins;
+        margin-bottom: 8px;
+        cursor: pointer;
+    }
+} 
+
+@media (min-width: 481px) and (max-width: 600px) {
+    .home-header .cart-count-wrapper {
+        left: 37px !important;
+    }
+}
+
+.f-w-100{
+    font-weight: 100;
+}
+.heading,#header-menu{
+    span{
+        cursor: pointer;
+        font-family: 'poppins', sans-serif;
+    }
+    span:hover{
+        opacity: 0.5;
+    }
+}
+.wh-40{
+    height: 40px !important;
+    width: 40px !important;
+}
+.mat-hover:hover{
+    background-color: var(--theme-deafult-grey);
+}
+.mat-hovers:hover{
+    background-color: var(--theme-deafult);
+}
+.bgm-grey{
+    background-color: var(--theme-deafult-grey);
+    border-radius: 23px;
+}
+.p-width{
+    margin-top:37px
+}
+.p-width2{
+    margin-top: 7px;
+}
+.h-52{
+    height: 52px;
+}
+.text-gray {
+    color: var(--theme-deafult-medium-grey) !important; 
+}
+.home-header {
+    .mat{
+        ::ng-deep {
+            mat-icon-button .mat-button-ripple.mat-ripple, .mat-button-focus-overlay {
+                top: 10px !important;
+                left: 8px !important;
+                right: -9px !important;
+                bottom: -7px !important;
+            }
+        }
+    }
+    .mat-menu-content{
+        width: 100% !important;
+    }
+} 
+.display-inline-relative{
+    display: inline;
+    position: relative;
+    top: 8px;
+     left: 2%;
+}  
+
+.logout-menu {
+    //  width: 5%;
+    //  height: 2px;
+}
+
+.product-button{
+    margin: 10px;
+    padding: 2px 12px !important;
+    background-color: var(--theme-deafult-secondary) !important;
+    color: var(--theme-deafult) !important;
+    width: 20%;
+} 
+
+.shop-btn{
+    background: var(--theme-deafult);
+    // border-radius: 30px;
+    display: inline-block;
+    // padding: 15px 32px;
+    cursor: pointer;
+}
+.w-60 {
+    width: 60%;
+}
+
+.receipt {
+    left:10%;
+    margin-top: -8%;
+}
+
+.receiptOrder {
+   margin-top: 7%
+}
+

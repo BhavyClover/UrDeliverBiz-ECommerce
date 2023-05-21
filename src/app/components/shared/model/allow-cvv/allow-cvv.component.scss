@@ -1,0 +1,115 @@
+.allowCvvModel-dialog {
+    height: auto;
+    .p-16 {
+        padding: 16px !important;
+    }
+    .p-r-l-16 {
+        padding:0px 16px;
+    }
+    .f-s-25 {
+        font-size: 25px;
+    }
+    .cvv-footer-sample {
+        width: 100%;
+        text-align: right;
+        border-top: 1px solid var(--theme-deafult-grey);
+    }
+    
+     .ds-sub-heading {
+        color: var(--theme-deafult-secondary);
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    
+     .cvv-content {
+        padding: 25px 20px 10px 20px;
+    }
+    
+     .clone-card-header {
+        border-bottom: 1px solid var(--theme-deafult-grey);
+        background-color: var(--theme-deafult);
+        padding: 12px 16px;
+        position: relative;
+    }
+    
+     .clone-card-title {
+        margin-left: 1px !important;
+        color: var(--theme-deafult-secondary);
+        font-size: 20px;
+        display: inline-block;
+        width: 84%;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        /* stylelint-disable-line declaration-no-important */
+    }
+    
+     .form-group .form-control {
+        padding-left: 15px;
+        border-radius: 5px !important;
+        /* stylelint-disable-line declaration-no-important */
+        border: 1px solid var(--theme-deafult-grey) !important;
+        /* stylelint-disable-line declaration-no-important */
+    }
+    
+     .card-design {
+        width: 200px;
+    }
+    
+     .cvv-content input[type='text'] {
+        margin-top: 0;
+        padding-top: 2px;
+        padding-bottom: 1px;
+        padding-left: 2px;
+        padding-right: 2px;
+        border: 1px solid var(--theme-deafult-medium-grey);
+        line-height: 26px;
+        height: 30px;
+        border-radius: 3px;
+        border-style: solid;
+        width: 100%;
+        box-shadow: inset 0 1px 1px var(--theme-deafult-grey);
+    }
+    
+     .cvv-content input[type='text']:focus {
+        border-color: var(--theme-main-blue);
+        outline: 0;
+        box-shadow: inset 0 1px 1px var(--theme-deafult-grey), 0 0 8px var(--theme-deafult-grey);
+    }
+    
+     .text-uppercase {
+        text-transform: uppercase !important;
+    }
+} 
+
+::ng-deep .allowCvvModel-dialog .mat-dialog-container {
+    // overflow-x: hidden;
+    margin: 0px;
+    padding: 0px !important;
+  }
+  .close-button {
+    float: right;
+    top: -24px;
+    right: -24px;
+  }
+  .close-icon {
+    color: var(--theme-deafult);
+    transition: 1s ease-in-out;
+  }
+  
+  .close-icon:hover {
+    transform: rotate(180deg);
+  }
+  
+  ::ng-deep .allowCvvModel-dialog .close-button {
+    float: right;
+    top: -52px;
+    right: -52px;
+  }
+  
+  ::ng-deep .allowCvvModel-dialog .mat-dialog-container {
+    overflow: unset;
+  }
+  ::ng-deep .allowCvvModel-dialog .mat-dialog-actions{
+    margin-bottom: 0px !important;
+  }

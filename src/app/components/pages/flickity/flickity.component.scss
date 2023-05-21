@@ -1,0 +1,223 @@
+/* external css: flickity.css */
+
+* {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: sans-serif;
+  }
+
+  .carousel-main {
+    text-align: center;
+    margin-top: -50px;
+  }
+
+  .carousel-cell {
+    width: 100%;
+    margin-right: 10px;
+    margin-top: 10px;
+    background: var(--theme-deafult-grey);
+    border-radius: 5px;
+    counter-increment: carousel-cell;
+    background-size: cover;
+    overflow: hidden;
+  }
+
+  /* cell number */
+  .carousel-cell:before {
+    display: block;
+    text-align: center;
+    line-height: 200px;
+    background-size: cover;
+    font-size: 80px;
+    color: var(--theme-deafult);
+  }
+
+  .carousel-nav .carousel-cell {
+    width: 80px;
+    max-height: 80px;
+  }
+  @media (min-width: 300px) and (max-width: 476px) {
+    .carousel-nav .carousel-cell {
+      width: 50px;
+    }
+  }
+  @media (min-width: 100px) and (max-width: 300px) {
+    .carousel-nav .carousel-cell {
+      width: 40px;
+    }
+  }
+
+  .carousel-nav .carousel-cell:before {
+    font-size: 50px;
+    line-height: 80px;
+  }
+
+  .carousel-nav .carousel-cell.is-nav-selected {
+    background-size: cover;
+    border: 1px solid var(--theme-deafult-secondary);
+  }
+  .carousel-nav .flickity-button{
+    display: none !important;
+  }
+  /*! Flickity v2.2.2
+  https://flickity.metafizzy.co
+  ---------------------------------------------- */
+
+  .flickity-enabled {
+    position: relative;
+  }
+
+  .flickity-enabled:focus {
+    outline: none;
+  }
+
+  .flickity-viewport {
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+  }
+
+  .flickity-slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* draggable */
+
+  .flickity-enabled.is-draggable {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .flickity-enabled.is-draggable .flickity-viewport {
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor: grab;
+  }
+
+  .flickity-enabled.is-draggable .flickity-viewport.is-pointer-down {
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
+  }
+
+  /* ---- flickity-button ---- */
+  .flickity-button {
+    position: absolute;
+    background: var(--theme-deafult-grey);
+    border: none;
+    color: var(--theme-deafult-dark);
+    height: 100px;
+    width: 100px;
+    margin-left: 40%;
+    margin-right: 3%;
+  }
+
+  .flickity-button:hover {
+    background: var(--theme-deafult);
+    cursor: pointer;
+  }
+
+  .flickity-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 5px var(--theme-main-blue);
+  }
+
+  .flickity-button:active {
+    opacity: 0.6;
+  }
+
+  .flickity-button:disabled {
+    opacity: 0.3;
+    cursor: auto;
+    pointer-events: none;
+  }
+
+  .flickity-button-icon {
+    fill: currentColor;
+  }
+
+  /* ---- previous/next buttons ---- */
+
+  .flickity-prev-next-button {
+    top: 50%;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    /* vertically center */
+    transform: translateY(-50%);
+  }
+
+  .flickity-prev-next-button.previous {
+    left: 10px;
+  }
+  .flickity-prev-next-button.next {
+    right: 10px;
+  }
+  /* right to left */
+  .flickity-rtl .flickity-prev-next-button.previous {
+    left: auto;
+    right: 10px;
+  }
+  .flickity-rtl .flickity-prev-next-button.next {
+    right: auto;
+    left: 10px;
+  }
+
+  .flickity-prev-next-button .flickity-button-icon {
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    width: 60%;
+    height: 60%;
+  }
+
+  
+.center{
+    width: 50%;
+    overflow: hidden;
+}
+.flickity-button {
+    height: 100px;
+    width: 100px;
+}
+// if you want to change the color of the icon
+.material-icons.color_white {color: var(--theme-deafult);}
+.close-button{
+  float: right;
+  top:-24px;
+  right:-24px;
+}
+
+//if you want some css animation
+.close-icon {
+  color: var(--theme-deafult);
+  transition: 1s ease-in-out;
+}
+
+.close-icon:hover {
+  transform: rotate(180deg);
+}
+::ng-deep .slider-dialog .mat-dialog-container {
+    width: 1050px !important;
+    height: 90vh !important;
+    overflow: hidden;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 12px !important;
+ }
+ ::ng-deep .slider-dialog .mat-dialog-content{
+  margin: 0px;
+  padding: 0px;
+ }
+ ::ng-deep .cdk-overlay-pane{
+    max-width: 100% !important;
+ }
+.m-t-70{
+  margin-top: 70px;
+}

@@ -1,0 +1,107 @@
+<div id="manageAutoship" class="m-t-30">
+    <div class="p-page p-page--large">
+        <div class="clearfix managebottom-btn" *ngIf="AutoOrdersData.length > 0 ">
+            <div class="title">
+                <p translate>your_autoship_</p>
+            </div>
+            <div class="m-t-10" a-t-autoship *ngFor="let item of AutoOrdersData">
+                <mat-card>
+
+                    <div class="card1">
+                        <mat-card-content class="m-b-0">
+                            <div class="card-body1 p-0">
+                                <div class="p-l-0 p-r-0 b-b panel m-b-0">
+                                    <div flex fxLayout="row" class="p-0 p-t-10 p-b-10 single-card"
+                                        style="padding: 10px 0px;">
+                                        <div fxFlex="40" class="f-s-16 p-l-15 p-t-8">
+                                            <span translate>autoshiip</span>
+                                            <span [textContent]="item.AutoShipID"></span>
+                                        </div>
+                                        <div fxFlex="60" class="p-l-15">
+                                            <div fxFlex="50" class="col-xs-6 p-l-0">
+                                                <span translate>
+                                                    nxt_run_date
+                                                </span><br />
+                                                <span a-t-next-run-date class="break-word-all"
+                                                    [textContent]="item.NextProcessDate"></span>
+                                            </div>
+                                            <div fxFlex="50" class="col-xs-6 p-r-0 p-l-0">
+                                                <span translate>
+                                                    shop_payment_new
+                                                </span><br />
+                                                <span [textContent]="item.PaymentMethodID"></span>
+                                                <i class="zmdi zmdi-info zmdi-hc-fw c-color1 f-s-16 custom-tooltip"
+                                                    ng-if="isHyperWallet(item)"
+                                                    uib-popover-template="'myTooltipTemplate.html'"
+                                                    popover-class="customToolTipClass" popover-placement="auto"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="b-b p-l-0 p-r-0 b-t  table-responsive" id="1">
+                                        <table class="table table-vmiddle bgm-lightgrey" id="automanagetable">
+                                            <thead>
+                                                <tr>
+                                                    <th class="bgm-lightgrey c-black" translate>global_sku</th>
+                                                    <th class="bgm-lightgrey c-black" translate>global_description</th>
+                                                    <th class="bgm-lightgrey  text-center c-black" translate>
+                                                        global_quantity</th>
+                                                    <th class="bgm-lightgrey c-black" translate>unit_price</th>
+                                                    <th class="bgm-lightgrey c-black" translate="global_pv">
+                                                    </th>
+                                                    <th class="bgm-lightgrey c-black" translate>invoice_line_total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let Detail of item.LineItems">
+                                                    
+                                                    <td [textContent]="Detail.SKU"></td>
+                                                    <td style="word-break: break-all;text-overflow: clip;white-space: normal;"
+                                                        [innerHtml]="Detail.Languages[0].ProductName"></td>
+                                                    <td class="text-center" [textContent]="Detail.Quantity"></td>
+                                                    <td [textContent]="Detail.Prices[0].Price | currency:companyService.selectedCurrency.CurrencyCode">
+                                                    </td>
+                                                    <td [textContent]="Detail.Prices[0].CV"></td>
+                                                    <td [textContent]="Detail.ExtendedPrice  | currency:companyService.selectedCurrency.CurrencyCode">
+                                                    </td>
+                                                </tr>
+                                                <tr class="bgm-white">
+                                                    <td></td>
+                                                    <td class="text-right" translate>totals_</td>
+                                                    <td class="text-center" [textContent]="item.TotalQuantity"></td>
+                                                    <td [textContent]="item.SubTotal | currency:companyService.selectedCurrency.CurrencyCode">
+                                                    </td>
+                                                    <td [textContent]="item.TotalCV"></td>
+                                                    <td [textContent]="item.SubTotal | currency:companyService.selectedCurrency.CurrencyCode">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </mat-card-content>
+                        <mat-card-footer class="m-0" *ngIf="item.AutoShipID != persistentService.retailData.CurrentSelectedAutoOrder">
+                            <p class="card-footer1 text-right">
+                                <a mat-button  class="m-l-20 c-color1 edit-autoship" (click)="showAutoship(item.AutoShipID)">{{'edit_' | translate}}</a>
+                            </p>
+                        </mat-card-footer>
+                    </div>
+                    <app-autoship-edit *ngIf="persistentService.retailData.isAutoshipEdit && autoShipId==item.AutoShipID"></app-autoship-edit>
+                </mat-card>
+            </div>
+        </div>
+
+        <div *ngIf="AutoOrdersData.length === 0">
+            <div class="common_placeholder position-static" translate>manage_autoship_placeholder</div>
+        </div>
+
+        <div class="bounce-animate" *ngIf="canAddAutoship()">
+            <button (click)="createAutoship()" mat-fab class="mat-fab-bottom-right bounce-animate c-black" (click)="showSettings = true" style="z-index: 9;">
+                <mat-icon class="mat-24">add</mat-icon>
+            </button>
+        </div>
+  
+    </div>
+</div>
+

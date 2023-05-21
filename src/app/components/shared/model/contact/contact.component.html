@@ -1,0 +1,116 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+  <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+<h1 mat-dialog-title>Contact</h1>
+<div mat-dialog-content>
+  <div class="contact-page">
+    <div class="sub-container">
+      <mat-card>
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between start" class="">
+          <div fxFlex="35" fxFlex.sm="45" class="left-info-panel">
+            <div class="c-info">
+              <div class="enroll_img">
+                <div class="avtar">
+                  <img style="height:100px;width:100px;" class="" [src]="userService.ImageUrl" alt="companylogo"
+                    [default]="'assets/images/user.png'" onerror="this.src='assets/images/noimage.png'">
+                </div>
+              </div>
+              <h3 [textContent]="userService.FirstName + ' ' + userService.LastName" class="color-f-s-23">tori belle
+                cosmetics LLC</h3>
+              <div class="content">
+                <ul class="social list-inline text-center" fxLayout="row" fxLayoutAlign="space-evenly center">
+                  <mat-toolbar class="social list-inline text-center" fxLayout="row"
+                    fxLayoutAlign="space-evenly center">
+
+                    <li *ngIf="userService.Facebook"><a [href]="userService.Facebook"><i
+                          class="fa fa-facebook-f"></i></a></li>
+                    <li *ngIf="userService.Linkdin"><a [href]="userService.Linkdin"><i class="fa fa-linkedin"></i></a>
+                    </li>
+                    <li *ngIf="userService.Instagram"><a [href]="userService.Instagram"><i
+                          class="fa fa-instagram"></i></a></li>
+                    <li *ngIf="userService.Twitter"><a [href]="userService.Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+
+                  </mat-toolbar>
+                </ul>
+                <h6 class="color-f-s-24" [textContent]="userService.SecondaryPhone || userService.PrimaryPhone"></h6>
+                <a href="mailto:{{userService.EmailAddress}}" class="mailaddress"
+                  [textContent]="userService.EmailAddress"></a>
+                <p class="ds_AboutMe" [textContent]="userService.AboutMe"></p>
+              </div>
+            </div>
+          </div>
+          <div fxFlex="60" fxFlex.sm="50" class="contact-form">
+            <div class="title">
+              <h3 translate="contact_" class="color-f-s-19"></h3>
+            </div>
+            <form fxLayout="row wrap">
+              <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                <mat-form-field class="w-100 ds-validate">
+                  <mat-label translate="user_first_name"></mat-label>
+                  <input matInput [(ngModel)]="contact.FirstName" [ngModelOptions]="{standalone: true}" name="FirstName"
+                    validate noempty="true">
+                </mat-form-field>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                <mat-form-field class="w-100 ds-validate">
+                  <mat-label translate="user_last_"></mat-label>
+                  <input matInput [(ngModel)]="contact.LastName" [ngModelOptions]="{standalone: true}" name="LastName"
+                    validate noempty="true">
+                </mat-form-field>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                <mat-form-field class="w-100 ds-validate">
+                  <mat-label translate="MobilePhone_"></mat-label>
+                  <input matInput [(ngModel)]="contact.MobilePhone" [ngModelOptions]="{standalone: true}" name="Phone"
+                    phoneno="true" inputspace="true" validate noempty="true" maxlength="20" inputonlynumber="true">
+                </mat-form-field>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                <mat-form-field class="w-100 ds-validate">
+                  <mat-label translate="email_"></mat-label>
+                  <input matInput [(ngModel)]="contact.Email" [ngModelOptions]="{standalone: true}" name="email"
+                    validate noempty="true" email="true">
+                </mat-form-field>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                <mat-form-field class="w-100 ds-validate">
+                  <mat-label translate="message_"></mat-label>
+                  <textarea matInput rows="6" [(ngModel)]="contact.Message" [ngModelOptions]="{standalone: true}"
+                    name="content"></textarea>
+                </mat-form-field>
+              </div>
+              <div fxFlex="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                <mat-form-field class="w-100 ds-validate">
+                  <div fxLayout="column" fxFlex="100">
+                    <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between none">
+                      <div class="captcha_code" id="captcha_code" fxFlex="56" fxFlex.xs="63">
+                        <span translate>captcha_</span><span id="captchaQuestion"></span><span> = </span>
+                      </div>
+                      <div class="captcha_answer m-r-10" fxFlex="39" fxFlex.xs="30">
+                        <input matInput id="answer" inputonlynumber="true" validate noempty="true"
+                          [(ngModel)]="contact.result" (focusout)="checkCaptch()" [ngModelOptions]="{standalone: true}"
+                          name="answer" type="text">
+                      </div>
+                    </div>
+                    <div class="captchaError" *ngIf="!captchaError">
+                      <small class="has-error help-block" translate>enter_valid_captcha</small>
+                    </div>
+                    <div class="reload_captcha">
+                      <span translate>reload_captcha</span><span><img src="/assets/images/arrow.png"
+                          [default]="'assets/images/noimage.png'" (click)="getRandom(true)" alt="arrow"></span>
+                    </div>
+                  </div>
+                </mat-form-field>
+              </div>
+              <div class="button-wrap" fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                <button class="btn-project" mat-raised-button color="primary" validate trigger-check="true"
+                  (success)="contactUser()">{{'_submit'| translate}}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

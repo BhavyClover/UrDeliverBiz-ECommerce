@@ -1,0 +1,71 @@
+<mat-card class="p-0" id="selectmarket" style="width:320px">
+    <mat-card-header class="p-0 bgm-color3 mat-card-header-text">
+        <mat-card-title flex="100" translate="select_market" class="select-market-text"></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="panel panel-default text-center m-b-0" ng-init="isValid=false">
+            <div class="p-t-10" *ngIf="userService.enrollerInfo?.FirstName">
+                <span translate="your_affiliate_is"></span>
+                <div class="p-t-10">
+                    <img class="user_img" alt="Affiliate Image" [src]="userService.enrollerInfo.ImageUrl" onerror="this.src='assets/images/noimage.png'"/>
+                    <span class="f-bold p-l-10">{{userService.enrollerInfo.FirstName + ' ' +
+                        userService.enrollerInfo.LastName + ' '}}</span>
+                    {{('from_' | translate) + ' ' + userService.enrollerInfo.Country}}
+                </div>
+                <div class="p-t-10 ">
+                    <button (click)="changeAffiliate()" class="change-affiliate-icon ">
+                        <mat-icon class="affiliate_edit_icon ">edit</mat-icon>{{'market_change_affiliate' |
+                        translate}}
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="selectedCountry" class="panel-body p-l-0 p-t-20 control-group">
+                <div class="btn-group">
+                    <div class="widget-text">
+                        <a class="btnclass" mat-button [matMenuTriggerFor]="countryMenu"
+                            #countryMenuTrigger="matMenuTrigger">
+                            <img [src]="'https://directscalestring.directscale.com/flags/4x3/'+ selectedCountry.CountryCode +'.svg'"
+                                width="18">
+                            <span class="m-l-10">{{selectedCountry.CountryName}}</span>
+                            <mat-icon class="mat-icon-sm caret cur-icon">arrow_drop_down</mat-icon>
+                        </a>
+                        <mat-menu #countryMenu="matMenu" [overlapTrigger]="false" xPosition="before"
+                            class="app-dropdown">
+                            <span *ngFor="let country of allowedCountries">
+                                <button class="no-border" mat-menu-item (click)="changeLang(country.CountryCode)">
+                                    <img [src]="'https://directscalestring.directscale.com/flags/4x3/'+ country.CountryCode +'.svg'"
+                                        width="18" alt="country flag"> {{country.CountryName}}
+                                </button>
+                            </span>
+                        </mat-menu>
+                    </div>
+
+                </div>
+            </div>
+            <div class="selector-font p-20" translate="you_r_shopping_as"></div>
+            <div *ngIf="selectedUserType" class="panel-body control-group">
+                <div class="btn-group">
+                    <div class="widget-text">
+                        <a class="btnclass" mat-button [matMenuTriggerFor]="custypeMenu"
+                            #custypeMenuTrigger="matMenuTrigger">
+                            <span>{{selectedUserType.Description}}</span>
+                            <mat-icon class="mat-icon-sm caret cur-icon">arrow_drop_down</mat-icon>
+                        </a>
+                        <mat-menu #custypeMenu="matMenu" [overlapTrigger]="false" xPosition="before"
+                            class="app-dropdown">
+                            <span *ngFor="let customerType of customerTypes">
+                                <button class="no-border" mat-menu-item (click)="selectCustomerType(customerType.ID)">
+                                    {{customerType.Description}}
+                                </button>
+                            </span>
+                        </mat-menu>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions class="text-center">
+        <button mat-button id="btnCountryContinue" class="bgm-color1 btn btn-primary"
+            (click)="continue()">{{'market_continue' | translate}}</button>
+    </mat-card-actions>
+</mat-card>

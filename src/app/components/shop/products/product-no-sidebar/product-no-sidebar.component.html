@@ -1,0 +1,116 @@
+<div class="prouduct bgm-white p-10">
+  <!-- products -->
+  <div class="p-30">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="flex-start
+      flex-start" fxLayoutGap="20px">
+      <div fxFlex="25" fxFlex.lt-sm="100" class="m-t-40 w-100">
+        <!-- start -->
+        <div class="main" fxLayout="row" fxLayoutAlign="center center">
+          <div fxFlex="80" fxLayout="column" class="firstContainer">
+            <div>
+              <span class="color1-f-s-17 f-w-700" translate="search_product"></span>
+            </div>
+            <div class="m-t-10">
+              <form>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                  <div fxFlex="100" class="searchBox">
+                    <mat-form-field fxFlex appearance="outline" class="design">
+                      <input name="search" [(ngModel)]="productSearchText" [ngModelOptions]="{standalone: true}"
+                        matInput placeholder="What are you looking for?">
+                      <mat-icon class="m-t-10" matSuffix>search</mat-icon>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <hr style="border-color:var(--theme-deafult-grey)">
+            <div class="m-t-10">
+              <span class="color1-f-s-17 f-w-700" translate="category_"></span>
+            </div>
+            <div class="m-t-10 borderBottom">
+              <div class="m-l-15">
+                <form>
+                  <div fxLayout="column" fxFlex="100">
+                    <div class="checkBox">
+                      <mat-checkbox id="all" [(ngModel)]="itemsListService.selectedCategories['all']"
+                        (change)="itemsListService.getItemsByCategory()" [ngModelOptions]="{standalone: true}"
+                        class="text-uppercase" color="warn">{{'shop_all_' |
+                        translate}}</mat-checkbox>
+                    </div>
+                    <div class="checkBox" *ngFor="let category of
+                      itemsListService.categoryList">
+                      <mat-checkbox [(ngModel)]="itemsListService.selectedCategories[category.CategoryId]"
+                        [attr.id]="category.CategoryId" (change)="onChange(itemsListService.selectedCategories)"
+                        [ngModelOptions]="{standalone: true}" color="warn" class="text-uppercase">{{category.Category}}
+                      </mat-checkbox>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <hr class="m-t-10" style="border-color:var(--theme-deafult-grey)">
+            <div class="m-t-10">
+              <div>
+                <span class="color1-f-s-17 f-w-700" translate="sort_by"></span>
+              </div>
+              <div class="m-t-10">
+                <form>
+                  <div class="sortBy">
+                    <mat-form-field appearance="outline" class="w-100 design">
+                      <mat-select [(ngModel)]="sortByOrder" [compareWith]="compareObjects"
+                        (selectionChange)="onChangeSorting($event)" [ngModelOptions]="{standalone: true}">
+                        <mat-option *ngFor="let keys of sortKeys" [value]="keys"> {{keys.name | translate}} -
+                          {{keys.lname
+                          | translate}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxFlex="75" class="m-t-10" fxLayout="row wrap" fxLayoutAlign="flex-start flex-start">
+        <div *ngFor="let productImage of itemsListService.productList | productSearch:productSearchText | productOrderBy:sortByOrder; let
+          i=index" fxLayout="column" fxFlex="32" fxFlex.lt-md="48" fxFlex.lt-sm="100" fxLayoutAlign="center" class="m-t-30 p-10">
+          <div fxFlex="70" fxFlex.lt-md="100" fxLayoutAlign="center center" (mouseover)="mouseEnter(i)"
+            (mouseout)="mouseOut(i)" fxLayout="column" class="p-relative">
+            <img (click)="goToShop(productImage.ItemID)" [src]="env.imageUrl
+              +productImage.ImageUrl" alt="" class="img-bg fix cursor-pointer" [id]="'product'+i" style="width:
+              100% !important;object-fit:contain !important;">
+            <div class="content" fxLayout="column" fxLayoutAlign="end">
+              <div id="div" class="p-absolute abs-width">
+                <button [id]="'btn'+i" class="shop-btn product-button d-none
+                  w-89 m-t-20 m-b-20 m-r-0 m-l-0" mat-raised-button color="black"
+                  (click)="handleProduct(productImage)">Quick Add</button>
+              </div>
+            </div>
+          </div>
+          <div fxFlex="10" fxLayout="row" class="content m-t-20">
+            <div fxFlex="70">
+              <p><span class="font-IBM">{{productImage.ProductName}}</span></p>
+              <p><span class="m-t-10 font-IBM"><del *ngIf="productImage.oldPrice">{{productImage.oldPrice}}
+                  </del>
+                  {{'$'+productImage.Price}}</span></p>
+            </div>
+            <div *ngIf="productImage.oldPrice" fxFlex="30" class="text-end
+              m-t-10">
+              <p class="f-s-12 sale" color="white">Sale</p>
+            </div>
+          </div>
+        </div>
+        <div class="w-100 text-center m-50" *ngIf="itemsListService.productList.length === 0">
+          No Products found!!
+        </div>
+        <div class="flex flex-auto flex-col items-center justify-center
+          bg-gray-100 dark:bg-transparent" *ngIf="(((itemsListService.productList |
+          productSearch:productSearchText)?.length===0))">
+          <mat-icon class="icon-size-24" [svgIcon]="'iconsmind:file_hide'"></mat-icon>
+          <div class="mt-4 text-2xl font-semibold tracking-tight
+            text-secondary">There is no data available!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

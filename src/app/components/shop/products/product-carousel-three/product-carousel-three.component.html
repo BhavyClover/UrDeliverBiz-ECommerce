@@ -1,0 +1,29 @@
+<div class="product-item-2 swiper-container" [swiper]="config">
+  <div class="swiper-wrapper h-100">
+    <div *ngFor="let product of product" class="swiper-slide">
+      <mat-card fxLayout="column">
+        <ngx-skeleton-loader loadingText="Ziplingo" *ngIf="!contentLoaded" count="1"
+          [theme]="{ width: '180px', 'border-radius': '0', height: '180px' }"></ngx-skeleton-loader>
+        <div class="product-img" *ngIf="contentLoaded">
+          <a class="product-link" (click)="changeProductDetail(product.ItemID)">
+            <img [default]="'assets/images/product/no-img.png'"
+              [src]="configService.localSettings.Disco.DiscoUrl+product.ImageUrl" alt="" onerror="this.src='assets/images/noimage.png'">
+          </a>
+        </div>
+        <div class="product-info-wrapper">
+          <ngx-skeleton-loader loadingText="Ziplingo" *ngIf="!contentLoaded" count="2"
+            [theme]="{ 'border-radius': '0', height: '20px' }"></ngx-skeleton-loader>
+          <div class="title-wrap" *ngIf="contentLoaded">
+            <h4 class="color1-f-s-10">{{product?.ProductName}}</h4>
+          </div>
+          <div *ngIf="contentLoaded" class="" fxLayout="row" fxLayoutAlign="space-between center">
+            <p class="color-f-s-10" *ngIf="product && product.Prices && product.Prices.length>0">
+              {{product?.Prices[0].Price | currency : companyService.selectedCurrency.CurrencyCode}}</p>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <button mat-mini-fab class="swiper-button-prev swipe-arrow l-20"><mat-icon>keyboard_arrow_left</mat-icon></button>
+  <button mat-mini-fab class="swiper-button-next swipe-arrow"><mat-icon>keyboard_arrow_right</mat-icon></button>
+</div>

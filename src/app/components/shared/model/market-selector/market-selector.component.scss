@@ -1,0 +1,105 @@
+
+   .toolbar {
+      background-color: var(--theme-deafult-medium-grey);
+      color: var(--theme-deafult);
+      justify-content: center;
+      max-width: 400px;
+    }
+    .marketBox .affiliate {
+      text-align: center;
+      padding-top: 20px;
+    }
+    .marketBox .space {
+      text-align: center;
+      padding-top: 20px;
+    }
+    .marketBox .edit {
+      text-align: center;
+      padding-top: 20px;
+    }
+    .marketBox .formfield {
+      text-align: center;
+      padding-top: 20px;
+    }
+    .marketBox .countrySelect {
+      width: 215px;
+    }
+    .marketBox .passSelect {
+      min-width: 215px;
+    }
+    .marketBox .editIcon {
+      color: var(--theme-deafult-grey);
+    }
+    .marketBox .continueButton{
+      text-align: center;
+        button {
+        min-width: 215px;
+        text-align: center;
+        margin: 10px;
+      }
+    }
+    .marketBox .formfield p {
+      margin-top: 0;
+    }
+    a {
+      text-decoration-line: none;
+    }
+    .mat-icon {
+      font-size: 15px !important;
+    }
+    .user_img {
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      vertical-align: middle;
+  }
+  .p-t-10 {
+    padding-top: 10px!important;
+}
+.f-bold {
+  font-weight: 700;
+}
+.panel {
+  box-shadow: none;
+  border: 0;
+}
+.m-b-0 {
+  margin-bottom: 0!important;
+}
+.panel-default {
+  border-color: var(--theme-deafult-medium-grey);
+}
+.panel {
+  margin-bottom: 18px;
+}
+.change-affiliate-icon{
+  background-color: transparent;
+  border: none;
+  color: var(--theme-main-blue);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+#btnCountryContinue{
+  width: 215px;
+  height: 34px;
+  margin-bottom: 25px;
+  background-color: var(--theme-deafult-secondary);
+  text-transform: uppercase;
+  color: var(--theme-deafult);
+}
+
+.btnclass {
+  min-width: 215px;
+  height: 34px;
+  box-shadow: 0 1px 4px 0 var(--theme-deafult-grey)
+}
+
+.cur-icon {
+  float: right;
+  margin-top: 6px;
+  font-size: 20px !important;
+}
+.no-border {
+  border-bottom: none;
+}

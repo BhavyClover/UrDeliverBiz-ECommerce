@@ -1,0 +1,242 @@
+#product-no-sidebar {
+    
+    background-color: var(--theme-deafult-medium-grey);
+    .main {
+        max-width: 1265px;
+        margin: auto;
+        // margin: 5px 70px;
+        // padding: 16px;
+        @media only screen and (max-width: 1200px)  {
+            margin: 0px 33px;
+        }
+        @media only screen and (max-width: 992px) {
+            margin: 0px 68px;
+        }
+        @media only screen and (max-width: 600px) {
+            margin: 0px 0px;
+        }
+        .firstContainer {
+            margin: 27px 20px 0px 0px;
+            .checkBox {
+                align-items: center;
+                min-height: 48px;
+                height: auto;
+                ::ng-deep .mat-checkbox-checked.mat-warn .mat-checkbox-background {
+                    background-color: var(--theme-main-yellow);
+                }
+            }
+            ::ng-deep .searchBox .mat-form-field .mat-form-field-flex {
+                background-color: var(--theme-deafult);
+                margin-top: 10px;
+            }
+            ::ng-deep .checkBox .mat-checkbox-inner-container {
+                margin-right: 20px;
+            }
+        }
+        .secondContainer {
+            .sortBy {
+                background-color: var(--theme-deafult);
+                width: 140px;
+                height: 25px;
+                ::ng-deep .mat-select .mat-select-arrow {
+                    margin-top: 8px;
+                }
+            }
+            @media only screen and (max-width: 600px) {
+                .m-left-33 {
+                    margin: 0px 30px;
+                }
+            }
+            @media only screen and (min-width: 1200px) {
+                .m-right-20 {
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
+    .color1-f-s-17 {
+        color: var(--theme-deafult-secondary);
+        font-size: 17px;
+        margin-bottom: 15px !important;
+        font-weight: 700;
+    } 
+    .borderBottom {
+        border-bottom: 1px solid var(--theme-deafult-grey);
+    }
+    .color1-f-s-14 {
+        color: var(--theme-deafult-secondary);
+        font-size: 14px;
+        padding-right: 5px;
+    } 
+    .color2-f-s-14 {
+        color: var(--theme-deafult-secondary);
+        font-size: 14px;
+        padding-right: 5px;
+        font-weight: bold;
+    } 
+    .color1-f-s-13 {
+        font-size: 13px !important;
+        color: var(--theme-deafult-medium-grey) !important;
+        font-family: 'poppins' !important;
+        font-weight: bold;
+    } 
+    .color1-f-s-12 {
+        font-size: 12px;
+        color: var(--theme-deafult-medium-grey);
+        font-family: 'poppins';
+    } 
+    .m-l-r-8 {
+        margin: 0px 8px;
+    }
+
+}
+
+.prouduct{
+    .fix{
+        width: 100% !important;
+        object-fit: contain !important;
+    }
+    font-family: 'poppins', sans-serif !important;
+    background-color: var(--theme-deafult) !important;
+    .bg-white-smoke{
+        background-color:  var(--theme-deafult-grey);
+     }
+     .w-72{
+         width: 72%;
+     }
+     .p-relative{
+        position: relative !important;
+    }
+    .p-absolute{
+        position: absolute !important;
+    }
+    .img-bg{
+        flex: none !important;
+        background-size: cover;
+        object-fit: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 450px;
+    }
+    .m-t-40{
+        margin-top: 40px !important;
+    }
+    .abs-width{
+        width: 100%;
+        left: 5%;
+    }
+    .shop-btn{
+        background: var(--theme-deafult);
+        border-radius: 23px;
+        display: inline-block;
+        padding: 15px 32px;
+        cursor: pointer;
+    }
+    .shop-btn:hover{
+        background-color: var(--theme-deafult-grey);
+    }
+    .product-button{
+        margin: 20px;
+        padding: 6px 32px !important;
+        background-color: var(--theme-deafult-secondary) !important;
+        color: var(--theme-deafult) !important;
+    }  
+    .product-button:hover{
+        background-color: var(--theme-deafult-dark) !important;
+    }
+    .d-none{
+        // display: none;
+        opacity: 0;
+    }
+    .w-89{
+        width: 89%
+    }
+    .text-end{
+        text-align: end;
+    }
+    .sale{
+        padding: 10px 17px;
+        background-color: var(--theme-main-red);
+        border-radius: 23px;
+        display: inline;
+        color: var(--theme-deafult);
+    }
+    .justify-content{
+        justify-content: space-between !important;
+    }
+    .bg-img img{
+        width: 100%;
+        height: 437px;
+        object-fit: cover;
+        object-position: top;
+    }
+    .p-abs{
+        position: absolute;
+        // left: 3%;
+        width: 100%;
+        height: 100%;
+        // background: var(--theme-deafult-grey);
+    }
+    .p-content-div{
+        top: 30%;
+        // left: 3%;
+        // width: 35%;
+    }
+    .w-35{
+        width: 35%;
+    }
+.faded-in {
+    animation: fadeIn 0.6s;
+  //   transform: translateY(16px);
+    }
+    @keyframes fadeIn{
+        0% {opacity: 0; transform: translateY(16px)}
+      100% {opacity: 1; transform: translateY(0px)}
+    }
+  .faded-out {
+    animation: fadeOut 0.6s;
+  //   transform: translateY(16px);
+    }
+    @keyframes fadeOut{
+        0% {opacity: 1; transform: translateY(0px)}
+        100% {opacity: 0; transform: translateY(16px)}
+    }
+    
+    @media (min-width: 0px) and (max-width: 960px) {
+        .img-bg{
+            height: 320px !important;
+        }
+        .d-none{
+            opacity: 1 !important;
+        }
+    }
+}
+.prouduct{
+    .design{
+        ::ng-deep {
+          .mat-form-field-flex{
+            height: 47.99px !important;
+          }
+           .mat-form-field-infix {
+            padding: 2px 0 1em 0 !important;
+          }
+         .mat-form-field-label-wrapper{
+            top: -16px !important;
+          }
+          .mat-input-element{
+            vertical-align: text-top !important;
+          }
+          .mat-select-arrow-wrapper{
+            top: 21px;
+            display: block;
+          }
+      }
+    }
+}
+
+::ng-deep .mat-checkbox-checked.mat-warn .mat-checkbox-background  {
+    background-color: var(--theme-deafult-secondary) !important;
+}
+::ng-deep .mat-checkbox-checked.mat-warn .mat-ripple-element{
+ background: var(--theme-deafult-secondary) !important;
+}

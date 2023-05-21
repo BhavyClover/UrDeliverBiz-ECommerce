@@ -1,0 +1,5 @@
+var(--theme-deafult-medium-grey)-primary: mat-palette($mat-blue-grey, 700, 50, 900);
+var(--theme-deafult-medium-grey)-accent: mat-palette($mat-grey, 300, 100, 700);
+var(--theme-deafult-medium-grey)-warn: mat-palette($mat-red, 500, A200, 800);
+
+var(--theme-deafult-medium-grey)-theme: mat-light-theme(var(--theme-deafult-medium-grey)-primary, var(--theme-deafult-medium-grey)-accent, var(--theme-deafult-medium-grey)-warn);

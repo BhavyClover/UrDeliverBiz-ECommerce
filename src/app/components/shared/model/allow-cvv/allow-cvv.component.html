@@ -1,0 +1,39 @@
+<button mat-icon-button class="close-button" (click)="close()">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+
+<div fxLayout="column" class="allowCvvModel-dialog">
+    <div fxLayout="row" fxLayoutAlign="none center" class="p-16">
+        <div class="clone-card-title color-for-white-bg f-s-25" translate fxFlex="90">add_security_code</div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="p-16">
+        <p class="ds-sub-heading f-bold" translate="verify_cvc_msg"></p>
+    </div>
+    <div class="p-r-l-16">
+        <form name="addCvv">
+            <div fxFlex="100">
+                <mat-form-field fxFlex class="ds-validate" appearance="outline">
+                    <input matInput noempty="true" placeholder="Please Enter CVV" greater-than-zero="true" addcvvsection="true"
+                    [(ngModel)]="cvvCode" [ngModelOptions]="{standalone: true}" maxlength="4" minlength="3" inputonlynumber="true" validate
+                    type="text">
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+    <div class="p-16">
+        <div class="card-design m-t-10" [innerHtml]="'card_cvv' | translate"></div>
+    </div>
+    <mat-divider></mat-divider>
+    <div mat-dialog-actions fxLayoutAlign="end start" class="p-16">
+        <div fxLayout="row"> 
+           <div>
+            <button mat-button class="text-uppercase m-r-10 bgm-white" (click)="close();">{{'cancel' | translate}}</button>
+           </div>
+          <div>
+            <button mat-raised-button color="primary" class="text-uppercase m-r-10" validate sectiontype="addcvvsection"
+            trigger-check-section="true" (success)="save(cvvCode);"> {{'proceed' | translate}}</button>
+          </div>
+        </div>
+    </div>
+</div>

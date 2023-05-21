@@ -1,0 +1,143 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+<div class="dialog-content-wrapper shippingAddressDialog" id="shippingAddressDialog-wrapper">
+    <mat-toolbar class="header m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title" fxFlex translate=""> Edit Shipping Address</span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content id="shippingAddressDialog-content" fxLayout="column">
+        <div class="">
+          <mat-checkbox [checked]="!newAddressSelected" (change)="onClickDifferentAddress(false)">Use default address</mat-checkbox> 
+        </div>
+        <div fxLayout="column" class="m-b-30 m-t-10 p-15 borderBox cursor-pointer">
+            <div fxFlex="100" fxLayout="row">
+               <div fxFlex="10">
+                <mat-icon>person</mat-icon>
+               </div>
+               <div fxFlex="90">
+                <span [textContent]="userService.customerData.FirstName+' '+userService.customerData.LastName"></span>
+               </div>
+            </div>
+            <div fxFlex="100" fxLayout="row">
+                <div fxFlex="10">
+                    <mat-icon> location_on</mat-icon>
+                   </div>
+                   <div fxFlex="90">
+                    <span [textContent]="defaultAddress.Street1"></span>
+                    <span [textContent]="defaultAddress.Street2"></span>
+                    <span [textContent]="defaultAddress.City"></span>,
+                    <span [textContent]="defaultAddress.Region"></span>
+                    <span [textContent]="defaultAddress.PostalCode"></span>
+                    <span [textContent]="defaultAddress.CountryCode"></span>
+                   </div>
+            </div>
+        </div>
+        <div>
+           <ng-container *ngIf="differentAddressShow === false">
+               <div>
+                   <span class="cursor-pointer c-1" (click)="onClickDifferentAddress(true)" translate="different_address"></span>
+               </div>
+           </ng-container>
+           <ng-container *ngIf="differentAddressShow === true">
+               <div fxLayout="column">
+                   <div>
+                    <mat-checkbox [checked]="newAddressSelected" [attr.disabled]="newAddressSelected" [disableRipple]="true"
+                    (click)="$event.preventDefault()">{{'use_new_address' | translate}}</mat-checkbox> 
+                   </div>
+                   <div>
+                    <form>
+                        <div fxLayout="column">
+                            <div fxFlex="100">
+                                <mat-form-field fxFlex class="ds-validate">
+                                    <mat-label translate="first_name"></mat-label>
+                                    <input name="firstName"  [(ngModel)]="newShipping.FirstName"
+                                    [ngModelOptions]="{standalone: true}"  validate noempty="true" matInput>
+                                </mat-form-field>
+                            </div>
+                            
+                            <div fxFlex="100">
+                                <mat-form-field fxFlex class="ds-validate" >
+                                    <mat-label translate="last_name"></mat-label>
+                                    <input name="lastName"  [(ngModel)]="newShipping.LastName"
+                                    [ngModelOptions]="{standalone: true}"  validate noempty="true" matInput>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="100">
+                              <mat-form-field fxFlex class="ds-validate" >
+                                <mat-label translate="Country"></mat-label>
+                                <mat-select  [ngModelOptions]="{standalone: true}"  [(ngModel)]="newShipping.CountryCode" (selectionChange)="getCountryState(newShipping.CountryCode)" validate noempty="true">
+                                    <mat-option  
+                                    *ngFor="let country of allowedCountries" [value]="country.CountryCode">
+                                    <img [src]="'https://directscalestring.directscale.com/flags/4x3/'+country.CountryCode+'.svg'"
+                                      width="18"> {{country.CountryName}}
+                                  </mat-option>
+                                </mat-select>
+                                
+                              </mat-form-field>
+                            </div>
+                            <div fxFlex="100">
+                                <mat-form-field fxFlex class="ds-validate" >
+                                    <mat-label translate="state"></mat-label>
+                                    <mat-select [(ngModel)]="newShipping.Region"
+                                    [ngModelOptions]="{standalone: true}" validate noempty="true">
+                                      <mat-option *ngFor="let state of states" [value]="state.StateCode">
+                                        {{state.StateName}}
+                                      </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="100">
+                                <mat-form-field fxFlex class="ds-validate" >
+                                  <mat-label translate="city"></mat-label>
+                                  <input name="city"  [(ngModel)]="newShipping.City"
+                                  [ngModelOptions]="{standalone: true}"  validate noempty="true" matInput>
+                                </mat-form-field>
+                            </div>
+                             
+                            <div fxFlex="100" >
+                                <mat-form-field fxFlex class="ds-validate" >
+                                  <mat-label translate="zip"></mat-label>
+                                  <input name="zip"  [(ngModel)]="newShipping.PostalCode"
+                                  [ngModelOptions]="{standalone: true}"  validate noempty="true" matInput>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="100">
+                                <mat-form-field fxFlex class="ds-validate" >
+                                    <mat-label translate="street_address" ></mat-label>
+                                    <input name="streetAddress"  [(ngModel)]="newShipping.Street1"
+                                    [ngModelOptions]="{standalone: true}"  validate noempty="true" matInput>    
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="100">
+                              <mat-form-field fxFlex class="ds-validate" >
+                                    <mat-label translate="street_address2"></mat-label>
+                                    <input name="streetAddress2"  [(ngModel)]="newShipping.Street2"
+                                    [ngModelOptions]="{standalone: true}"  validate noempty="true" matInput>   
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="100">
+                              <mat-form-field fxFlex class="ds-validate" >
+                                <mat-label translate="phone_number_"></mat-label>
+                                <input name="phoneNumber"  [(ngModel)]="newShipping.Phone"
+                                [ngModelOptions]="{standalone: true}"  validate noempty="true" matInput>
+                              </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                   </div>
+               </div> 
+           </ng-container>
+        </div>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <div>              
+              <!-- Close modal, staying with default address -->
+              <button mat-raised-button color="primary" id="updateaddress" class="text-uppercase" *ngIf="!newAddressSelected" (click)="close()">{{'update_' | translate}}</button>
+              <!-- Update address and close -->
+             <button mat-raised-button color="primary" id="update-new-address" class="text-uppercase" *ngIf="newAddressSelected" validate trigger-check="true"  (success)="saveNewAddress()"
+                >{{'next_' | translate}}</button>
+        </div>
+    </div> 
+</div>

@@ -1,0 +1,55 @@
+#mainContent {
+  background-color: var(--theme-deafult-grey);
+  max-width: 1365px;
+  margin: auto;
+  @media only screen and (min-width: 1200px) {
+    padding: 50px;
+  }
+  padding: 16px;
+  .main {
+    .borderLeft {
+      border-left: 1px solid var(--theme-deafult-grey);
+      height: auto;
+    }
+    .borderBottom {
+      border-bottom: 1px solid var(--theme-deafult-grey);
+    }
+    .color-f-s-23 {
+      font-size: 23px;
+      color: var(--theme-deafult-medium-grey);
+    }
+    .footerBottom  .mat-button{
+      background-color: var(--theme-deafult-secondary);
+      font-size: 14px;
+      color: var(--theme-deafult);
+      margin: 6px 8px;
+      padding: 0px 14px;
+      cursor: pointer;
+      min-height: 36px;
+      min-width: 88px;
+      border-radius: 23px;
+    }
+    .viewAddress {
+      margin-bottom: 18px;
+      font-style: normal;
+      line-height: 1.42857143;
+    }
+    @media only screen and (max-width: 600px) {
+      .m-top-50 {
+        margin-top: 50px;
+      }
+    }
+    
+  }
+}
+.p-8 {
+  padding: 8px;
+}
+.color-f-s-14 {
+  color: var(--theme-deafult-medium-grey);
+  font-size: 14px;
+}
+
+::ng-deep .mat-button{
+  font-family: 'poppins', sans-serif !important;
+}

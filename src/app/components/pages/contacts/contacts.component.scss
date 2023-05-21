@@ -1,0 +1,142 @@
+// if you want to change the color of the icon
+.material-icons.color_white {color: var(--theme-deafult);}
+.close-button{
+  float: right;
+  top:-24px;
+  right:-24px;
+}
+
+//if you want some css animation
+.close-icon {
+  color: var(--theme-deafult);
+  transition: 1s ease-in-out;
+}
+
+.close-icon:hover {
+  transform: rotate(180deg);
+}
+
+//To place the x mark outside of the container
+::ng-deep .contact-dialog .close-button{
+  float: right;
+  top:-52px;
+  right:-52px;
+}
+
+::ng-deep .contact-dialog .mat-dialog-container {
+ overflow: unset
+}
+ .captcha_box {
+  width: 100%;
+  display: block;
+  float: left
+}
+
+ .captcha_answer {
+  width: 35%;
+  float: right
+}
+
+ input#answer {
+  height: 43px;
+  width: 100%;
+  border: 2px solid var(--theme-deafult-secondary);
+  padding: 0 5px
+}
+
+ .captcha_code {
+  height: 45px;
+  width: 60%;
+  float: left;
+  background-size: cover;
+  color: var(--theme-deafult);
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px;
+  line-height: 24px;
+  text-align: center
+}
+.captcha_code > span{
+  color: var(--theme-deafult);
+  font-size: 18px;
+  font-weight: 600;
+}
+ .reload_captcha {
+  width: 100%;
+  float: left;
+  padding: 10px 15px
+}
+.captcha_code {
+  background-image: url(/assets/images/captcha_bg.png);
+}
+.user_mob {
+  font-size: 24px;
+  line-height: 30px;
+}
+.heading {
+  font-size: 23px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.ds_AboutMe {
+  font-size: 16px;
+  padding: 10px 0;
+  color: var(--theme-deafult-medium-grey);
+}
+.mailaddress  {
+  font-size: 14px;
+  color: var(--theme-main-blue);
+    text-decoration: none;
+    font-weight: 400;
+}
+.color-f-s-23 {
+  color: var(--theme-deafult-medium-grey);
+  font-size: 23px;
+  margin: 15px 0px;
+}
+.color-f-s-24 {
+  color: var(--theme-deafult-medium-grey);
+  font-size: 24px;
+  margin: 9px 0px;
+}
+.color-f-s-19 {
+  color: var(--theme-deafult-medium-grey);
+  font-size: 19px;
+}
+.shop-btn{
+    background: var(--theme-deafult);
+    border-radius: 23px;
+    display: inline-block;
+    padding: 15px 32px;
+    cursor: pointer;
+}
+.shop-btn:hover{
+    background-color: var(--theme-deafult-grey);
+}
+.product-button{
+    margin: 20px;
+    padding: 6px 32px !important;
+    background-color: var(--theme-deafult-secondary) !important;
+    color: var(--theme-deafult) !important;
+}  
+.product-button:hover{
+    background-color: var(--theme-deafult-dark) !important;
+}
+form mat-form-field{
+  font-family: 'poppins', sans-serif !important;
+}
+.contacts{
+  .design{
+      ::ng-deep {
+        .mat-form-field-flex{
+          height: 47.99px !important;
+        }
+         .mat-form-field-infix {
+          padding: 2px 0 1em 0 !important;
+        }
+       .mat-form-field-label-wrapper{
+          top: -16px !important;
+        }
+    }
+  }
+}

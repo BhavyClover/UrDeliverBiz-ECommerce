@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+</head>
+<style scoped>
+
+</style>
+
+<body style="padding: 30px 0px 0px 0px;">
+	<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+		<mat-icon class="close-icon" color="warn">close</mat-icon>
+	</button>
+
+	<div mat-dialog-content class="center" fxLayout="column" fxFill fxFlex="100">
+		<div class="carousel carousel-nav" id="carouselNav" style="z-index: 1000;" fxFlex="20">
+			<div class="carousel-cell" *ngFor="let image of images"
+				style="border: 1px solid var(--theme-deafult-secondary);">
+				<img [src]="env.imageUrl + image.Path" alt="" srcset="" height="100%" width="100%">
+			</div>
+		</div>
+		<div class="carousel carousel-main" id="carouselMain" style="z-index: 100;" fxFlex="80">
+			<div class="carousel-cell" *ngFor="let image of images">
+				<!-- <img [src]="env.imageUrl + image.Path" alt="" srcset="" height="100%" width="100%"> -->
+				<lib-ngx-image-zoom [thumbImage]="env.imageUrl + image.Path" [fullImage]="env.imageUrl + image.Path"
+					[magnification]="1" [enableScrollZoom]="true" [enableLens]="true" [lensWidth]="250"
+					[lensHeight]="250" [zoomMode]="'hover'"></lib-ngx-image-zoom>
+			</div>
+		</div>
+		<div *ngIf="images.length == 0" class="p-10 m-t-70 text-center">
+			<p class="f-s-20" fxFlex="100"> No Images Found!!</p>
+		</div>
+	</div>
+</body>
+<script>
+	import "./flickity.component.css";
+	import "flickity/css/flickity.css";
+</script>
+</html>

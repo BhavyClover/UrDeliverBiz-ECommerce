@@ -1,0 +1,99 @@
+
+<div id="complete">
+    <div fxLayout="row" fxFlex="100">
+        <div fxFlex.gt-sm="10"></div>
+        <div fxFlex.gt-sm="80" fxFlex="100" class="completeBox">
+            <mat-card>
+                <mat-card-header class="bg-color">
+                    <mat-card-title class="p-16">
+                        <span class="color-f-s-20 " translate="thank_for_order"></span>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div fxLayout="column" class="p-16">
+                        <div fxLayout="row" class="m-b-15">
+                            <div fxFlex="50">
+                                <mat-label class="color-f-s-14" translate="your_memberid"></mat-label>
+                            </div>
+                            <div fxFlex="50">
+                                <mat-label class="color-f-s-14"
+                                    [textContent]="userService.customerData.BackOfficeId"></mat-label>
+                                <mat-label class="color-f-s-14"
+                                    *ngIf="userEnrollmentDetail?.AssociateID && !userService.customerData.BackOfficeId"
+                                    [textContent]="userEnrollmentDetail?.AssociateID"></mat-label>
+                            </div>
+                        </div>
+                        <div fxLayout="row" class="m-b-15" *ngIf="!guest && userService.webOffice?.UserName">
+                            <div fxFlex="50">
+                                <mat-label class="color-f-s-14" translate="your_user_name">
+                                </mat-label>:
+                            </div>
+                            <div fxFlex="50">
+                                <mat-label class="color-f-s-14" [textContent]="userService.webOffice?.UserName"></mat-label>
+                            </div>
+                        </div>
+                        <div fxLayout="row" class="m-b-15" *ngIf="userService.webOffice?.Password">
+                            <div fxFlex="50">
+                                <mat-label class="color-f-s-14" translate="Password">
+                                </mat-label>:
+                            </div>
+                            <div fxFlex="50" (ngInit)="isShowPassword=false">
+                                <mat-label class="color-f-s-14" [textContent]="userService.webOffice?.Password"
+                                    *ngIf="isShowPassword"></mat-label>
+                                <mat-label class="color-f-s-14" *ngIf="!isShowPassword">
+                                    <span *ngFor="let a of passwordLength">*</span></mat-label>
+                                <mat-label class="cursor-pointer color-f-s-14"
+                                    (click)="isShowPassword=true"
+                                    *ngIf="!isShowPassword" translate="_show" ></mat-label>
+                                <mat-label class="cursor-pointer color-f-s-14"
+                                    (click)="isShowPassword=!isShowPassword"
+                                    *ngIf="isShowPassword" translate="_hide"></mat-label>
+                            </div>
+                        </div>
+                        <div fxLayout="row" class="m-b-15" *ngIf="IsApplication">
+                            <div fxFlex="50">
+                                <mat-label class="color-f-s-14" translate="your_email_id">
+                                </mat-label>:
+                            </div>
+                            <div fxFlex="50">
+                                <mat-label class="color-f-s-14 word-wrap"
+                                    [textContent]="userService.personalInfo?.Email"></mat-label>
+                            </div>
+                        </div>
+                        <div fxLayout="row" class="m-b-15" *ngIf="SubmitApplicationResponse?.OrderID > 0">
+                            <div fxFlex="50">
+                                <mat-label class="color-f-s-14" translate="your_orderid">
+                                </mat-label>
+                            </div>
+                            <div fxFlex="50">
+                                <a class="cursor-pointer color-f-s-14 c-blue text-underline" (click)="showOrderInvoice(SubmitApplicationResponse?.OrderID)"
+                                    [textContent]="SubmitApplicationResponse?.OrderID"></a>
+                            </div>
+                        </div>
+                        <div fxLayout="row" class="m-b-15" *ngIf="SubmitApplicationResponse?.AutoOrderId > 0 || selectedAutoshipID">
+                            <div fxFlex="50">
+                                <mat-label class="color-f-s-14 " translate="your_autoship">
+                                </mat-label>
+                            </div>
+                            <div fxFlex="50">
+                                <a class="cursor-pointer color-f-s-14 c-blue text-underline " (click)="showAutoOrderInvoice()"
+                                    [textContent]="(SubmitApplicationResponse?.AutoOrderId) || selectedAutoshipID"></a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions *ngIf="false">
+                   <div fxLayout="row" fxLayoutAlign="end center" *ngIf="false">
+                        <div  class="m-8">
+                            <button mat-raised-button color="primary"  class="m-r-10" (click)="goToProduct()"
+                            translate="" aria-mat-label="KeepShopping">{{'keep_shopping' | translate}}</button>
+                        </div>
+                   </div>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <div fxFlex.gt-sm="10"></div>
+    </div>
+</div>
+

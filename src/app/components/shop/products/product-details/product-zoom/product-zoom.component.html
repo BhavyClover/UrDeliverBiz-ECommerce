@@ -1,0 +1,18 @@
+<div class="product-dialog">
+
+  <div class="close-btn-outer">
+    <button mat-mini-fab color="warn" (click)="close()"><mat-icon>close</mat-icon></button>
+  </div>
+  <div mat-dialog-content>
+    <div fxLayout="row wrap">
+      <div>
+        <div class="swiper-container h-100">
+          <div class="swiper-wrapper">
+            <img [default]="'assets/images/product/no-img.png'" [src]="product.pictures[selectedProductImageIndex].big"
+              alt="" class="img-fluid" onerror="this.src='assets/images/noimage.png'">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<mat-toolbar-row fxHide fxShow.gt-sm class="container" fxLayout="row"  fxLayout.xs="row" fxLayoutAlign="space-between center">
+    <div class="main-menu" fxLayout="row" fxHide fxShow.gt-sm>
+        <a  mat-button [routerLink]="['/home']" class="mat-button" >Home</a>
+        <a mat-button [matMenuTriggerFor]="shop" class="mat-button" (click)="openMegaMenu()">Products<mat-icon class="caret">arrow_drop_down</mat-icon></a>
+        <mat-menu #shop="matMenu" [overlapTrigger]="false" class="app-dropdown mega-menu">
+            <div fxLayout="row wrap">
+                <div fxLayout="column" class="p-1 category_menu" *ngFor="let category of categoriesList| slice:0:5">
+                    <a mat-menu-item [routerLink]="['/products',category.Category]"><b [textContent]="category.Category"></b></a>
+                    <mat-divider></mat-divider> 
+                    <a mat-menu-item (click)="navigateProductDetails(categoryItem.ItemID)" *ngFor="let categoryItem of categoriesItemList[category.CategoryId] | slice:0:5">{{categoryItem.ProductName}}</a>
+                    <a class="f-s-12 c-red" mat-menu-item [routerLink]="['products',category.Category]">{{'view_all_products' | translate}}</a>
+                </div>  
+            </div>
+  
+        </mat-menu>
+        <a  mat-button [matMenuTriggerFor]="pages" class="mat-button">Pages<mat-icon class="caret">arrow_drop_down</mat-icon></a>
+        <mat-menu #pages="matMenu" [overlapTrigger]="false" class="app-dropdown">
+          <a [routerLink]="['/about']" mat-menu-item>About Us</a>
+          <a mat-menu-item [routerLink]="['/faq']" >FAQ</a>
+          <a mat-menu-item (click)="navigateToContact()">{{"contact_" | translate}}</a>
+          <a *ngIf="!isLoggedIn()" mat-menu-item [routerLink]="['/login']">Sign In</a>
+      </mat-menu>
+        <a routerLinkActive="router-link-active"   mat-button class="mat-button"(click)="navigateToContact()">{{"contact_" | translate}}</a>
+        <a *ngIf="!isLoggedIn()"  [routerLink]="['/join']" routerLinkActive="router-link-active"   mat-button class="mat-button">Join</a>
+      </div>
+  </mat-toolbar-row>
+
+
+

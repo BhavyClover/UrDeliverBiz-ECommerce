@@ -1,0 +1,48 @@
+.about-us-wrapper {
+  .container {
+    .width-100 {
+      width: 100%;
+    }
+
+    @media screen and (min-width: 949px) {
+      .width-responsive {
+        .width-100 {
+          width: 63%;
+        }
+      }
+      .found-div {
+        font-size: 55px;
+        color: var(--theme-main-blue);
+      }
+      .f-s-55 {
+        font-size: 55px;
+      }
+    }
+    // mob
+    @media screen and (max-width: 949px) {
+      .found-div {
+        font-size: 15px;
+        color: var(--theme-main-blue);
+      }
+      .f-s-55 {
+        font-size: 15px;
+      }
+    }
+    .f-s-15 {
+      font-size: 15px;
+    }
+
+    .dir {
+      font-size: 14px;
+      color: var(--theme-orange);
+    }
+    .name {
+      font-size: 32px;
+      color: var(--theme-main-blue);
+    }
+    .div-er {
+      border: 1px solid var(--theme-orange);
+      width: 80%;
+    }
+  }
+}

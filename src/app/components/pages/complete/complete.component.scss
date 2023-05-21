@@ -1,0 +1,47 @@
+#complete {
+    background-color: var(--theme-deafult-grey);
+    min-height: 385px;
+    height: calc(100vh - 260px);
+    .completeBox {
+        margin-top: 60px;
+        @media only screen and (max-width: 992px) {
+            margin: 60px 30px 0px;
+        }
+        @media only screen and (max-width: 600px) {
+            margin: 60px 15px 0px;  
+        }
+        ::ng-deep .mat-card {
+            padding: 0px !important;                         
+        .mat-card-header .mat-card-header-text {
+            margin: 0px;
+        }
+        .mat-card-title {
+            margin-bottom: 0px;
+        }
+        }
+        .bg-color {
+            background-color: var(--theme-deafult);
+        }
+    }
+    .color-f-s-20 {
+        color: var(--theme-deafult-secondary);
+        font-size: 20px;
+    }
+    .color-f-s-14 {
+        color: var(--theme-deafult-secondary);
+        font-size: 14px;
+        font-weight: 700;
+    }
+    .p-16 {
+        padding: 16px 16px;
+    }
+    .m-8 {
+        margin: 8px;
+    }
+    .text-underline{
+        text-decoration: underline;
+    }
+    .c-blue{
+        color: var(--theme-main-blue) !important;
+    }
+}

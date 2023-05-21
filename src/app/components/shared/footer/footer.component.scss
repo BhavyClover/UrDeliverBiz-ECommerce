@@ -1,0 +1,25 @@
+input:hover{
+    background-color: var(--theme-deafult-grey);
+}
+.ped-btn-footer{
+span{
+    font-size: 20px !important;
+}}
+p{
+    font-size: 16px !important;
+}
+h5,li{
+    font-size: 21px !important;
+}
+.footer .footer-widget a{
+    font-size: 16px !important;
+}
+.footer .links-widget a:hover,.footer .subscribe-widget a:hover,.a-hover:hover{
+    opacity: 0.6;
+}
+.footer-widget .logo{
+    letter-spacing: normal;
+    font-size: 24px !important;
+    font-weight: 700;
+    font-family: "poppins", sans-serif;
+  }

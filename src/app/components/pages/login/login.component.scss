@@ -1,0 +1,115 @@
+  .seprator {
+    border-right: 1px solid var(--theme-deafult-grey);
+  }
+
+  .head-text {
+    border-bottom: 1px solid var(--theme-deafult-grey);
+    padding: 2%;
+  }
+
+  .p-50 {
+    padding: 50px;
+  }
+
+  .txt-center {
+    text-align: center;
+  }
+
+  #autologin {
+    margin-left: 23%;
+    margin-right: 25%;
+    background: var(--theme-deafult);
+  }
+
+  .autologin {
+    padding: 45px 0 45px;
+    font-size: 25px;
+  }
+
+  @media (min-width:1440px) {
+    .login {
+      max-width: 1365px;
+      margin: auto;
+    }
+  }
+
+  .btn-width {
+    min-width: 150px !important;
+  }
+
+  .login {
+    
+    .btn-border {
+      border: 1px solid var(--theme-deafult-secondary);
+    }
+
+    .vertical-divider {
+      border-top-width: 0;
+      border-right-width: 1px;
+      border-right-style: solid;
+      height: 100%;
+    }
+
+    .upper-case {
+      text-transform: uppercase !important;
+    }
+
+    .isIpadView {
+      display: none;
+    }
+
+    @media only screen and (max-width: 768px) and (min-width: 767px) {
+      .isIpadView {
+        display: block;
+        border-left: 1px solid var(--theme-deafult-grey);
+        height: 150PX;
+      }
+
+      .isIpad {
+        margin-right: 10px;
+      }
+    }
+
+    @media screen and (max-width: 599px) {
+      .login-bottom {
+        align-content: center;
+
+        button {
+          width: 100%;
+        }
+
+        .donot_have_account,
+        .already_have_account {
+          margin: 5px auto;
+        }
+
+        #create-one,
+        .signIn_account {
+          margin: auto;
+        }
+      }
+
+      .md-content_Login_or {
+        padding: 0;
+      }
+    }
+  }
+  .login{
+    .has-error .help-block {
+      top: 52px !important;
+    }
+    ::ng-deep .mat-form-field-outline-start {
+      border-radius: 28px 0 0 28px !important;
+      min-width: 28px !important;
+    }
+    
+    ::ng-deep .mat-form-field-outline-end {
+      border-radius: 0 28px 28px 0 !important;
+    }
+    .w-70{
+      width: 70%;
+    }
+    mat-form-field input{
+      margin: 0 0 6px 14px;
+    }
+  }
